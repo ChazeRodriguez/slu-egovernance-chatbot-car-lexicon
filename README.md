@@ -33,8 +33,9 @@ python3 scripts/build_all.py
 | `slu_chatbot_engine.py` | Hardened CLI & hybrid TF-IDF + Lexicon + Supervised ML chatbot engine (`--dataset auto\|midterm\|expanded`, `--query`, `--evaluate`, `--interactive`) |
 | `slu_egovernance_chatbot_ui.html` | Hardened, XSS-free, WCAG 2.1 AA 4-tab interactive web portal |
 | `dist/` | Static deployment bundle (`index.html` + `netlify.toml` security headers) |
-| `tests/` | Automated unit, regression, classifier, Python↔Node.js parity, and XSS security tests |
-| `presentation/` | Local `.pptx` deck + timed 15–20 min 5-speaker presentation script |
+| `tests/` | Automated unit, regression, classifier, Python↔Node.js parity, and XSS security tests (`21` tests) |
+| `scripts/build_presentation.py` | Dual builder for the 18-slide Google Slides deck, local `.pptx`, and timed 5-speaker script (`--pptx-only`) |
+| `presentation/` | Local PowerPoint (`Group2_AiNomally_CSE30_Deck.pptx`) + timed 15–20 min 5-speaker script (`speaker_script_15_20min.md`) |
 
 ---
 
