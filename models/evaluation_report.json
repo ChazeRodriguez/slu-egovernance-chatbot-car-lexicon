@@ -1,0 +1,1109 @@
+{
+  "corpus_summary": {
+    "total_documents": 250,
+    "intent_classes": 10,
+    "docs_per_intent": 25,
+    "total_filtered_tokens": 3040,
+    "unique_stems": 957,
+    "code_switching_counts": {
+      "EN": 101,
+      "TL-EN": 79,
+      "CAR-TL-EN": 70
+    },
+    "source_type_counts": {
+      "OFFICIAL_SLU_POLICY": 32,
+      "OFFICIAL_URO_FAQ_Q": 4,
+      "CURATED_MULTILINGUAL_INQUIRY": 210,
+      "HARVESTED_FREEDOM_WALL": 4
+    },
+    "intent_counts": {
+      "URO_ENROLLMENT_TOR": 25,
+      "URO_ENROLLMENT_PORTAL": 25,
+      "URO_SUBJECT_ADJUSTMENT": 25,
+      "ACADEMIC_SHIFTING_TRANSFER": 25,
+      "HANDBOOK_GRADING_FDA": 25,
+      "EXAM_PERMIT_INTEGRITY": 25,
+      "CAMPUS_DECORUM_DRESSCODE": 25,
+      "CAMPUS_HEALTH_SAFETY": 25,
+      "TUITION_FINANCE": 25,
+      "CAMPUS_FACILITIES_LAB": 25
+    },
+    "top20_expanded_stems": [
+      {
+        "term": "slu",
+        "frequency": 99,
+        "coverage_pct": 3.26
+      },
+      {
+        "term": "student",
+        "frequency": 69,
+        "coverage_pct": 2.27
+      },
+      {
+        "term": "examination",
+        "frequency": 38,
+        "coverage_pct": 1.25
+      },
+      {
+        "term": "grade",
+        "frequency": 33,
+        "coverage_pct": 1.09
+      },
+      {
+        "term": "subject",
+        "frequency": 29,
+        "coverage_pct": 0.95
+      },
+      {
+        "term": "university",
+        "frequency": 27,
+        "coverage_pct": 0.89
+      },
+      {
+        "term": "idiay",
+        "frequency": 24,
+        "coverage_pct": 0.79
+      },
+      {
+        "term": "kadi",
+        "frequency": 22,
+        "coverage_pct": 0.72
+      },
+      {
+        "term": "certificate",
+        "frequency": 21,
+        "coverage_pct": 0.69
+      },
+      {
+        "term": "requirement",
+        "frequency": 21,
+        "coverage_pct": 0.69
+      },
+      {
+        "term": "campus",
+        "frequency": 21,
+        "coverage_pct": 0.69
+      },
+      {
+        "term": "official",
+        "frequency": 20,
+        "coverage_pct": 0.66
+      },
+      {
+        "term": "rfid",
+        "frequency": 20,
+        "coverage_pct": 0.66
+      },
+      {
+        "term": "laboratory",
+        "frequency": 20,
+        "coverage_pct": 0.66
+      },
+      {
+        "term": "online",
+        "frequency": 19,
+        "coverage_pct": 0.62
+      },
+      {
+        "term": "uro",
+        "frequency": 18,
+        "coverage_pct": 0.59
+      },
+      {
+        "term": "dean",
+        "frequency": 18,
+        "coverage_pct": 0.59
+      },
+      {
+        "term": "card",
+        "frequency": 18,
+        "coverage_pct": 0.59
+      },
+      {
+        "term": "library",
+        "frequency": 16,
+        "coverage_pct": 0.53
+      },
+      {
+        "term": "academic",
+        "frequency": 16,
+        "coverage_pct": 0.53
+      }
+    ]
+  },
+  "best_model": "Multinomial Naive Bayes",
+  "stratified_5fold_cv": {
+    "Multinomial Naive Bayes": {
+      "accuracy": 0.956,
+      "macro_precision": 0.9569,
+      "macro_recall": 0.956,
+      "macro_f1": 0.9561,
+      "weighted_f1": 0.9561,
+      "per_class": {
+        "ACADEMIC_SHIFTING_TRANSFER": {
+          "precision": 0.9259,
+          "recall": 1.0,
+          "f1": 0.9615,
+          "support": 25
+        },
+        "CAMPUS_DECORUM_DRESSCODE": {
+          "precision": 0.88,
+          "recall": 0.88,
+          "f1": 0.88,
+          "support": 25
+        },
+        "CAMPUS_FACILITIES_LAB": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        },
+        "CAMPUS_HEALTH_SAFETY": {
+          "precision": 0.96,
+          "recall": 0.96,
+          "f1": 0.96,
+          "support": 25
+        },
+        "EXAM_PERMIT_INTEGRITY": {
+          "precision": 0.8846,
+          "recall": 0.92,
+          "f1": 0.902,
+          "support": 25
+        },
+        "HANDBOOK_GRADING_FDA": {
+          "precision": 1.0,
+          "recall": 0.96,
+          "f1": 0.9796,
+          "support": 25
+        },
+        "TUITION_FINANCE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        },
+        "URO_ENROLLMENT_PORTAL": {
+          "precision": 0.9583,
+          "recall": 0.92,
+          "f1": 0.9388,
+          "support": 25
+        },
+        "URO_ENROLLMENT_TOR": {
+          "precision": 0.96,
+          "recall": 0.96,
+          "f1": 0.96,
+          "support": 25
+        },
+        "URO_SUBJECT_ADJUSTMENT": {
+          "precision": 1.0,
+          "recall": 0.96,
+          "f1": 0.9796,
+          "support": 25
+        }
+      },
+      "confusion_matrix": [
+        [
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          22,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          24,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          23,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          24,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          25,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          23,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          24,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          24
+        ]
+      ],
+      "classes": [
+        "ACADEMIC_SHIFTING_TRANSFER",
+        "CAMPUS_DECORUM_DRESSCODE",
+        "CAMPUS_FACILITIES_LAB",
+        "CAMPUS_HEALTH_SAFETY",
+        "EXAM_PERMIT_INTEGRITY",
+        "HANDBOOK_GRADING_FDA",
+        "TUITION_FINANCE",
+        "URO_ENROLLMENT_PORTAL",
+        "URO_ENROLLMENT_TOR",
+        "URO_SUBJECT_ADJUSTMENT"
+      ],
+      "fold_accuracies": [
+        0.96,
+        0.98,
+        0.94,
+        0.94,
+        0.96
+      ],
+      "fold_macro_f1s": [
+        0.9568,
+        0.9798,
+        0.9396,
+        0.9409,
+        0.9596
+      ],
+      "std_macro_f1": 0.0147
+    },
+    "Logistic Regression (L2 Softmax)": {
+      "accuracy": 0.952,
+      "macro_precision": 0.9527,
+      "macro_recall": 0.952,
+      "macro_f1": 0.9518,
+      "weighted_f1": 0.9518,
+      "per_class": {
+        "ACADEMIC_SHIFTING_TRANSFER": {
+          "precision": 0.9259,
+          "recall": 1.0,
+          "f1": 0.9615,
+          "support": 25
+        },
+        "CAMPUS_DECORUM_DRESSCODE": {
+          "precision": 0.875,
+          "recall": 0.84,
+          "f1": 0.8571,
+          "support": 25
+        },
+        "CAMPUS_FACILITIES_LAB": {
+          "precision": 0.9615,
+          "recall": 1.0,
+          "f1": 0.9804,
+          "support": 25
+        },
+        "CAMPUS_HEALTH_SAFETY": {
+          "precision": 0.8846,
+          "recall": 0.92,
+          "f1": 0.902,
+          "support": 25
+        },
+        "EXAM_PERMIT_INTEGRITY": {
+          "precision": 0.9231,
+          "recall": 0.96,
+          "f1": 0.9412,
+          "support": 25
+        },
+        "HANDBOOK_GRADING_FDA": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        },
+        "TUITION_FINANCE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        },
+        "URO_ENROLLMENT_PORTAL": {
+          "precision": 0.9565,
+          "recall": 0.88,
+          "f1": 0.9167,
+          "support": 25
+        },
+        "URO_ENROLLMENT_TOR": {
+          "precision": 1.0,
+          "recall": 0.96,
+          "f1": 0.9796,
+          "support": 25
+        },
+        "URO_SUBJECT_ADJUSTMENT": {
+          "precision": 1.0,
+          "recall": 0.96,
+          "f1": 0.9796,
+          "support": 25
+        }
+      },
+      "confusion_matrix": [
+        [
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          21,
+          0,
+          2,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          23,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          24,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          25,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          22,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          24,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          24
+        ]
+      ],
+      "classes": [
+        "ACADEMIC_SHIFTING_TRANSFER",
+        "CAMPUS_DECORUM_DRESSCODE",
+        "CAMPUS_FACILITIES_LAB",
+        "CAMPUS_HEALTH_SAFETY",
+        "EXAM_PERMIT_INTEGRITY",
+        "HANDBOOK_GRADING_FDA",
+        "TUITION_FINANCE",
+        "URO_ENROLLMENT_PORTAL",
+        "URO_ENROLLMENT_TOR",
+        "URO_SUBJECT_ADJUSTMENT"
+      ],
+      "fold_accuracies": [
+        0.96,
+        0.96,
+        0.96,
+        0.94,
+        0.94
+      ],
+      "fold_macro_f1s": [
+        0.9568,
+        0.9583,
+        0.9598,
+        0.9409,
+        0.9394
+      ],
+      "std_macro_f1": 0.009
+    },
+    "Linear SVM (One-vs-Rest Hinge)": {
+      "accuracy": 0.94,
+      "macro_precision": 0.941,
+      "macro_recall": 0.94,
+      "macro_f1": 0.9397,
+      "weighted_f1": 0.9397,
+      "per_class": {
+        "ACADEMIC_SHIFTING_TRANSFER": {
+          "precision": 0.9615,
+          "recall": 1.0,
+          "f1": 0.9804,
+          "support": 25
+        },
+        "CAMPUS_DECORUM_DRESSCODE": {
+          "precision": 0.875,
+          "recall": 0.84,
+          "f1": 0.8571,
+          "support": 25
+        },
+        "CAMPUS_FACILITIES_LAB": {
+          "precision": 0.9259,
+          "recall": 1.0,
+          "f1": 0.9615,
+          "support": 25
+        },
+        "CAMPUS_HEALTH_SAFETY": {
+          "precision": 0.8519,
+          "recall": 0.92,
+          "f1": 0.8846,
+          "support": 25
+        },
+        "EXAM_PERMIT_INTEGRITY": {
+          "precision": 0.9583,
+          "recall": 0.92,
+          "f1": 0.9388,
+          "support": 25
+        },
+        "HANDBOOK_GRADING_FDA": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        },
+        "TUITION_FINANCE": {
+          "precision": 1.0,
+          "recall": 0.96,
+          "f1": 0.9796,
+          "support": 25
+        },
+        "URO_ENROLLMENT_PORTAL": {
+          "precision": 0.9545,
+          "recall": 0.84,
+          "f1": 0.8936,
+          "support": 25
+        },
+        "URO_ENROLLMENT_TOR": {
+          "precision": 0.96,
+          "recall": 0.96,
+          "f1": 0.96,
+          "support": 25
+        },
+        "URO_SUBJECT_ADJUSTMENT": {
+          "precision": 0.9231,
+          "recall": 0.96,
+          "f1": 0.9412,
+          "support": 25
+        }
+      },
+      "confusion_matrix": [
+        [
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          21,
+          0,
+          3,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          23,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          23,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          24,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          21,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          24,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          24
+        ]
+      ],
+      "classes": [
+        "ACADEMIC_SHIFTING_TRANSFER",
+        "CAMPUS_DECORUM_DRESSCODE",
+        "CAMPUS_FACILITIES_LAB",
+        "CAMPUS_HEALTH_SAFETY",
+        "EXAM_PERMIT_INTEGRITY",
+        "HANDBOOK_GRADING_FDA",
+        "TUITION_FINANCE",
+        "URO_ENROLLMENT_PORTAL",
+        "URO_ENROLLMENT_TOR",
+        "URO_SUBJECT_ADJUSTMENT"
+      ],
+      "fold_accuracies": [
+        0.98,
+        0.94,
+        0.9,
+        0.94,
+        0.94
+      ],
+      "fold_macro_f1s": [
+        0.9798,
+        0.9341,
+        0.8979,
+        0.9409,
+        0.9394
+      ],
+      "std_macro_f1": 0.026
+    }
+  },
+  "heldout_ablation": {
+    "A_raw_tfidf": {
+      "label": "Raw TF-IDF Cosine Only",
+      "in_domain_queries": 42,
+      "top1_policy_accuracy": 0.8333,
+      "top3_policy_recall": 0.9524,
+      "mrr": 0.8929,
+      "intent_accuracy": 0.9286,
+      "ood_rejection_rate": 0.0,
+      "greeting_accuracy": 1.0,
+      "false_positive_car_rate": 0.0,
+      "by_register": {
+        "EN": {
+          "queries": 12,
+          "top1_accuracy": 0.6667,
+          "top3_recall": 1.0,
+          "mrr": 0.8333
+        },
+        "TL-EN": {
+          "queries": 10,
+          "top1_accuracy": 0.9,
+          "top3_recall": 1.0,
+          "mrr": 0.95
+        },
+        "CAR-TL-EN": {
+          "queries": 20,
+          "top1_accuracy": 0.9,
+          "top3_recall": 0.9,
+          "mrr": 0.9
+        }
+      },
+      "top1_misses": [
+        {
+          "id": "B01",
+          "returned": [
+            105,
+            102,
+            111
+          ],
+          "expected": [
+            101,
+            102,
+            103
+          ]
+        },
+        {
+          "id": "B05",
+          "returned": [
+            121,
+            106,
+            115
+          ],
+          "expected": [
+            106,
+            104
+          ]
+        },
+        {
+          "id": "B09",
+          "returned": [
+            109,
+            108,
+            115
+          ],
+          "expected": [
+            107,
+            108
+          ]
+        },
+        {
+          "id": "B16",
+          "returned": [
+            113,
+            115,
+            107
+          ],
+          "expected": [
+            112
+          ]
+        },
+        {
+          "id": "B19",
+          "returned": [
+            114,
+            112
+          ],
+          "expected": [
+            115
+          ]
+        },
+        {
+          "id": "B22",
+          "returned": [
+            128,
+            117,
+            121
+          ],
+          "expected": [
+            117
+          ]
+        },
+        {
+          "id": "B25",
+          "returned": [
+            120,
+            122,
+            124
+          ],
+          "expected": [
+            122
+          ]
+        }
+      ]
+    },
+    "B_clean_morph": {
+      "label": "+ Acronym-Safe Cleaning & CAR Morphology",
+      "in_domain_queries": 42,
+      "top1_policy_accuracy": 0.9286,
+      "top3_policy_recall": 1.0,
+      "mrr": 0.9603,
+      "intent_accuracy": 0.9524,
+      "ood_rejection_rate": 0.0,
+      "greeting_accuracy": 1.0,
+      "false_positive_car_rate": 0.0,
+      "by_register": {
+        "EN": {
+          "queries": 12,
+          "top1_accuracy": 0.8333,
+          "top3_recall": 1.0,
+          "mrr": 0.9028
+        },
+        "TL-EN": {
+          "queries": 10,
+          "top1_accuracy": 1.0,
+          "top3_recall": 1.0,
+          "mrr": 1.0
+        },
+        "CAR-TL-EN": {
+          "queries": 20,
+          "top1_accuracy": 0.95,
+          "top3_recall": 1.0,
+          "mrr": 0.975
+        }
+      },
+      "top1_misses": [
+        {
+          "id": "B01",
+          "returned": [
+            105,
+            102,
+            101
+          ],
+          "expected": [
+            101,
+            102,
+            103
+          ]
+        },
+        {
+          "id": "B05",
+          "returned": [
+            127,
+            121,
+            106
+          ],
+          "expected": [
+            106,
+            104
+          ]
+        },
+        {
+          "id": "B16",
+          "returned": [
+            110,
+            112,
+            113
+          ],
+          "expected": [
+            112
+          ]
+        }
+      ]
+    },
+    "C_lexicon_boost": {
+      "label": "+ 156-Entry CAR/SLU Lexicon Intent Boost",
+      "in_domain_queries": 42,
+      "top1_policy_accuracy": 0.9048,
+      "top3_policy_recall": 0.9286,
+      "mrr": 0.9167,
+      "intent_accuracy": 0.9286,
+      "ood_rejection_rate": 1.0,
+      "greeting_accuracy": 1.0,
+      "false_positive_car_rate": 0.0,
+      "by_register": {
+        "EN": {
+          "queries": 12,
+          "top1_accuracy": 0.9167,
+          "top3_recall": 0.9167,
+          "mrr": 0.9167
+        },
+        "TL-EN": {
+          "queries": 10,
+          "top1_accuracy": 0.9,
+          "top3_recall": 0.9,
+          "mrr": 0.9
+        },
+        "CAR-TL-EN": {
+          "queries": 20,
+          "top1_accuracy": 0.9,
+          "top3_recall": 0.95,
+          "mrr": 0.925
+        }
+      },
+      "top1_misses": [
+        {
+          "id": "B05",
+          "returned": [
+            127,
+            129,
+            128
+          ],
+          "expected": [
+            106,
+            104
+          ]
+        },
+        {
+          "id": "B06",
+          "returned": [
+            126,
+            123,
+            124
+          ],
+          "expected": [
+            105
+          ]
+        },
+        {
+          "id": "B16",
+          "returned": [
+            110,
+            112,
+            113
+          ],
+          "expected": [
+            112
+          ]
+        },
+        {
+          "id": "B27",
+          "returned": [
+            117,
+            118,
+            119
+          ],
+          "expected": [
+            121
+          ]
+        }
+      ]
+    },
+    "D_full_hybrid": {
+      "label": "Full Hybrid (+ Trained ML Intent + OOD Gate)",
+      "in_domain_queries": 42,
+      "top1_policy_accuracy": 0.9524,
+      "top3_policy_recall": 0.9762,
+      "mrr": 0.9643,
+      "intent_accuracy": 0.9762,
+      "ood_rejection_rate": 1.0,
+      "greeting_accuracy": 1.0,
+      "false_positive_car_rate": 0.0,
+      "by_register": {
+        "EN": {
+          "queries": 12,
+          "top1_accuracy": 0.9167,
+          "top3_recall": 0.9167,
+          "mrr": 0.9167
+        },
+        "TL-EN": {
+          "queries": 10,
+          "top1_accuracy": 1.0,
+          "top3_recall": 1.0,
+          "mrr": 1.0
+        },
+        "CAR-TL-EN": {
+          "queries": 20,
+          "top1_accuracy": 0.95,
+          "top3_recall": 1.0,
+          "mrr": 0.975
+        }
+      },
+      "top1_misses": [
+        {
+          "id": "B05",
+          "returned": [
+            127,
+            129,
+            128
+          ],
+          "expected": [
+            106,
+            104
+          ]
+        },
+        {
+          "id": "B16",
+          "returned": [
+            110,
+            112,
+            113
+          ],
+          "expected": [
+            112
+          ]
+        }
+      ]
+    }
+  }
+}

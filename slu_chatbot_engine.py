@@ -263,8 +263,9 @@ class SLUChatbotEngine:
         annotated_docs=None,
         lexicon=None,
         intent_boost_alpha=0.25,
-        ml_boost_beta=0.20,
+        ml_boost_beta=0.30,
         min_confidence=0.14,
+        enable_ood_gate=True,
         use_cleaning_morph=True,
         use_lexicon_boost=True,
         use_ml_intent=True,
@@ -292,6 +293,7 @@ class SLUChatbotEngine:
         self.alpha = intent_boost_alpha
         self.beta = ml_boost_beta
         self.min_confidence = min_confidence
+        self.enable_ood_gate = enable_ood_gate
         self.use_cleaning_morph = use_cleaning_morph
         self.use_lexicon_boost = use_lexicon_boost
         self.use_ml_intent = use_ml_intent
@@ -596,8 +598,8 @@ class SLUChatbotEngine:
                 else:
                     lex_intents.add("CAMPUS_HEALTH_SAFETY")
 
-        # 3. Optional Supervised ML Intent Prediction
-        ml_intent, ml_conf = self.predict_ml_intent(expanded_stems, bigrams)
+        # 3. Optional Supervised ML Intent Prediction (uses clean query features matching training distribution)
+        ml_intent, ml_conf = self.predict_ml_intent(stems, bigrams)
 
         # 4. Build query TF-IDF vector
         expanded_bigrams = generate_ngrams(expanded_stems, n=2)
@@ -612,6 +614,9 @@ class SLUChatbotEngine:
             q_norm_sq += w * w
         q_norm = math.sqrt(q_norm_sq) if q_norm_sq > 0 else 1.0
 
+        # When trained ML intent classifier is active, moderate greedy single-keyword boost so holistic ML leads
+        eff_alpha = 0.14 if (self.ml_model and ml_intent and ml_conf >= 0.30) else self.alpha
+
         scored_docs = []
         for idx, doc in enumerate(self.docs):
             d_vec = self.doc_vectors[idx]
@@ -620,12 +625,12 @@ class SLUChatbotEngine:
             cosine = dot / (q_norm * d_norm)
 
             intent_match = 1.0 if (self.use_lexicon_boost and doc["intent_label"] in lex_intents) else 0.0
-            ml_match = 1.0 if (ml_intent and ml_conf >= 0.35 and doc["intent_label"] == ml_intent) else 0.0
+            ml_match = 1.0 if (ml_intent and ml_conf >= 0.30 and doc["intent_label"] == ml_intent) else 0.0
             is_policy = doc["sentiment_polarity"] == "AUTHORITATIVE_POLICY"
 
             # Only award authority bonus when there is real lexical or intent evidence
             auth_bonus = 0.15 if (is_policy and (cosine > 0.02 or intent_match > 0 or ml_match > 0)) else 0.0
-            boost = (self.alpha * intent_match) + (self.beta * ml_match * ml_conf) + auth_bonus
+            boost = (eff_alpha * intent_match) + (self.beta * ml_match * ml_conf) + auth_bonus
             final_score = cosine + boost
 
             scored_docs.append({
@@ -650,13 +655,17 @@ class SLUChatbotEngine:
 
         # Calibrated OOD / low-confidence gate (prevents hallucinating irrelevant Freedom Wall docs)
         best_policy = policy_candidates[0] if policy_candidates else None
-        has_evidence = bool(
-            best_policy
-            and (
-                best_policy["final_score"] >= self.min_confidence
-                and (best_policy["cosine_similarity"] >= 0.025 or best_policy["intent_boost"] >= 0.35)
+        if not self.enable_ood_gate:
+            top_matches = policy_candidates[:top_k] if policy_candidates else scored_docs[:top_k]
+            has_evidence = True
+        else:
+            has_evidence = bool(
+                best_policy
+                and (
+                    best_policy["final_score"] >= self.min_confidence
+                    and (best_policy["cosine_similarity"] >= 0.025 or best_policy["intent_boost"] >= 0.35)
+                )
             )
-        )
 
         if not has_evidence:
             fallback_msg = (
@@ -687,7 +696,7 @@ class SLUChatbotEngine:
                 "citations": [],
             }
 
-        top_matches = policy_candidates[:top_k]
+        top_matches = policy_candidates[:top_k] if policy_candidates else scored_docs[:top_k]
         primary_intent = top_matches[0]["intent_label"]
         # Include second doc only if reasonably close in score to avoid noisy second citations
         chosen_docs = [top_matches[0]]

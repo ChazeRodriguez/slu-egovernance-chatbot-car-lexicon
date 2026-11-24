@@ -1,0 +1,484 @@
+[
+  {
+    "id": "B01",
+    "query": "I graduated last year and need an authenticated TOR plus good moral certificate for my PRC licensure.",
+    "expected_intent": "URO_ENROLLMENT_TOR",
+    "expected_docs": [
+      101,
+      102,
+      103
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B02",
+    "query": "Sir/Ma'am, online pa rin po ba yung pagkuha ng Certificate of Grades at clearance sa Accounting?",
+    "expected_intent": "URO_ENROLLMENT_TOR",
+    "expected_docs": [
+      101
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B03",
+    "query": "Naimbag nga aldaw, kayat ko agkiddaw ti CAV ken certified copy ti diplomak idiay URO.",
+    "expected_intent": "URO_ENROLLMENT_TOR",
+    "expected_docs": [
+      103,
+      101
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B04",
+    "query": "Gawis ay labi! Menkiddaw ak kuma ti CGMC idiay OSAS, ania kasapulan?",
+    "expected_intent": "URO_ENROLLMENT_TOR",
+    "expected_docs": [
+      102
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B05",
+    "query": "I already paid my tuition deposit; where do I go to validate my student RFID for this term?",
+    "expected_intent": "URO_ENROLLMENT_PORTAL",
+    "expected_docs": [
+      106,
+      104
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B06",
+    "query": "Incoming freshman po ako, kailangan ba mag-submit ng original Form 138 at pumunta sa CCW intake?",
+    "expected_intent": "URO_ENROLLMENT_PORTAL",
+    "expected_docs": [
+      105
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B07",
+    "query": "Naimbag a malem! Agpalista akon para sumaruno a semestre, kasano online advising iti iSLU?",
+    "expected_intent": "URO_ENROLLMENT_PORTAL",
+    "expected_docs": [
+      104
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B08",
+    "query": "Mapteng shapa! Continuing student ak, paano schedule confirmation idiyay assigned year window?",
+    "expected_intent": "URO_ENROLLMENT_PORTAL",
+    "expected_docs": [
+      104
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B09",
+    "query": "Can I withdraw from a difficult math class during week 2 and who signs my adjustment paperwork?",
+    "expected_intent": "URO_SUBJECT_ADJUSTMENT",
+    "expected_docs": [
+      107,
+      108
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B10",
+    "query": "Graduating student po ako, pwede bang mag-apply ng unit overload o magpalit ng closed section?",
+    "expected_intent": "URO_SUBJECT_ADJUSTMENT",
+    "expected_docs": [
+      109
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B11",
+    "query": "Agsaludsod ak no ania ti penalty no saan nga ag-file ti official dropping form iti Dean?",
+    "expected_intent": "URO_SUBJECT_ADJUSTMENT",
+    "expected_docs": [
+      108
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B12",
+    "query": "Gawis ay masdem! Pwede kadi mag-add ken mag-drop ti subjects using adjustment form?",
+    "expected_intent": "URO_SUBJECT_ADJUSTMENT",
+    "expected_docs": [
+      107
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B13",
+    "query": "I have 90 earned units from another university and want to transfer into a 4-year SLU program—am I eligible?",
+    "expected_intent": "ACADEMIC_SHIFTING_TRANSFER",
+    "expected_docs": [
+      111,
+      110
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B14",
+    "query": "Gusto ko po lumipat from SAMCIS to BS Pharmacy o SEAIT, ano po GWA cut-off at kailangan ba QE?",
+    "expected_intent": "ACADEMIC_SHIFTING_TRANSFER",
+    "expected_docs": [
+      112,
+      113,
+      110
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B15",
+    "query": "Naimbag a bigat! Agbaliw ak kuma ti programa, tumatanggap kadi ti transferee iti BS Nursing BSN wenno MLS?",
+    "expected_intent": "ACADEMIC_SHIFTING_TRANSFER",
+    "expected_docs": [
+      110,
+      112
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B16",
+    "query": "Mapteng maabii, pwede ba mag-shift internal course if approved ng accepting Dean?",
+    "expected_intent": "ACADEMIC_SHIFTING_TRANSFER",
+    "expected_docs": [
+      112
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B17",
+    "query": "If my final score is 74 in a core computing course, did I fail and does SAMCIS require a higher retention mark?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      114
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B18",
+    "query": "Naka-INC po ako dahil na-ospital ako noong finals, gaano katagal bago ito maging No Credit?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      116
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B19",
+    "query": "Naimbag a bigat! Agadal ak idiay SAMCIS—mano a porsiento ti absent sakbay ma-FDA?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      115
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B20",
+    "query": "Gawis ay agew! Ad-ado unexcused absences ko, automatic drop kadi no sobra 20 percent?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      115
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B21",
+    "query": "What happens if a proctor catches someone checking notes on a smartphone during finals?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      118,
+      117
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B22",
+    "query": "Naiwan ko po sa dorm yung exam permit at RFID ko, papapasukin pa ba ako ng proctor sa midterm?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      117
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B23",
+    "query": "Gawis ay agsapa! Inayan ti plagiarism ken contract cheating, ania parusa ti Disciplinary Board?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      118,
+      119
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B24",
+    "query": "Mapteng shapa! Paano yung tongtong due process at disciplinary sanctions sa OSAS?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      119,
+      118
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B25",
+    "query": "Is vaping allowed behind the campus buildings or are all SLU campuses strictly smoke-free?",
+    "expected_intent": "CAMPUS_DECORUM_DRESSCODE",
+    "expected_docs": [
+      122
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B26",
+    "query": "Pwede po ba pumasok nang naka-tsinelas slippers o sando kapag Friday Wash Day?",
+    "expected_intent": "CAMPUS_DECORUM_DRESSCODE",
+    "expected_docs": [
+      120
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B27",
+    "query": "Naimbag a bigat! Maiparit kadi ti agipabulod ti RFID card no sumrek iti Gate 1?",
+    "expected_intent": "CAMPUS_DECORUM_DRESSCODE",
+    "expected_docs": [
+      121
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B28",
+    "query": "Gawis ay masdem! Lunes agingga Huwebes kadi ti uniform bado isnan SLU?",
+    "expected_intent": "CAMPUS_DECORUM_DRESSCODE",
+    "expected_docs": [
+      120
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B29",
+    "query": "I am feeling ill with a high fever—can the Bonifacio campus clinic see me and verify my doctor's excuse letter?",
+    "expected_intent": "CAMPUS_HEALTH_SAFETY",
+    "expected_docs": [
+      124
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B30",
+    "query": "Sobrang ambigat na ng stress ko sa deadlines, paano po magpa-schedule ng online counseling sa CCW?",
+    "expected_intent": "CAMPUS_HEALTH_SAFETY",
+    "expected_docs": [
+      126
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B31",
+    "query": "Naimbag a bigat! No adda gingined earthquake idiay Baguio, sadino evacuation area—SLU Main Oval kadi?",
+    "expected_intent": "CAMPUS_HEALTH_SAFETY",
+    "expected_docs": [
+      125
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B32",
+    "query": "May parusa po ba kapag may nag-post ng cyberbullying, libel, at private info under RA 10173 sa Freedom Wall?",
+    "expected_intent": "CAMPUS_HEALTH_SAFETY",
+    "expected_docs": [
+      123
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B33",
+    "query": "As a Senior High School Valedictorian, how do I avail of the SLU Entrance Scholarship tuition discount?",
+    "expected_intent": "TUITION_FINANCE",
+    "expected_docs": [
+      129
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B34",
+    "query": "Nagbayad na po ako ng dp sa partner bank via mobile banking, ipapasa pa ba accounting copy sa Finance Office?",
+    "expected_intent": "TUITION_FINANCE",
+    "expected_docs": [
+      127
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B35",
+    "query": "Naimbag nga aldaw! Agbayad ak kuma ti installment balance, kasano tuition adjustment no nag-drop ak?",
+    "expected_intent": "TUITION_FINANCE",
+    "expected_docs": [
+      128,
+      127
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B36",
+    "query": "Gawis ay agsapa! Adda kadi tulong kasla CHED TES wenno DOST scholarship idiay SLU?",
+    "expected_intent": "TUITION_FINANCE",
+    "expected_docs": [
+      129
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B37",
+    "query": "How long can a graduate student keep borrowed books from the Msgr. Charles Vath Library?",
+    "expected_intent": "CAMPUS_FACILITIES_LAB",
+    "expected_docs": [
+      130
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B38",
+    "query": "Locked out po yung SLU institutional email at campus Wi-Fi ko, sino po sa IT support ang kokontakin?",
+    "expected_intent": "CAMPUS_FACILITIES_LAB",
+    "expected_docs": [
+      132
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B39",
+    "query": "Man-obla kami isnan MLS laboratory, kanino i-report ang kulang na pipette reagents at sirang microscope?",
+    "expected_intent": "CAMPUS_FACILITIES_LAB",
+    "expected_docs": [
+      131
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B40",
+    "query": "Mapteng shapa! Pwede kadi mag-borrow ti 3 books for 3 days idiyay UNL library?",
+    "expected_intent": "CAMPUS_FACILITIES_LAB",
+    "expected_docs": [
+      130
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "O01",
+    "query": "random gibberish xyzzy qwerty plugh",
+    "expected_intent": "OUT_OF_DOMAIN",
+    "expected_docs": [],
+    "register": "EN",
+    "type": "ood"
+  },
+  {
+    "id": "O02",
+    "query": "What is the best recipe for Baguio strawberry sinigang?",
+    "expected_intent": "OUT_OF_DOMAIN",
+    "expected_docs": [],
+    "register": "EN",
+    "type": "ood"
+  },
+  {
+    "id": "O03",
+    "query": "Who won the NBA basketball championship last night?",
+    "expected_intent": "OUT_OF_DOMAIN",
+    "expected_docs": [],
+    "register": "EN",
+    "type": "ood"
+  },
+  {
+    "id": "O04",
+    "query": "Totoo ba pag sinabi ng crush ko na study first muna haha?",
+    "expected_intent": "OUT_OF_DOMAIN",
+    "expected_docs": [],
+    "register": "TL-EN",
+    "type": "ood"
+  },
+  {
+    "id": "O05",
+    "query": "hello good morning",
+    "expected_intent": "GREETING",
+    "expected_docs": [],
+    "register": "EN",
+    "type": "greeting"
+  },
+  {
+    "id": "O06",
+    "query": "Naimbag a bigat!",
+    "expected_intent": "GREETING",
+    "expected_docs": [],
+    "register": "CAR-TL-EN",
+    "type": "greeting"
+  },
+  {
+    "id": "O07",
+    "query": "What is the punishment for plagiarism?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      118
+    ],
+    "register": "EN",
+    "type": "car_trap_en"
+  },
+  {
+    "id": "O08",
+    "query": "Who sits on the disciplinary board?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      119,
+      118
+    ],
+    "register": "EN",
+    "type": "car_trap_en"
+  }
+]

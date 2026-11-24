@@ -1,0 +1,258 @@
+[
+  {
+    "doc_id": 101,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO FAQ A2: Online TOR, COG & Clearance",
+    "intent_label": "URO_ENROLLMENT_TOR",
+    "raw_text": "Requests for Official Transcripts of Records (TOR), Certificates of Grades (COG), and Certificates of Graduation must be filed online through the URO Document Request portal. Clearance from the Accounting Department, Library Services, and Dean of Student Affairs must be completed before physical or electronic release."
+  },
+  {
+    "doc_id": 102,
+    "source_file": "slu_osas_services.txt",
+    "source_url": "https://www.slu.edu.ph/student-affairs/",
+    "section_ref": "OSAS Guide: Certificate of Good Moral Character (CGMC)",
+    "intent_label": "URO_ENROLLMENT_TOR",
+    "raw_text": "Students and alumni requesting a Certificate of Good Moral Character (CGMC) for employment, board examinations, or transfer must file their application through the Office of Student Affairs and Services (OSAS) with a cleared disciplinary record and valid student or alumni identification."
+  },
+  {
+    "doc_id": 103,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Records: Certified True Copies, Diploma & CAV",
+    "intent_label": "URO_ENROLLMENT_TOR",
+    "raw_text": "Certified true copies of diplomas, English medium of instruction certifications, honorable dismissal, and CHED Certification, Authentication, and Verification (CAV) packages are processed by the University Registrar's Office upon verification of cleared student ledgers and submission of documentary requirements."
+  },
+  {
+    "doc_id": 104,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO FAQ A3: Continuing Enrollment & iSLU Portal Advising",
+    "intent_label": "URO_ENROLLMENT_PORTAL",
+    "raw_text": "Continuing undergraduate students must complete online advising of subjects through the SLU Student Portal (iSLU), settle the required downpayment through authorized payment partner banks or university cashiers, and finalize schedule confirmation within their assigned year-level enrollment window."
+  },
+  {
+    "doc_id": 105,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/admissions/",
+    "section_ref": "SLU Admissions: Freshmen Enrollment & Orientation",
+    "intent_label": "URO_ENROLLMENT_PORTAL",
+    "raw_text": "Incoming freshmen admitted to Saint Louis University must submit original Senior High School Report Cards (Form 138), PSA Birth Certificate, Certificate of Good Moral Character, and medical clearance, complete the Center for Counseling and Wellness intake interview, and confirm enrollment via the iSLU portal."
+  },
+  {
+    "doc_id": 106,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Registration: ID Validation & Enrollment Confirmation",
+    "intent_label": "URO_ENROLLMENT_PORTAL",
+    "raw_text": "After downpayment or tuition payment is posted to the student ledger, students must have their SLU RFID card validated at the University Library or designated validation stations before the registration period expires to confirm official enrolled status for the semester."
+  },
+  {
+    "doc_id": 107,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO FAQ A4: Two-Week Subject Adding & Dropping",
+    "intent_label": "URO_SUBJECT_ADJUSTMENT",
+    "raw_text": "Adding or dropping of subjects is permitted only during the first two weeks of regular semesters upon submission of an accomplished Adjustment Form endorsed by the academic department chair and approved by the University Registrar."
+  },
+  {
+    "doc_id": 108,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Policy: Official Subject Withdrawal (WP/DRP) & Dean Approval",
+    "intent_label": "URO_SUBJECT_ADJUSTMENT",
+    "raw_text": "Partial withdrawal or dropping of subjects must be filed for valid reasons within the official academic calendar using the Partial Withdrawal and Subject Adjustment Form with explicit approval from the School Dean. Stopping class attendance without official URO dropping results in failing marks."
+  },
+  {
+    "doc_id": 109,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Policy: Subject Changing, Overload & Prerequisite Petitions",
+    "intent_label": "URO_SUBJECT_ADJUSTMENT",
+    "raw_text": "Requests to change class schedules, petition closed sections, or apply for graduating unit overloads must be endorsed by the Department Chair and School Dean prior to encoding at the University Registrar's Office during the designated adjustment window."
+  },
+  {
+    "doc_id": 110,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/general-admission-requirements-and-enrollment/",
+    "section_ref": "URO FAQ A1: Transferee Admission & Qualifying Exam (QE)",
+    "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+    "raw_text": "SLU admits transferees in undergraduate degree programs except Bachelor of Science in Medical Laboratory Science (MLS) and Bachelor of Science in Nursing (BSN), subject to compliance with pertinent guidelines. Transferees must undergo a Qualifying Examination (QE), personality evaluation, and dean interview, submitting an official TOR for evaluation, Honorable Dismissal, and PSA Birth Certificate."
+  },
+  {
+    "doc_id": 111,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/general-admission-requirements-and-enrollment/",
+    "section_ref": "URO Policy: Transferee Academic Standing & Unit Limits",
+    "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+    "raw_text": "Transferee applicants must have no failing grades, non-passing marks, NFE, INC, or DROPPED marks from previous institutions, must not have attended more than two prior schools, and must not exceed 84 earned units for 4-year programs or 126 units for 5-year programs."
+  },
+  {
+    "doc_id": 112,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO & OSAS Policy: Internal Course Shifting Between SLU Schools",
+    "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+    "raw_text": "Current SLU students shifting across schools such as SAMCIS, SEAIT, SONAHBS, or STELA must accomplish the official shifting form, satisfy the target program's cut-off grades or qualifying examination, obtain approval from the accepting School Dean based on slot availability, and submit records to URO for subject crediting."
+  },
+  {
+    "doc_id": 113,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/general-admission-requirements-and-enrollment/",
+    "section_ref": "Program Screening: Allied Health & Specialized Transfer Cut-Offs",
+    "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+    "raw_text": "Specialized programs such as BS Pharmacy and BS Radiologic Technology require strict science screening with no failing marks in Mathematics, Physical Sciences, and Biological Sciences alongside a maintaining General Weighted Average (GWA) of at least 80 to 82 percent as determined by the accepting Dean."
+  },
+  {
+    "doc_id": 114,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Art. I, Sec. 1: Minimum Grade (75%) & Retention",
+    "intent_label": "HANDBOOK_GRADING_FDA",
+    "raw_text": "Saint Louis University operates under a standard numerical grading system from 75 to 99 percent. A grade of 75 is the minimum passing mark for any academic subject; grades below 75 indicate failure. For specialized degree programs under SAMCIS and SEAIT, higher retention grades may be mandated by the academic department."
+  },
+  {
+    "doc_id": 115,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Art. I, Sec. 2: Failure Due to Absences (FDA > 20%)",
+    "intent_label": "HANDBOOK_GRADING_FDA",
+    "raw_text": "Regular class attendance is required of all students. A student who incurs unexcused absences of more than 20 percent of the total class hours designated for a course during a term shall be automatically dropped from the course roll and given a grade of FDA (Failure Due to Absences)."
+  },
+  {
+    "doc_id": 116,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Grading Rules: Incomplete (INC) & NFE Removal Period",
+    "intent_label": "HANDBOOK_GRADING_FDA",
+    "raw_text": "An Incomplete (INC) or No Final Examination (NFE) notation is granted only when a student holds satisfactory class standing but misses a major requirement or final exam for a valid documented reason. Students must complete INC requirements within the prescribed completion period following grade release or the grade converts to No Credit/Failure."
+  },
+  {
+    "doc_id": 117,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Art. II, Sec. 3: Examination Permits & Validated RFID",
+    "intent_label": "EXAM_PERMIT_INTEGRITY",
+    "raw_text": "Students are required to secure an official examination permit and present their validated SLU RFID card prior to taking Prelim, Midterm, and Final Examinations. Proctors reserve the right to bar any student from examination rooms without valid credentials."
+  },
+  {
+    "doc_id": 118,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Art. II, Sec. 4: Academic Integrity & Anti-Cheating",
+    "intent_label": "EXAM_PERMIT_INTEGRITY",
+    "raw_text": "Plagiarism, unauthorized collaboration, possession of unauthorized notes, use of mobile devices or cellphones during examinations, or contract cheating constitutes major academic dishonesty subject to suspension or dismissal under the SLU Disciplinary Board."
+  },
+  {
+    "doc_id": 119,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/student-affairs/",
+    "section_ref": "OSAS Code of Conduct: Disciplinary Due Process & Sanctions",
+    "intent_label": "EXAM_PERMIT_INTEGRITY",
+    "raw_text": "Disciplinary infractions under the SLU Student Handbook are adjudicated through the Office of Student Affairs and Services (OSAS) and the SLU Disciplinary Board with formal due process, carrying graduated sanctions ranging from written warnings and reprimands to suspension or expulsion depending on offense gravity."
+  },
+  {
+    "doc_id": 120,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Art. III, Sec. 5: Prescribed Uniform & Wash Day Dress Code",
+    "intent_label": "CAMPUS_DECORUM_DRESSCODE",
+    "raw_text": "Students must strictly adhere to the university prescribed uniform code from Mondays to Thursdays. Modest civilian attire is permissible only during designated Wash Days on Fridays and Saturdays. Slippers, sandos, revealing attire, and apparel with obscene language are strictly forbidden within all SLU campus locations."
+  },
+  {
+    "doc_id": 121,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Art. III: Campus RFID Visibility & Gate Entry Protocol",
+    "intent_label": "CAMPUS_DECORUM_DRESSCODE",
+    "raw_text": "Every Louisian student must wear a validated SLU RFID identification card visibly upon entering Gates 1 and 2 and throughout all campus premises. Tampering with, lending, or borrowing another student's RFID card constitutes a disciplinary violation."
+  },
+  {
+    "doc_id": 122,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Art. III: Campus Decorum & Smoke-Free Environment",
+    "intent_label": "CAMPUS_DECORUM_DRESSCODE",
+    "raw_text": "Saint Louis University enforces respectful campus decorum, academic quiet zones, and a strict smoke-free, vape-free, and alcohol-free campus environment across Bonifacio, Maryheights, and Bakakeng campuses in compliance with university regulations and Baguio City ordinances."
+  },
+  {
+    "doc_id": 123,
+    "source_file": "slu_safety_and_support_guide.txt",
+    "source_url": "https://dataprotection.slu.edu.ph/guidelines-on-social-media-and-digital-platforms/",
+    "section_ref": "Safety Guide Sec. 1: Digital Platforms, Anti-Libel & RA 10173",
+    "intent_label": "CAMPUS_HEALTH_SAFETY",
+    "raw_text": "The Louisian community is mandated to exercise caution and ethical judgment in using social media and digital platforms including university websites, SLU student portals, official email systems, and public online forums. Posting libelous remarks, unverified institutional rumors, cyberbullying or harassment, or violating Republic Act 10173 (Data Privacy Act of 2012) is subject to administrative sanctions."
+  },
+  {
+    "doc_id": 124,
+    "source_file": "slu_safety_and_support_guide.txt",
+    "source_url": "https://www.slu.edu.ph/health-services/",
+    "section_ref": "Safety Guide Sec. 2: University Medical/Dental Clinic & PATHFIT",
+    "intent_label": "CAMPUS_HEALTH_SAFETY",
+    "raw_text": "The SLU Health Services Unit (University Clinic at Bonifacio and Maryheights campuses) provides emergency first aid, outpatient medical and nursing consultations, starter medicine doses, vaccinations, and routine dental checks. Annual medical exams and physical fitness certificates are mandatory for PATHFIT courses and laboratory practicums, and private physician excuse letters must be verified by the clinic."
+  },
+  {
+    "doc_id": 125,
+    "source_file": "slu_safety_and_support_guide.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "Safety Guide Sec. 3: Baguio Seismic Evacuation & Gate Security",
+    "intent_label": "CAMPUS_HEALTH_SAFETY",
+    "raw_text": "In case of natural calamities or seismic earthquake events in Baguio City, students must execute Duck, Cover, and Hold and follow floor wardens toward designated open evacuation areas including the SLU Main Oval and open courts. Immediate security concerns or lost items should be reported to the Security Office located at Gate 1 and Gate 2."
+  },
+  {
+    "doc_id": 126,
+    "source_file": "slu_safety_and_support_guide.txt",
+    "source_url": "https://www.slu.edu.ph/center-for-counseling-and-wellness/",
+    "section_ref": "CCW Policy: Center for Counseling and Wellness & Mental Health Support",
+    "intent_label": "CAMPUS_HEALTH_SAFETY",
+    "raw_text": "The SLU Center for Counseling and Wellness (CCW) provides confidential individual counseling in-person or via secure online video conferencing, psychological first aid, academic stress management, and anti-bullying advocacy. Students experiencing heavy workload anxiety or emotional distress may book sessions through CCW online intake or faculty/self-referral."
+  },
+  {
+    "doc_id": 127,
+    "source_file": "slu_finance_guidelines.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "Finance Office: Authorized Tuition Payment Channels & Bank Posting",
+    "intent_label": "TUITION_FINANCE",
+    "raw_text": "Tuition fees and enrollment downpayments may be settled at university cashiers or through SLU authorized partner banks in Baguio City and La Trinidad via over-the-counter deposits or online mobile bills payment. Students must verify their enrollment ledger on iSLU and submit required proof of payment or accounting copies to the SLU Finance Office for posting."
+  },
+  {
+    "doc_id": 128,
+    "source_file": "slu_finance_guidelines.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "Finance Office: Tuition Assessments, Adjustments & Financial Clearance",
+    "intent_label": "TUITION_FINANCE",
+    "raw_text": "The SLU Finance Office manages student billing, assessment adjustments after official adding or dropping of subjects, installment schedules prior to Prelim, Midterm, and Final exam permit issuance, and financial clearances required before transcript release or graduation."
+  },
+  {
+    "doc_id": 129,
+    "source_file": "slu_finance_guidelines.txt",
+    "source_url": "https://www.slu.edu.ph/scholarships/",
+    "section_ref": "Finance & URO: SLU Scholarships, Dean's List Discounts & Grants",
+    "intent_label": "TUITION_FINANCE",
+    "raw_text": "SLU offers institutional tuition fee discounts including the SLU Entrance Scholarship for SHS Valedictorians and Salutatorians (via Finance Office), SLU Academic Scholarship for top-ranking Dean's Listers each semester, Activity and Service Grants (CCA Marching Band, Athletics, HRD Working Students), and external government scholarships such as CHED TES/PESFA, DOST, and Bukas Student Loans via the URO Government Scholarship Section."
+  },
+  {
+    "doc_id": 130,
+    "source_file": "slu_facilities_library_guide.txt",
+    "source_url": "https://www.slu.edu.ph/university-libraries/",
+    "section_ref": "University Libraries (UNL): Borrowing Privileges, Decorum & Fines",
+    "intent_label": "CAMPUS_FACILITIES_LAB",
+    "raw_text": "The SLU University Libraries (Msgr. Charles Vath Building and campus branches) provide print books, electronic research databases, and collaboration rooms upon presentation of a valid SLU RFID card. Undergraduates may borrow up to 3 books for 3 days while graduate students may borrow up to 5 books for 7 days; overdue fines and replacement liabilities apply to late, lost, or damaged library materials."
+  },
+  {
+    "doc_id": 131,
+    "source_file": "slu_facilities_library_guide.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "Laboratory Operations: Safety Protocols, Consumables & Equipment Reporting",
+    "intent_label": "CAMPUS_FACILITIES_LAB",
+    "raw_text": "Students utilizing MLS, Science, Engineering, and Computing laboratories must wear prescribed laboratory coats and protective gear, follow biological and chemical disposal protocols, and formally report defective laboratory equipment, pipette or reagent shortages, or facility maintenance needs to the Laboratory Custodian and Department Chair."
+  },
+  {
+    "doc_id": 132,
+    "source_file": "slu_facilities_library_guide.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "Campus IT & Support: iSLU Portal, Institutional Email & Wi-Fi Access",
+    "intent_label": "CAMPUS_FACILITIES_LAB",
+    "raw_text": "Enrolled Louisian students receive official SLU institutional email accounts and iSLU Student Portal credentials for academic advising, grade viewing, online learning platforms, and campus Wi-Fi access. Account lockouts, password resets, or laboratory workstation issues should be logged with SLU Information Technology support."
+  }
+]
