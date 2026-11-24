@@ -3,7 +3,9 @@
 **Course:** CSE 30 – CS Special Topics (Natural Language Processing)  
 **Institution:** Department of Computer Science (SAMCIS), Saint Louis University, Baguio City  
 **Group:** Group 2 – AiNomally (John Andrew Angcaway, Earold Jan Delin, Keith Russel Hernandez, Chaze Ezkys M. Rodriguez, Erick James Sibayan)  
-**Instructor:** Prof. Dalos D. Miguel
+**Instructor:** Prof. Dalos D. Miguel  
+**Live Hardened Web Portal:** https://slu-egovernance-chatbot.netlify.app  
+**Source Repository:** https://github.com/ChazeRodriguez/slu-egovernance-chatbot-car-lexicon
 
 ---
 

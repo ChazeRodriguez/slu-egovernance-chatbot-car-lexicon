@@ -925,10 +925,18 @@ def build_deck_content(b):
     b.stat_card("S22", 366, 104, 156, 122, "95.61%", "5-Fold CV\nMacro F1 (NB)", bg=C_ROYAL, num_size=30, lbl_size=13)
     b.stat_card("S22", 536, 104, 156, 122, "95.2%", "Unseen Top-1\n100% OOD Safe", bg=C_ROYAL, num_size=32, lbl_size=13)
 
-    b.textbox("S22", "python3 scripts/build_all.py   •   21 / 21 Automated Tests Passing   •   All Drive Docs Synced", 24, 240, 672, 34, font_size=14, bold=True, color=C_WHITE, align="center", valign="MIDDLE")
-    b.rect("S22", 230, 284, 260, 4, C_GOLD)
-    b.textbox("S22", "Agyamanak!  •  Iyaman!  •  Dakel a Iyaman!  •  Thank You!", 24, 300, 672, 38, font_size=20.5, bold=True, color=C_GOLD_BRIGHT, align="center", valign="MIDDLE")
-    b.textbox("S22", "Questions & Live Web Portal Demo Ready", 30, 344, 660, 28, font_size=15, color=C_ICE, align="center", valign="MIDDLE")
+    b.textbox("S22", "21 / 21 Tests Passing  •  All Drive Docs & GitHub Synced", 26, 240, 514, 30, font_size=14, bold=True, color=C_WHITE, align="left", valign="MIDDLE")
+    b.rect("S22", 26, 276, 220, 4, C_GOLD)
+    b.textbox("S22", "Agyamanak! • Iyaman! • Thank You!", 26, 288, 514, 38, font_size=21, bold=True, color=C_GOLD_BRIGHT, align="left", valign="MIDDLE")
+    b.textbox("S22", "Live Portal:  slu-egovernance-chatbot.netlify.app", 26, 330, 514, 24, font_size=14.5, bold=True, color=C_ICE, align="left", valign="MIDDLE")
+    b.textbox("S22", "Code:  github.com/ChazeRodriguez/slu-egovernance-chatbot-car-lexicon", 26, 356, 514, 22, font_size=11.5, color="#CBD5E1", align="left", valign="MIDDLE")
+
+    # Crisp high-contrast QR Code card on bottom-right for instant classroom phone scan
+    qr_path = os.path.join(PRES_DIR, "portal_qr.png")
+    b.rect("S22", 556, 234, 136, 152, C_WHITE, outline_hex=C_GOLD)
+    if os.path.exists(qr_path):
+        b.image("S22", qr_path, 564, 240, 120, 120)
+    b.textbox("S22", "SCAN LIVE DEMO", 556, 360, 136, 22, font_size=11, bold=True, color=C_NAVY, align="center", valign="MIDDLE")
 
 
 def export_speaker_script_md():
