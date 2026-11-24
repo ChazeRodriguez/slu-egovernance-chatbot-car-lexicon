@@ -1,0 +1,26 @@
+Lexicon_ID,Lemma_Entry,Language_ISO,POS_Tag,Morphological_Root,Affix_or_Type,Institutional_or_English_Gloss,Filipino_Gloss,Domain_Intent_Mapping
+SLU-001,samcis,en-SLU,PROPN,samcis,Acronym,"School of Accountancy, Management, Computing and Information Studies",Paaralan ng Accountancy Management Computing at Information Studies,ACADEMIC_SHIFTING_TRANSFER
+SLU-002,seait,en-SLU,PROPN,seait,Acronym,"School of Engineering, Architecture, and Information Technology",Paaralan ng Inhinyeriya Arkitektura at Teknolohiyang Pang-impormasyon,ACADEMIC_SHIFTING_TRANSFER
+SLU-003,sonahbs,en-SLU,PROPN,sonahbs,Acronym,"School of Nursing, Allied Health, and Biological Sciences",Paaralan ng Nursing Allied Health at Agham Biyolohikal,ACADEMIC_SHIFTING_TRANSFER
+SLU-004,mls,en-SLU,PROPN,mls,Acronym,Bachelor of Science in Medical Laboratory Science,Batsilyer ng Agham sa Medical Laboratory Science,ACADEMIC_SHIFTING_TRANSFER
+SLU-005,uro,en-SLU,PROPN,uro,Acronym,University Registrar's Office,Tanggapan ng Tagapagrehistro ng Unibersidad,URO_ENROLLMENT_TOR
+SLU-006,tor,en-SLU,NOUN,tor,Acronym,Official Transcript of Records,Opisyal na Talaan ng mga Marka,URO_ENROLLMENT_TOR
+SLU-007,cog,en-SLU,NOUN,cog,Acronym,Certificate of Grades,Katibayan ng mga Marka,URO_ENROLLMENT_TOR
+SLU-008,qe,en-SLU,NOUN,qe,Acronym,Qualifying Examination for Transferees and Shiftees,Pagsusulit sa Kwalipikasyon,ACADEMIC_SHIFTING_TRANSFER
+SLU-009,fda,en-SLU,NOUN,fda,Acronym,Failure Due to Absences (exceeding 20 percent of class hours),Bagsak Dahil sa Pagliban,HANDBOOK_GRADING_FDA
+SLU-010,pathfit,en-SLU,PROPN,pathfit,Acronym,Physical Activity Towards Health and Fitness Course,Asignaturang Edukasyong Pisikal at Kalusugan,CAMPUS_HEALTH_SAFETY
+SLU-011,rfid,en-SLU,NOUN,rfid,Acronym,Validated SLU Radio-Frequency Identification Student Card,Opisyal na ID Card ng Estudyante sa SLU,EXAM_PERMIT_INTEGRITY
+SLU-012,dp,tl-SLU,NOUN,downpayment,Abbreviation,Required Enrollment Downpayment via SLU Portal or Partner Banks,Paunang Bayad sa Matrikula,TUITION_FINANCE
+SLU-013,ambilat,kne-tl,ADJ,bigat,Phonetic_Variant,Heavy emotional or academic workload burden (Baguio/Cordilleran Taglish variant of ambigat),Mabigat sa pakiramdam dahil sa sabay-sabay na pagsusulit,CAMPUS_HEALTH_SAFETY
+ILO-001,naimbag,ilo,ADJ,imbag,na-,Good; pleasant; courteous greeting in Ilocano student inquiries,Mabuti; maganda,CAR_REGIONAL_LEXICON
+ILO-002,agadal,ilo,VERB,adal,ag-,To study; to pursue academic coursework at the university,Mag-aral sa unibersidad,URO_ENROLLMENT_PORTAL
+ILO-003,agsurat,ilo,VERB,surat,ag-,To write; to file a formal written application or petition,Sumulat; maghain ng kahilingan,URO_ENROLLMENT_TOR
+ILO-004,agsao,ilo,VERB,sao,ag-,To speak; to inquire or communicate in Ilocano,Magsalita; magtanong,CAR_REGIONAL_LEXICON
+ILO-005,danum,ilo,NOUN,danum,Root,Water; campus utility and sanitation resource,Tubig,CAMPUS_FACILITIES_LAB
+KNE-001,gawis,kne,ADJ,gawis,Root,Good; well; fine (Northern Kankanaey greeting and well-being marker),Mabuti; maayos,CAR_REGIONAL_LEXICON
+KNE-002,inayan,kne,INTJ,inayan,Root,Cordilleran ethical restraint against academic dishonesty or misconduct,Katutubong konseptong moral laban sa pandaraya o masamang gawa,EXAM_PERMIT_INTEGRITY
+KNE-003,dap-ay,kne,NOUN,dap-ay,Root,Indigenous communal council and peer consultation center,Katutubong sentro ng sanggunian at talakayan,GENERAL_COMMUNITY
+KNE-004,man-obla,kne,VERB,obla,man-,To work; to complete academic or laboratory tasks diligently,Magtrabaho; gumawa ng gawain,CAMPUS_FACILITIES_LAB
+KNE-005,ubbo,kne,NOUN,ubbo,Root,Mutual cooperative peer assistance and group study labor,Bayanihan; tulungang paggawa,GENERAL_COMMUNITY
+IBL-001,mapteng,ibl,ADJ,peteng,ma-,Good; pleasant; well (Ibaloi campus greeting and welfare term),Mabuti; maganda; maayos,CAR_REGIONAL_LEXICON
+IBL-002,tongtong,ibl,NOUN,tongtong,Root,Customary dispute resolution and disciplinary council mediation,Katutubong paglilitis at pag-aayos ng sigalot,EXAM_PERMIT_INTEGRITY

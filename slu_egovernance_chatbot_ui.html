@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLU eGovernance Multilingual Chatbot & CAR Lexicon Portal | Group 2 AiNomally</title>
+<style>
+  :root {
+    --slu-navy: #002855;
+    --slu-royal: #004b87;
+    --slu-gold: #d4af37;
+    --slu-gold-light: #fef9c3;
+    --bg-slate: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --border-col: #cbd5e1;
+    --success: #15803d;
+    --danger: #b91c1c;
+    --warn: #b45309;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-slate);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: linear-gradient(100deg, var(--slu-navy) 0%, var(--slu-royal) 72%, var(--slu-gold) 100%);
+    color: #ffffff;
+    padding: 18px 32px;
+    box-shadow: 0 4px 16px rgba(0, 40, 85, 0.22);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand-left h1 {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+  .brand-left p {
+    font-size: 13px;
+    color: #e2e8f0;
+    margin-top: 3px;
+  }
+  .header-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .h-badge {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .h-badge.gold {
+    background: #facc15;
+    color: #0f172a;
+    border-color: #facc15;
+    font-weight: 700;
+  }
+  .nav-tabs {
+    background: #ffffff;
+    border-bottom: 2px solid var(--border-col);
+    padding: 0 32px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover {
+    color: var(--slu-navy);
+    background: #f8fafc;
+  }
+  .tab-btn.active {
+    color: var(--slu-navy);
+    border-bottom-color: var(--slu-gold);
+    background: #f8fafc;
+  }
+  main {
+    flex: 1;
+    padding: 24px 32px;
+    max-width: 1480px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .tab-panel {
+    display: none;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+  /* TAB 1: CHATBOT + LIVE NLP INSPECTOR */
+  .chat-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 1080px) {
+    .chat-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .panel-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-col);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+  }
+  .panel-header {
+    background: var(--slu-navy);
+    color: #ffffff;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .panel-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .panel-header span {
+    font-size: 12px;
+    background: rgba(255,255,255,0.16);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .presets-bar {
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border-col);
+  }
+  .presets-bar .lbl {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .preset-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip-btn {
+    background: #ffffff;
+    border: 1px solid #94a3b8;
+    color: var(--slu-navy);
+    padding: 5px 11px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .chip-btn:hover {
+    background: var(--slu-navy);
+    color: #ffffff;
+    border-color: var(--slu-navy);
+  }
+  .chat-messages {
+    height: 430px;
+    overflow-y: auto;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #ffffff;
+  }
+  .msg {
+    max-width: 88%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .msg.user {
+    align-self: flex-end;
+    background: var(--slu-royal);
+    color: #ffffff;
+    border-bottom-right-radius: 3px;
+  }
+  .msg.bot {
+    align-self: flex-start;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: var(--text-main);
+    border-bottom-left-radius: 3px;
+  }
+  .msg-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .tag.intent { background: #dbeafe; color: #1e40af; }
+  .tag.lang { background: #fef3c7; color: #92400e; }
+  .tag.cite { background: #dcfce7; color: #166534; }
+  .chat-input-row {
+    display: flex;
+    gap: 10px;
+    padding: 14px 16px;
+    background: #f8fafc;
+    border-top: 1px solid var(--border-col);
+  }
+  .chat-input-row input {
+    flex: 1;
+    padding: 11px 14px;
+    border: 1px solid #94a3b8;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+  }
+  .chat-input-row input:focus {
+    border-color: var(--slu-royal);
+    box-shadow: 0 0 0 2px rgba(0, 75, 135, 0.18);
+  }
+  .send-btn {
+    background: var(--slu-navy);
+    color: #ffffff;
+    border: none;
+    padding: 0 22px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .send-btn:hover {
+    background: var(--slu-royal);
+  }
+  /* Inspector Right Column */
+  .inspector-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .trace-step {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid var(--slu-navy);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .trace-step.gold {
+    border-left-color: var(--slu-gold);
+    background: #fffbeb;
+  }
+  .trace-step h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--slu-navy);
+    margin-bottom: 6px;
+  }
+  .trace-step p, .trace-step code {
+    font-size: 13px;
+    line-height: 1.45;
+    color: #1e293b;
+    word-break: break-word;
+  }
+  .pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 4px;
+  }
+  .pill {
+    background: #e2e8f0;
+    color: #0f172a;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .pill.lex {
+    background: #fef08a;
+    color: #713f12;
+    font-weight: 600;
+  }
+  /* KPI ROW & TABLES */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  @media (max-width: 800px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  .kpi-card {
+    background: var(--slu-navy);
+    color: #ffffff;
+    padding: 18px 20px;
+    border-radius: 10px;
+    text-align: center;
+    border-bottom: 4px solid var(--slu-gold);
+  }
+  .kpi-card .num {
+    font-size: 30px;
+    font-weight: 800;
+    color: #facc15;
+  }
+  .kpi-card .lbl {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-top: 4px;
+    color: #e2e8f0;
+  }
+  .filter-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    background: #ffffff;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border-col);
+    align-items: center;
+  }
+  .filter-bar input, .filter-bar select {
+    padding: 8px 12px;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    font-size: 13.5px;
+  }
+  .filter-bar input {
+    flex: 1;
+    min-width: 220px;
+  }
+  .table-wrap {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid var(--border-col);
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  th {
+    background: var(--slu-navy);
+    color: #ffffff;
+    text-align: left;
+    padding: 11px 14px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+  .bar-track {
+    width: 120px;
+    background: #e2e8f0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  .bar-fill {
+    background: var(--slu-royal);
+    height: 100%;
+  }
+  footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-col);
+    background: #ffffff;
+    margin-top: 32px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-left">
+    <h1>Saint Louis University • eGovernance Multilingual Chatbot &amp; CAR Lexicon Portal</h1>
+    <p>CSE 30: CS Special Topics (NLP) • Group 2 – AiNomally (Angcaway, Delin, Hernandez, Rodriguez, Sibayan) • Prof. Dalos D. Miguel</p>
+  </div>
+  <div class="header-badges">
+    <span class="h-badge gold">Midterm Verified Deployment</span>
+    <span class="h-badge">24 Corpus Docs</span>
+    <span class="h-badge">624 Filtered Tokens</span>
+    <span class="h-badge">25 SLU &amp; CAR Lexicon Entries</span>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="switchTab('tab-chat', this)">1. Live SLU eGovernance Chatbot &amp; NLP Pipeline Inspector</button>
+  <button class="tab-btn" onclick="switchTab('tab-lexicon', this)">2. Online Multilingual Electronic Lexicon (SLU + Ilocano, Kankanaey, Ibaloi)</button>
+  <button class="tab-btn" onclick="switchTab('tab-corpus', this)">3. Annotated Midterm Corpus &amp; Bag of Words Matrix</button>
+</nav>
+
+<main>
+  <!-- TAB 1: LIVE CHATBOT & NLP PIPELINE TRACE -->
+  <section id="tab-chat" class="tab-panel active">
+    <div class="chat-grid">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2>SLU Institutional Student Support Assistant</h2>
+          <span>English • Filipino • Taglish • Ilocano • Kankanaey • Ibaloi</span>
+        </div>
+        <div class="presets-bar">
+          <span class="lbl">Click a Sample Multilingual Student Inquiry to Test Live Pipeline:</span>
+          <div class="preset-chips">
+            <button class="chip-btn" onclick="runPreset(0)">Taglish: SAMCIS to SEAIT Shifting &amp; QE</button>
+            <button class="chip-btn" onclick="runPreset(1)">Ilocano + Taglish: Agadal, 20% FDA &amp; Exam Phone Rule</button>
+            <button class="chip-btn" onclick="runPreset(2)">URO Portal: Online TOR, COG &amp; Clearance</button>
+            <button class="chip-btn" onclick="runPreset(3)">Taglish: Tuition Downpayment (dp) &amp; Portal Advising</button>
+            <button class="chip-btn" onclick="runPreset(4)">Kankanaey: Gawis &amp; Inayan Academic Integrity</button>
+            <button class="chip-btn" onclick="runPreset(5)">Campus Clinic, PATHFIT &amp; Baguio Earthquake Drill</button>
+          </div>
+        </div>
+        <div id="chat-box" class="chat-messages"></div>
+        <div class="chat-input-row">
+          <input type="text" id="user-input" placeholder="Ask in English, Taglish, Ilocano, Kankanaey, or Ibaloi (e.g., Paano kumuha ng TOR sa URO?)" onkeydown="if(event.key==='Enter') sendUserQuery()">
+          <button class="send-btn" onclick="sendUserQuery()">Send Query</button>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2>Live 6-Stage NLP Pipeline Execution Trace</h2>
+          <span>Real-Time Verification</span>
+        </div>
+        <div id="inspector-content" class="inspector-body">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: MULTILINGUAL ELECTRONIC LEXICON -->
+  <section id="tab-lexicon" class="tab-panel">
+    <div class="filter-bar">
+      <input type="text" id="lex-search" placeholder="Search lemma, acronym, root, or English/Filipino gloss (e.g., samcis, agadal, inayan, tor)..." oninput="renderLexiconTable()">
+      <select id="lex-lang" onchange="renderLexiconTable()">
+        <option value="ALL">All Languages (25 Entries)</option>
+        <option value="en-SLU">SLU Institutional Acronyms (en-SLU)</option>
+        <option value="tl-SLU">Taglish Student Slang (tl-SLU / kne-tl)</option>
+        <option value="ilo">CAR Local: Ilocano (ilo)</option>
+        <option value="kne">CAR Local: Northern Kankanaey (kne)</option>
+        <option value="ibl">CAR Local: Ibaloi (ibl)</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Lexicon ID</th>
+            <th>Lemma Entry</th>
+            <th>Language ISO</th>
+            <th>POS</th>
+            <th>Root &amp; Affix</th>
+            <th>Institutional / English Gloss</th>
+            <th>Filipino Gloss</th>
+            <th>Mapped Chatbot Intent</th>
+          </tr>
+        </thead>
+        <tbody id="lex-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB 3: ANNOTATED CORPUS & BOW EXPLORER -->
+  <section id="tab-corpus" class="tab-panel">
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="num">24</div><div class="lbl">Consolidated Cleaned Documents</div></div>
+      <div class="kpi-card"><div class="num">624</div><div class="lbl">Filtered Content Tokens</div></div>
+      <div class="kpi-card"><div class="num">426</div><div class="lbl">Verified Domain Stem Vocabulary</div></div>
+      <div class="kpi-card"><div class="num">0</div><div class="lbl">Corrupted English/Filipino Roots</div></div>
+    </div>
+
+    <div class="chat-grid" style="margin-bottom: 24px;">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2>Top 30 Verified Bag of Words Stems (corpus_bow_summary.csv)</h2>
+          <span>Total Filtered Tokens = 624</span>
+        </div>
+        <div class="table-wrap" style="max-height: 420px; overflow-y: auto; border: none;">
+          <table>
+            <thead>
+              <tr><th>Rank</th><th>Stem / Lemma</th><th>Freq</th><th>Coverage (%)</th></tr>
+            </thead>
+            <tbody id="bow-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2>Top Institutional Bigram Collocations (n=2)</h2>
+          <span>preprocessed_tokens.json</span>
+        </div>
+        <div class="table-wrap" style="max-height: 420px; overflow-y: auto; border: none;">
+          <table>
+            <thead>
+              <tr><th>Bigram Collocation</th><th>Freq</th><th>Operational Intent Trigger</th></tr>
+            </thead>
+            <tbody id="bigram-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <div class="panel-header">
+        <h2>24-Document Multi-Layer Annotated Corpus (annotated_corpus_midterm.csv)</h2>
+        <span>Intent • Sentiment/Urgency • Code-Switching</span>
+      </div>
+      <div class="filter-bar" style="margin: 0; border-radius: 0; border-left: none; border-right: none;">
+        <input type="text" id="doc-search" placeholder="Filter corpus documents by keyword, acronym, or policy..." oninput="renderCorpusTable()">
+        <select id="doc-intent" onchange="renderCorpusTable()">
+          <option value="ALL">All Intent Categories (24 Docs)</option>
+          <option value="URO_ENROLLMENT_TOR">URO_ENROLLMENT_TOR</option>
+          <option value="URO_ENROLLMENT_PORTAL">URO_ENROLLMENT_PORTAL</option>
+          <option value="URO_SUBJECT_ADJUSTMENT">URO_SUBJECT_ADJUSTMENT</option>
+          <option value="ACADEMIC_SHIFTING_TRANSFER">ACADEMIC_SHIFTING_TRANSFER</option>
+          <option value="HANDBOOK_GRADING_FDA">HANDBOOK_GRADING_FDA</option>
+          <option value="EXAM_PERMIT_INTEGRITY">EXAM_PERMIT_INTEGRITY</option>
+          <option value="CAMPUS_HEALTH_SAFETY">CAMPUS_HEALTH_SAFETY</option>
+          <option value="CAMPUS_FACILITIES_LAB">CAMPUS_FACILITIES_LAB</option>
+          <option value="CAMPUS_DECORUM_DRESSCODE">CAMPUS_DECORUM_DRESSCODE</option>
+          <option value="TUITION_FINANCE">TUITION_FINANCE</option>
+          <option value="GENERAL_COMMUNITY">GENERAL_COMMUNITY</option>
+        </select>
+      </div>
+      <div class="table-wrap" style="border: none;">
+        <table>
+          <thead>
+            <tr>
+              <th>Doc ID</th>
+              <th>Source Repository &amp; Reference</th>
+              <th>Intent Category</th>
+              <th>Sentiment / Urgency</th>
+              <th>Lang</th>
+              <th>Cleaned Document Text (cleaned_corpus.txt)</th>
+            </tr>
+          </thead>
+          <tbody id="corpus-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Saint Louis University • Department of Computer Science (SAMCIS) • CSE 30: CS Special Topics (NLP) • Group 2 – AiNomally
+</footer>
+
+<script>
+// ============================================================================
+// 1. VERIFIED DATA REPOSITORIES
+// ============================================================================
+const STOPWORDS = new Set([
+  'the','a','an','and','or','in','on','at','to','for','of','with','is','are','was','were','be','been','being','am',
+  'this','that','these','those','from','by','it','its','as','if','what','who','when','where','how','why','all','any',
+  'can','will','would','should','could','must','may','shall','have','has','had','do','does','did','not','no','nor',
+  'but','so','because','about','into','through','during','before','after','above','below','between','under','within',
+  'without','upon','toward','until','since','while','only','also','very','still','even','just','more','most','than',
+  'other','such','own','same','some','each','every','both','few','many','much','now','then','here','there','up','down',
+  'out','off','over','again','further','once','you','your','yours','yourself','me','my','mine','myself','he','him',
+  'his','himself','she','her','hers','herself','we','us','our','ours','ourselves','they','them','their','theirs',
+  'themselves','one','two','first','second','1st','like','yes','please','hello','hi','lowkey','haha','sis','guys',
+  'real','hell','let','get','got','gave','make','made','know','knows','said','told','met','went','go','going',
+  'looking','look','see','seen','ang','mga','sa','ng','na','ay','si','sina','ni','nina','kay','kina','po','ko','mo',
+  'nila','natin','namin','ninyo','niyo','inyo','akin','aking','iyo','kanila','kaniya','kanya','kami','tayo','kayo',
+  'sila','siya','ako','ikaw','ka','kong','ba','pa','din','rin','raw','daw','lang','lamang','naman','kasi','kung',
+  'at','o','para','dahil','upang','kapag','pag','nag','nang','may','meron','wala','walang','hindi','oo','ito','iyan',
+  'iyon','yan','yun','yung','dito','diyan','doon','ganito','ganyan','ganoon','ata','atang','pala','muna','talaga',
+  'dati','ngayon','noong','tapos','pero','kaya','ulit','ano','anong','paano','bakit','saan','sino','kailan','alin',
+  'ilan','magkano','pwede','puwede','kuya','ate'
+]);
+
+const LEMMA_MAP = {
+  'students':'student','sem':'semester','semesters':'semester','exams':'examination','exam':'examination',
+  'examinations':'examination','subjects':'subject','grades':'grade','grading':'grade','grad':'graduation',
+  'requirements':'requirement','required':'requirement','certificates':'certificate','certifications':'certificate',
+  'certification':'certificate','campuses':'campus','departments':'department','portals':'portal',
+  'transferees':'transferee','transcripts':'transcript','absences':'absence','activities':'activity',
+  'deadlines':'deadline','courses':'course','programs':'program','documents':'document','requests':'request',
+  'guidelines':'guideline','policies':'policy','platforms':'platform','services':'service',
+  'consultations':'consultation','checks':'check','practicums':'practicum','calamities':'calamity','events':'event',
+  'wardens':'warden','areas':'area','courts':'court','concerns':'concern','hours':'hour','permits':'permit',
+  'proctors':'proctor','rooms':'room','credentials':'credential','notes':'note','devices':'device',
+  'mondays':'monday','thursdays':'thursday','fridays':'friday','saturdays':'saturday','days':'day',
+  'slippers':'slipper','sandos':'sando','locations':'location','banks':'bank','cashiers':'cashier','weeks':'week',
+  'labs':'laboratory','lab':'laboratory','materials':'material','pipettes':'pipette','tips':'tip',
+  'projects':'project','cars':'car','drivers':'driver','pedestrians':'pedestrian','issues':'issue',
+  'children':'child','families':'family','encounters':'encounter','strangers':'stranger','pesos':'peso',
+  'thousands':'thousand','years':'year','tumataas':'taas','tumawid':'tawid','tatawid':'tawid',
+  'magreklamo':'reklamo','magtiis':'tiis','tinipid':'tipid','sinasabi':'sabi','sinabi':'sabi',
+  'ginagamit':'gamit','bibilisan':'bilis','umakyat':'akyat','nakakahalata':'halata','nasanay':'sanay'
+};
+
+const DOMAIN_LEXICON = [
+  {id:"SLU-001",lemma:"samcis",lang:"en-SLU",pos:"PROPN",root:"samcis",affix:"Acronym",en:"School of Accountancy, Management, Computing and Information Studies",fil:"Paaralan ng Accountancy Management Computing at Information Studies",intent:"ACADEMIC_SHIFTING_TRANSFER"},
+  {id:"SLU-002",lemma:"seait",lang:"en-SLU",pos:"PROPN",root:"seait",affix:"Acronym",en:"School of Engineering, Architecture, and Information Technology",fil:"Paaralan ng Inhinyeriya Arkitektura at Teknolohiyang Pang-impormasyon",intent:"ACADEMIC_SHIFTING_TRANSFER"},
+  {id:"SLU-003",lemma:"sonahbs",lang:"en-SLU",pos:"PROPN",root:"sonahbs",affix:"Acronym",en:"School of Nursing, Allied Health, and Biological Sciences",fil:"Paaralan ng Nursing Allied Health at Agham Biyolohikal",intent:"ACADEMIC_SHIFTING_TRANSFER"},
+  {id:"SLU-004",lemma:"mls",lang:"en-SLU",pos:"PROPN",root:"mls",affix:"Acronym",en:"Bachelor of Science in Medical Laboratory Science",fil:"Batsilyer ng Agham sa Medical Laboratory Science",intent:"ACADEMIC_SHIFTING_TRANSFER"},
+  {id:"SLU-005",lemma:"uro",lang:"en-SLU",pos:"PROPN",root:"uro",affix:"Acronym",en:"University Registrar's Office",fil:"Tanggapan ng Tagapagrehistro ng Unibersidad",intent:"URO_ENROLLMENT_TOR"},
+  {id:"SLU-006",lemma:"tor",lang:"en-SLU",pos:"NOUN",root:"tor",affix:"Acronym",en:"Official Transcript of Records",fil:"Opisyal na Talaan ng mga Marka",intent:"URO_ENROLLMENT_TOR"},
+  {id:"SLU-007",lemma:"cog",lang:"en-SLU",pos:"NOUN",root:"cog",affix:"Acronym",en:"Certificate of Grades",fil:"Katibayan ng mga Marka",intent:"URO_ENROLLMENT_TOR"},
+  {id:"SLU-008",lemma:"qe",lang:"en-SLU",pos:"NOUN",root:"qe",affix:"Acronym",en:"Qualifying Examination for Transferees and Shiftees",fil:"Pagsusulit sa Kwalipikasyon",intent:"ACADEMIC_SHIFTING_TRANSFER"},
+  {id:"SLU-009",lemma:"fda",lang:"en-SLU",pos:"NOUN",root:"fda",affix:"Acronym",en:"Failure Due to Absences (exceeding 20 percent of class hours)",fil:"Bagsak Dahil sa Pagliban",intent:"HANDBOOK_GRADING_FDA"},
+  {id:"SLU-010",lemma:"pathfit",lang:"en-SLU",pos:"PROPN",root:"pathfit",affix:"Acronym",en:"Physical Activity Towards Health and Fitness Course",fil:"Asignaturang Edukasyong Pisikal at Kalusugan",intent:"CAMPUS_HEALTH_SAFETY"},
+  {id:"SLU-011",lemma:"rfid",lang:"en-SLU",pos:"NOUN",root:"rfid",affix:"Acronym",en:"Validated SLU Radio-Frequency Identification Student Card",fil:"Opisyal na ID Card ng Estudyante sa SLU",intent:"EXAM_PERMIT_INTEGRITY"},
+  {id:"SLU-012",lemma:"dp",lang:"tl-SLU",pos:"NOUN",root:"downpayment",affix:"Abbreviation",en:"Required Enrollment Downpayment via SLU Portal or Partner Banks",fil:"Paunang Bayad sa Matrikula",intent:"TUITION_FINANCE"},
+  {id:"SLU-013",lemma:"ambilat",lang:"kne-tl",pos:"ADJ",root:"bigat",affix:"Phonetic_Variant",en:"Heavy emotional or academic workload burden (Baguio/Cordilleran Taglish variant of ambigat)",fil:"Mabigat sa pakiramdam dahil sa sabay-sabay na pagsusulit",intent:"CAMPUS_HEALTH_SAFETY"},
+  {id:"ILO-001",lemma:"naimbag",lang:"ilo",pos:"ADJ",root:"imbag",affix:"na-",en:"Good; pleasant; courteous greeting in Ilocano student inquiries",fil:"Mabuti; maganda",intent:"CAR_REGIONAL_LEXICON"},
+  {id:"ILO-002",lemma:"agadal",lang:"ilo",pos:"VERB",root:"adal",affix:"ag-",en:"To study; to pursue academic coursework at the university",fil:"Mag-aral sa unibersidad",intent:"URO_ENROLLMENT_PORTAL"},
+  {id:"ILO-003",lemma:"agsurat",lang:"ilo",pos:"VERB",root:"surat",affix:"ag-",en:"To write; to file a formal written application or petition",fil:"Sumulat; maghain ng kahilingan",intent:"URO_ENROLLMENT_TOR"},
+  {id:"ILO-004",lemma:"agsao",lang:"ilo",pos:"VERB",root:"sao",affix:"ag-",en:"To speak; to inquire or communicate in Ilocano",fil:"Magsalita; magtanong",intent:"CAR_REGIONAL_LEXICON"},
+  {id:"ILO-005",lemma:"danum",lang:"ilo",pos:"NOUN",root:"danum",affix:"Root",en:"Water; campus utility and sanitation resource",fil:"Tubig",intent:"CAMPUS_FACILITIES_LAB"},
+  {id:"KNE-001",lemma:"gawis",lang:"kne",pos:"ADJ",root:"gawis",affix:"Root",en:"Good; well; fine (Northern Kankanaey greeting and well-being marker)",fil:"Mabuti; maayos",intent:"CAR_REGIONAL_LEXICON"},
+  {id:"KNE-002",lemma:"inayan",lang:"kne",pos:"INTJ",root:"inayan",affix:"Root",en:"Cordilleran ethical restraint against academic dishonesty or misconduct",fil:"Katutubong konseptong moral laban sa pandaraya o masamang gawa",intent:"EXAM_PERMIT_INTEGRITY"},
+  {id:"KNE-003",lemma:"dap-ay",lang:"kne",pos:"NOUN",root:"dap-ay",affix:"Root",en:"Indigenous communal council and peer consultation center",fil:"Katutubong sentro ng sanggunian at talakayan",intent:"GENERAL_COMMUNITY"},
+  {id:"KNE-004",lemma:"man-obla",lang:"kne",pos:"VERB",root:"obla",affix:"man-",en:"To work; to complete academic or laboratory tasks diligently",fil:"Magtrabaho; gumawa ng gawain",intent:"CAMPUS_FACILITIES_LAB"},
+  {id:"KNE-005",lemma:"ubbo",lang:"kne",pos:"NOUN",root:"ubbo",affix:"Root",en:"Mutual cooperative peer assistance and group study labor",fil:"Bayanihan; tulungang paggawa",intent:"GENERAL_COMMUNITY"},
+  {id:"IBL-001",lemma:"mapteng",lang:"ibl",pos:"ADJ",root:"peteng",affix:"ma-",en:"Good; pleasant; well (Ibaloi campus greeting and welfare term)",fil:"Mabuti; maganda; maayos",intent:"CAR_REGIONAL_LEXICON"},
+  {id:"IBL-002",lemma:"tongtong",lang:"ibl",pos:"NOUN",root:"tongtong",affix:"Root",en:"Customary dispute resolution and disciplinary council mediation",fil:"Katutubong paglilitis at pag-aayos ng sigalot",intent:"EXAM_PERMIT_INTEGRITY"}
+];
+
+const CORPUS_DOCS = [
+  {id:1,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #25689",intent:"GENERAL_COMMUNITY",sent:"NEUTRAL_PERSONAL",lang:"EN",text:"to my samcis guy i miss you. i hope you know that i was waiting for you to send me a message that you be the one to initiate our conversation at that time but you never did. i will still answer if you call me please do so"},
+  {id:2,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #25628",intent:"TUITION_FINANCE",sent:"NEGATIVE_URGENT",lang:"TL-EN",text:"why is slu lowkey increasing the total tuition fee recently mid sem? akala ata nila walang nakakahalata? last sem it was about 60 pesos ngayon naman 105 pesos it may be a small amount per person but multiply it to thousands of students. ano yun inflation mid sem? gusto ninyo rin atang ma arteks of lakandula. yes sis every sem tumataas sinasabi ko pa dati ang mura ng downpayment kasi 6900 first year first sem tapos noong nag second sem 1st year 11200 na haha same until now na pa grad na nasanay na lang na every sem ang pag taas tuition."},
+  {id:3,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #25599",intent:"CAMPUS_FACILITIES_LAB",sent:"NEGATIVE_URGENT",lang:"TL-EN",text:"had to agree with like be for real slu? for years the department of mls gave you the greatest pride always bringing home the top performing school title pero what the hell kailangan namin magtiis sa mga tinipid na materials for lab? kapiranggot na litmus paper? reused pipette tips and pasteur pipettes? like what the hell! have some shame! beautification projects gusto? dadag ng budget for labs ayaw?"},
+  {id:4,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #25606",intent:"GENERAL_COMMUNITY",sent:"NEUTRAL_INQUIRY",lang:"TL-EN",text:"guys asking for a friend. totoo ba pag sinabi ng lalaki na study first muna? like haha"},
+  {id:5,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #25605",intent:"ACADEMIC_SHIFTING_TRANSFER",sent:"NEUTRAL_INQUIRY",lang:"TL-EN",text:"pwede mag tanong? paano po ba process ng shifting from samcis to seait or sonahbs? may qualifying exams po ba ulit or direct submission lang sa uro window?"},
+  {id:6,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #25582",intent:"CAMPUS_HEALTH_SAFETY",sent:"NEGATIVE_URGENT",lang:"CAR-TL-EN",text:"ambigat sa pakiramdam kapag sabay sabay ang deadlines ng prelim activities at long exams sa engineering at computing. may mental health break po ba tayo this term?"},
+  {id:7,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #5275",intent:"GENERAL_COMMUNITY",sent:"POSITIVE_REFLECTIVE",lang:"CAR-TL-EN",text:"it is almost a month na pala since umakyat me here sa baguio. still my biggest culture shock dito sa baguio in general is how people make tawid like pag walang police officer or stop light. mga people will just make tawid like straight lang sila without looking if my car or wala. then yung mga cars naman will automatically stop. i remember noong 1st time ko tumawid i am like a kid looking left and right then kuya just make tawid like straight lang siya. i am like amaze lang that car drivers knows when to stop let people walk and people stop to let car go. like anong magic ang ginagamit dito. sa amin kasi like patentero ka sa cars like it is your kasalanan if tatawid ka sa pedestrian crossing drivers will like make busina and bibilisan nila. it is very amazing that drivers and pedestrians are like connected here in baguio. it is so nakaka amaze talaga. so far that is my biggest culture shock."},
+  {id:8,file:"slu_community_inquiries_raw.txt",ref:"Freedom Wall #25510",intent:"GENERAL_COMMUNITY",sent:"POSITIVE_REFLECTIVE",lang:"TL-EN",text:"the kind mother i met today. this morning just before my class in bonifacio campus this woman had an amputated left leg because of diabetes and was now suffering from heart issues. she was living alone surviving by herself. a man following her at the cashier also paid for her meal at that moment and she was thankful. her two children now had their own families. i was teary and told her anong karapatan kong magreklamo sa sitwasyon namin ngayon? she said alam mo ang dami kong anghel. salamat talaga sa iyo. thank you for reminding me that genuine kindness still exists even in the briefest encounters with strangers."},
+  {id:9,file:"slu_safety_and_support_guide.txt",ref:"Section 1: Digital Platforms & RA 10173",intent:"CAMPUS_HEALTH_SAFETY",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"the louisian community is mandated to exercise caution and ethical judgment in using social media and digital platforms. these platforms encompass university websites slu student portals official email systems and public online forums. posting libelous remarks unverified institutional rumors harassment or violating republic act 10173 data privacy act of 2012 is subject to administrative sanctions under student conduct policies."},
+  {id:10,file:"slu_safety_and_support_guide.txt",ref:"Section 2: University Clinic & PATHFIT",intent:"CAMPUS_HEALTH_SAFETY",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"the university clinic at the bonifacio and maryheights campuses provides emergency first aid outpatient medical consultations and routine dental checks. annual medical exams and physical fitness certificates are mandatory requirements for students taking physical education pathfit courses and laboratory practicums."},
+  {id:11,file:"slu_safety_and_support_guide.txt",ref:"Section 3: Seismic Evacuation & Security",intent:"CAMPUS_HEALTH_SAFETY",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"in case of natural calamities or seismic events in baguio city students must execute duck cover and hold and follow floor wardens toward designated open evacuation areas slu main oval and open courts. immediate security concerns should be reported to the security office located at gate 1 and gate 2."},
+  {id:12,file:"slu_student_handbook_regulations.txt",ref:"Article I, Section 1: Minimum Grade & Retention",intent:"HANDBOOK_GRADING_FDA",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"minimum grade requirements saint louis university operates under a standard numerical grading system from 75 to 99 percent. a grade of 75 is the minimum passing mark for any academic subject. grades below 75 indicate failure. for specialized degree programs under the school of accountancy management computing and information studies samcis and school of engineering retention grades may be set higher by the academic department."},
+  {id:13,file:"slu_student_handbook_regulations.txt",ref:"Article I, Section 2: Failure Due to Absences (FDA)",intent:"HANDBOOK_GRADING_FDA",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"failure due to absences fda regular class attendance is required of all students. a student who incurs unexcused absences of more than 20 percent of the total class hours designated for a course during a term shall be automatically dropped from the course roll and given a grade of fda failure due to absences."},
+  {id:14,file:"slu_student_handbook_regulations.txt",ref:"Article II, Section 3: Examination Permits & RFID",intent:"EXAM_PERMIT_INTEGRITY",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"examination permits students are required to secure an official examination permit and present their validated slu rfid card prior to taking prelim midterm and final examinations. proctors reserve the right to bar any student from examination rooms without valid credentials."},
+  {id:15,file:"slu_student_handbook_regulations.txt",ref:"Article II, Section 4: Academic Integrity",intent:"EXAM_PERMIT_INTEGRITY",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"academic integrity plagiarism unauthorized collaboration possession of unauthorized notes use of mobile devices during examinations or contract cheating constitutes major academic dishonesty subject to suspension or dismissal under the slu disciplinary board."},
+  {id:16,file:"slu_student_handbook_regulations.txt",ref:"Article III, Section 5: Uniform & Wash Day Dress Code",intent:"CAMPUS_DECORUM_DRESSCODE",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"prescribed uniform and dress code students must strictly adhere to the university uniform code from mondays to thursdays. modest civilian attire is permissible only during designated wash days fridays and saturdays. slippers sandos revealing attire and apparel with obscene language are strictly forbidden within all slu campus locations."},
+  {id:17,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ Q1: Transferee Admission Query",intent:"ACADEMIC_SHIFTING_TRANSFER",sent:"NEUTRAL_INQUIRY",lang:"EN",text:"what are the admission requirements for transferee students at slu?"},
+  {id:18,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ A1: Transferee & Qualifying Exam Rules",intent:"ACADEMIC_SHIFTING_TRANSFER",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"slu admits transferees in all degree programs except bachelor of science in medical laboratory science mls subject to compliance with pertinent guidelines. transferees must undergo a qualifying examination qe personality evaluation and dean interview. required documents include an official transcript of records tor for evaluation certificate of transfer credential honorable dismissal and psa birth certificate."},
+  {id:19,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ Q2: Transcript & Certification Query",intent:"URO_ENROLLMENT_TOR",sent:"NEUTRAL_INQUIRY",lang:"EN",text:"how does a student request official academic transcripts and certifications?"},
+  {id:20,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ A2: Online TOR, COG & Clearance",intent:"URO_ENROLLMENT_TOR",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"requests for official transcripts of records tor certificates of grades cog and certificates of graduation must be filed online through the uro document request portal. clearance from the accounting department library services and dean of student affairs must be completed before physical or electronic release."},
+  {id:21,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ Q3: Continuing Enrollment Query",intent:"URO_ENROLLMENT_PORTAL",sent:"NEUTRAL_INQUIRY",lang:"EN",text:"what is the enrollment procedure for continuing undergraduate students?"},
+  {id:22,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ A3: Student Portal Advising & Downpayment",intent:"URO_ENROLLMENT_PORTAL",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"continuing students must complete online advising of subjects through the slu student portal settle the required downpayment through authorized payment partner banks or university cashiers and finalize schedule confirmation within their assigned year level window."},
+  {id:23,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ Q4: Adding/Dropping Subjects Query",intent:"URO_SUBJECT_ADJUSTMENT",sent:"NEUTRAL_INQUIRY",lang:"EN",text:"what is the procedure for dropping or adding subjects during the adjustment period?"},
+  {id:24,file:"slu_uro_enrollment_faqs.txt",ref:"URO FAQ A4: Two-Week Adjustment Form & Chair Endorsement",intent:"URO_SUBJECT_ADJUSTMENT",sent:"AUTHORITATIVE_POLICY",lang:"EN",text:"adding or dropping of subjects is permitted only during the first two weeks of regular semesters upon submission of an accomplished adjustment form endorsed by the academic department chair and approved by the university registrar."}
+];
+
+const BOW_TOP30 = [
+  {rank:1,term:"student",freq:16,cov:"2.56%"},
+  {rank:2,term:"slu",freq:10,cov:"1.60%"},
+  {rank:3,term:"examination",freq:9,cov:"1.44%"},
+  {rank:4,term:"semester",freq:8,cov:"1.28%"},
+  {rank:5,term:"grade",freq:7,cov:"1.12%"},
+  {rank:6,term:"requirement",freq:7,cov:"1.12%"},
+  {rank:7,term:"subject",freq:7,cov:"1.12%"},
+  {rank:8,term:"academic",freq:6,cov:"0.96%"},
+  {rank:9,term:"certificate",freq:6,cov:"0.96%"},
+  {rank:10,term:"university",freq:6,cov:"0.96%"},
+  {rank:11,term:"official",freq:5,cov:"0.80%"},
+  {rank:12,term:"car",freq:5,cov:"0.80%"},
+  {rank:13,term:"tawid",freq:5,cov:"0.80%"},
+  {rank:14,term:"baguio",freq:4,cov:"0.64%"},
+  {rank:15,term:"department",freq:4,cov:"0.64%"},
+  {rank:16,term:"laboratory",freq:4,cov:"0.64%"},
+  {rank:17,term:"people",freq:4,cov:"0.64%"},
+  {rank:18,term:"stop",freq:4,cov:"0.64%"},
+  {rank:19,term:"year",freq:4,cov:"0.64%"},
+  {rank:20,term:"absence",freq:3,cov:"0.48%"},
+  {rank:21,term:"campus",freq:3,cov:"0.48%"},
+  {rank:22,term:"class",freq:3,cov:"0.48%"},
+  {rank:23,term:"course",freq:3,cov:"0.48%"},
+  {rank:24,term:"medical",freq:3,cov:"0.48%"},
+  {rank:25,term:"online",freq:3,cov:"0.48%"},
+  {rank:26,term:"portal",freq:3,cov:"0.48%"},
+  {rank:27,term:"request",freq:3,cov:"0.48%"},
+  {rank:28,term:"samcis",freq:3,cov:"0.48%"},
+  {rank:29,term:"school",freq:3,cov:"0.48%"},
+  {rank:30,term:"transcript",freq:3,cov:"0.48%"}
+];
+
+const TOP_BIGRAMS = [
+  {bg:"official transcript",freq:2,intent:"URO_ENROLLMENT_TOR"},
+  {bg:"transcript records",freq:2,intent:"URO_ENROLLMENT_TOR"},
+  {bg:"records tor",freq:2,intent:"URO_ENROLLMENT_TOR"},
+  {bg:"student portal",freq:2,intent:"URO_ENROLLMENT_PORTAL"},
+  {bg:"qualifying examination",freq:2,intent:"ACADEMIC_SHIFTING_TRANSFER"},
+  {bg:"examination permit",freq:2,intent:"EXAM_PERMIT_INTEGRITY"},
+  {bg:"failure due",freq:2,intent:"HANDBOOK_GRADING_FDA"},
+  {bg:"due absence",freq:2,intent:"HANDBOOK_GRADING_FDA"},
+  {bg:"academic department",freq:2,intent:"HANDBOOK_GRADING_FDA / ADJUSTMENT"},
+  {bg:"bonifacio campus",freq:2,intent:"CAMPUS_HEALTH_SAFETY"},
+  {bg:"mid semester",freq:2,intent:"TUITION_FINANCE"},
+  {bg:"minimum grade",freq:2,intent:"HANDBOOK_GRADING_FDA"}
+];
+
+const PRESET_QUERIES = [
+  "Pwede mag tanong? Paano po ba process ng shifting from SAMCIS to SEAIT or SONAHBS? May qualifying exams po ba ulit or direct submission lang sa URO window?",
+  "Naimbag a bigat! Agadal ak idiay SAMCIS—ilan po ang absences bago ma-FDA at bawal ba ang phone sa exam?",
+  "Paano kumuha ng TOR at COG sa URO portal at ano ang clearance requirements?",
+  "Magkano ang downpayment (dp) sa SLU student portal at paano mag-enroll ang continuing students?",
+  "Gawis ay agew! Inayan ang cheating o plagiarism sa SLU exams di'ba? Ano po ang sanction at kailangan ba ng RFID at exam permit?",
+  "Saan po ang university clinic para sa PATHFIT medical certificate at saan ang evacuation area kapag may earthquake sa Baguio?"
+];
+
+// ============================================================================
+// 2. CLIENT-SIDE NLP PIPELINE (CLEANING, LEMMATIZATION, TF-IDF RETRIEVAL)
+// ============================================================================
+function cleanText(raw) {
+  let t = raw.toLowerCase();
+  t = t.replace(/\[.*?\]/g, ' ');
+  t = t.replace(/#slufreedomwall\d+/g, ' ');
+  t = t.replace(/https?:\/\/\S+|www\.\S+/g, ' ');
+  t = t.replace(/\((submitted:.*?|public post archive)\)/g, ' ');
+  t = t.replace(/^(q\d+|a\d+)\s*:\s*/g, '');
+  t = t.replace(/^section\s+\d+\.\s*/g, '');
+  t = t.replace(/(?<=\d),(?=\d)/g, '');
+  t = t.replace(/(\d+)\s*%/g, '$1 percent');
+
+  const clitics = [
+    [/\bba't\b/g, "bakit"], [/\bdi'ba\b|\bdiba\b/g, "hindi ba"],
+    [/\bsa'kin\b|\bsakin\b/g, "sa akin"], [/\bsa'yo\b|\bsayo\b/g, "sa iyo"],
+    [/\bn'yo\b|\bnyo\b/g, "ninyo"], [/\bano't\b/g, "ano at"],
+    [/\bsamin\b/g, "sa amin"], [/\bnung\b/g, "noong"],
+    [/\bngaun\b/g, "ngayon"], [/\bung\b/g, "yung"],
+    [/\bnalang\b/g, "na lang"], [/\bambilat\b/g, "ambigat"],
+    [/\brember\b/g, "remember"], [/\bmake\s+tawad\b/g, "make tawid"],
+    [/\bpedxing\b/g, "pedestrian crossing"], [/\bihyk\b/g, "i hope you know"],
+    [/\bconvo\b/g, "conversation"], [/\bwth\b/g, "what the hell"],
+    [/\bfr\b/g, "for real"], [/\bdp\b/g, "downpayment"]
+  ];
+  for (const [pat, rep] of clitics) t = t.replace(pat, rep);
+
+  const contractions = [
+    [/\bi'll\b|\bill\b/g, "i will"], [/\bi'm\b/g, "i am"],
+    [/\bit's\b/g, "it is"], [/\bthat's\b/g, "that is"],
+    [/n't\b/g, " not"], [/'re\b/g, " are"], [/'s\b/g, " is"],
+    [/'d\b/g, " would"], [/'ll\b/g, " will"], [/'ve\b/g, " have"]
+  ];
+  for (const [pat, rep] of contractions) t = t.replace(pat, rep);
+
+  t = t.replace(/[^a-z0-9\s\.\?\!]/g, ' ');
+  t = t.replace(/\b(downpayment|samcis|tor|cog|fda|mls|qe|pathfit)\s+\1\b/g, '$1');
+  t = t.replace(/[\.\?\!]{2,}/g, '.');
+  t = t.replace(/\s+([\.\?\!])/g, '$1');
+  t = t.replace(/\s+/g, ' ').trim();
+  return t;
+}
+
+function tokenize(text) {
+  return text.toLowerCase().match(/\b[a-z0-9]+\b/g) || [];
+}
+
+const PREFIX_EXCEPTIONS = new Set([
+  'management','manager','mandatory','mandated','magnifying','magnetic','magnitude',
+  'magnificent','magazine','magistrate','pageant','pagoda','pagination','nagging',
+  'mangled','mangrove','magulang','pangalan'
+]);
+const QUERY_SYNONYMS = {
+  'phone':['mobile','device','dishonesty','unauthorized','plagiarism','cheating','disciplinary'],
+  'cellphone':['mobile','device','dishonesty','unauthorized','plagiarism','cheating','disciplinary'],
+  'cp':['mobile','device','dishonesty','unauthorized'],
+  'gadget':['mobile','device','unauthorized'],
+  'bawal':['forbidden','unauthorized','strictly','dishonesty'],
+  'cheating':['dishonesty','plagiarism','unauthorized','disciplinary','suspension','dismissal'],
+  'cheat':['cheating','dishonesty','plagiarism','disciplinary'],
+  'kopyahan':['cheating','collaboration','unauthorized','dishonesty'],
+  'earthquake':['seismic','calamity','evacuation','duck','cover','oval'],
+  'lindol':['seismic','calamity','evacuation','duck','cover','oval'],
+  'shifting':['transferee','qualifying','examination','qe','evaluation','dean','adjustment','form','endorsed','chair','registrar'],
+  'shift':['shifting','transferee','qualifying','examination','qe','adjustment','form','endorsed','chair','registrar'],
+  'absent':['absence','fda','unexcused','dropped','attendance'],
+  'enroll':['enrollment','advising','continuing','portal','downpayment','schedule'],
+  'kumuha':['request','official','transcript','tor','cog','online','portal','clearance']
+};
+function bilingualStemmer(word) {
+  if (LEMMA_MAP[word]) return LEMMA_MAP[word];
+  if (PREFIX_EXCEPTIONS.has(word)) return word;
+  const prefixes = ['magpa','mang','nang','mag','nag','pag','nakaka','pinaka'];
+  for (const p of prefixes) {
+    if (word.startsWith(p) && word.length >= p.length + 4) {
+      return word.slice(p.length);
+    }
+  }
+  return word;
+}
+
+function generateBigrams(stems) {
+  const bgs = [];
+  for (let i = 0; i < stems.length - 1; i++) {
+    bgs.push(stems[i] + " " + stems[i+1]);
+  }
+  return bgs;
+}
+
+// Build TF-IDF index on page load
+const DOC_DF = {};
+const DOC_VECS = [];
+const DOC_NORMS = [];
+
+function initCorpusIndex() {
+  const N = CORPUS_DOCS.length;
+  for (const d of CORPUS_DOCS) {
+    const rawToks = tokenize(d.text);
+    const filt = rawToks.filter(t => !STOPWORDS.has(t) && t.length > 1 && !/^\d+$/.test(t));
+    const stems = filt.map(bilingualStemmer);
+    const bgs = generateBigrams(stems);
+    d.tokens = filt;
+    d.stems = stems;
+    d.bigrams = bgs;
+    const uniq = new Set([...stems, ...bgs]);
+    uniq.forEach(f => { DOC_DF[f] = (DOC_DF[f] || 0) + 1; });
+  }
+  for (const d of CORPUS_DOCS) {
+    const feats = [...d.stems, ...d.bigrams];
+    const tfMap = {};
+    feats.forEach(f => { tfMap[f] = (tfMap[f] || 0) + 1; });
+    const vec = {};
+    let normSq = 0;
+    for (const [f, tf] of Object.entries(tfMap)) {
+      const idf = Math.log((1 + N) / (1 + (DOC_DF[f] || 0))) + 1;
+      const w = tf * idf;
+      vec[f] = w;
+      normSq += w * w;
+    }
+    DOC_VECS.push(vec);
+    DOC_NORMS.push(normSq > 0 ? Math.sqrt(normSq) : 1);
+  }
+}
+
+function runQueryEngine(rawQuery) {
+  const cleaned = cleanText(rawQuery);
+  const rawToks = tokenize(cleaned);
+  const filtered = rawToks.filter(t => !STOPWORDS.has(t) && t.length > 1 && !/^\d+$/.test(t));
+  const stems = filtered.map(bilingualStemmer);
+  const bigrams = generateBigrams(stems);
+
+  // Match lexicon
+  const tokSet = new Set([...rawToks, ...stems, ... tokenize(rawQuery)]);
+  const matchedLex = DOMAIN_LEXICON.filter(e => tokSet.has(e.lemma) || (e.lemma === 'dp' && tokSet.has('downpayment')) || (e.lemma === 'ambilat' && tokSet.has('ambigat')));
+
+  // Detect code-switching
+  const hasCar = matchedLex.some(e => ['ilo','kne','ibl','kne-tl'].includes(e.lang));
+  const filWords = new Set(['po','ba','pa','lang','naman','kasi','mga','sa','ng','na','paano','bakit','ano','anong','saan','ilan','magkano','pwede','mag','nag','pag','kailangan','bawal']);
+  const hasFil = rawToks.some(t => filWords.has(t));
+  const codeSwitch = hasCar ? "CAR-TL-EN" : (hasFil ? "TL-EN" : "EN");
+
+  const expandedStems = [...stems];
+  const lexIntents = new Set();
+  matchedLex.forEach(e => {
+    if (e.intent !== "CAR_REGIONAL_LEXICON") lexIntents.add(e.intent);
+    if (e.lemma === "agadal") expandedStems.push("course","subject");
+    if (e.lemma === "agsurat") expandedStems.push("request","official","transcript","form");
+    if (e.lemma === "inayan") expandedStems.push("academic","integrity","dishonesty","cheating","plagiarism");
+    if (e.lemma === "tongtong") expandedStems.push("disciplinary","board","conduct");
+  });
+  new Set([...rawToks, ...stems]).forEach(tok => {
+    if (QUERY_SYNONYMS[tok]) expandedStems.push(...QUERY_SYNONYMS[tok]);
+  });
+
+  const sSet = new Set(expandedStems);
+  if (['shifting','transferee','qe','qualifying','seait','sonahbs'].some(k => sSet.has(k))) {
+    lexIntents.add("ACADEMIC_SHIFTING_TRANSFER");
+    if (['submission','window','uro','registrar','process','shifting'].some(k => sSet.has(k))) lexIntents.add("URO_SUBJECT_ADJUSTMENT");
+  }
+  if (['adding','dropping','adjustment','registrar'].some(k => sSet.has(k))) lexIntents.add("URO_SUBJECT_ADJUSTMENT");
+  if (['tor','cog','transcript','clearance'].some(k => sSet.has(k))) lexIntents.add("URO_ENROLLMENT_TOR");
+  if (['portal','advising','continuing','enrollment'].some(k => sSet.has(k))) lexIntents.add("URO_ENROLLMENT_PORTAL");
+  if (['grade','passing','retention','fda','absence'].some(k => sSet.has(k))) lexIntents.add("HANDBOOK_GRADING_FDA");
+  if (['permit','rfid','proctor','plagiarism','cheating','dishonesty','mobile','phone','device'].some(k => sSet.has(k))) lexIntents.add("EXAM_PERMIT_INTEGRITY");
+  if (['clinic','medical','pathfit','evacuation','seismic','calamity','oval','privacy','mental','health','ambigat','earthquake'].some(k => sSet.has(k))) lexIntents.add("CAMPUS_HEALTH_SAFETY");
+  if (['uniform','dress','wash','slipper','sando','attire'].some(k => sSet.has(k))) lexIntents.add("CAMPUS_DECORUM_DRESSCODE");
+  if (['tuition','downpayment','fee','inflation','peso'].some(k => sSet.has(k))) lexIntents.add("TUITION_FINANCE");
+
+  const N = CORPUS_DOCS.length;
+  const expandedBigrams = generateBigrams(expandedStems);
+  const qFeats = [...expandedStems, ...bigrams, ...expandedBigrams];
+  const qTf = {};
+  qFeats.forEach(f => { qTf[f] = (qTf[f] || 0) + 1; });
+  const qVec = {};
+  let qNormSq = 0;
+  for (const [f, tf] of Object.entries(qTf)) {
+    const idf = Math.log((1 + N) / (1 + (DOC_DF[f] || 0))) + 1;
+    const w = tf * idf;
+    qVec[f] = w;
+    qNormSq += w * w;
+  }
+  const qNorm = qNormSq > 0 ? Math.sqrt(qNormSq) : 1;
+
+  const scored = CORPUS_DOCS.map((d, idx) => {
+    const dVec = DOC_VECS[idx];
+    const dNorm = DOC_NORMS[idx];
+    let dot = 0;
+    for (const [f, w] of Object.entries(qVec)) {
+      if (dVec[f]) dot += w * dVec[f];
+    }
+    const cos = dot / (qNorm * dNorm);
+    const intentMatch = lexIntents.has(d.intent) ? 1 : 0;
+    const authBonus = (d.sent === "AUTHORITATIVE_POLICY" && (cos > 0.01 || intentMatch > 0)) ? 0.15 : 0;
+    const boost = 0.25 * intentMatch + authBonus;
+    return {
+      ...d,
+      cosine: cos,
+      boost: boost,
+      finalScore: cos + boost
+    };
+  });
+
+  const policyOnly = scored.filter(d => d.sent === "AUTHORITATIVE_POLICY" && d.finalScore > 0).sort((a, b) => b.finalScore - a.finalScore);
+  scored.sort((a, b) => b.finalScore - a.finalScore);
+  const topDocs = policyOnly.length ? policyOnly.slice(0, 3) : scored.filter(d => d.finalScore > 0).slice(0, 3);
+  const bestList = topDocs.length ? topDocs : [scored[0]];
+  const policyDocs = bestList.filter(d => d.sent === "AUTHORITATIVE_POLICY");
+  const chosen = policyDocs.length ? policyDocs : bestList.slice(0, 2);
+
+  let greeting = "";
+  if (matchedLex.some(e => e.lang === "ilo")) greeting = "<strong>Naimbag a bigat/aldaw!</strong> <em>(Ilocano recognized)</em><br>";
+  else if (matchedLex.some(e => e.lang === "kne")) greeting = "<strong>Gawis ay agew!</strong> <em>(Kankanaey recognized)</em><br>";
+  else if (matchedLex.some(e => e.lang === "ibl")) greeting = "<strong>Mapteng ja agsapa!</strong> <em>(Ibaloi recognized)</em><br>";
+
+  const replyHtml = greeting + chosen.map(d =>
+    `<div style="margin-top:6px;"><strong>[${d.ref}]:</strong> ${d.text.charAt(0).toUpperCase() + d.text.slice(1)}</div>`
+  ).join("");
+
+  return {
+    rawQuery,
+    cleaned,
+    filtered,
+    stems,
+    bigrams,
+    codeSwitch,
+    predictedIntent: bestList[0].intent,
+    matchedLex,
+    topDocs: bestList,
+    replyHtml
+  };
+}
+
+// ============================================================================
+// 3. UI INTERACTION & RENDERING
+// ============================================================================
+function appendChatMessage(role, htmlContent, meta = null) {
+  const box = document.getElementById('chat-box');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  if (meta) {
+    const metaBar = document.createElement('div');
+    metaBar.className = 'msg-meta';
+    metaBar.innerHTML = `
+      <span class="tag intent">Intent: ${meta.predictedIntent}</span>
+      <span class="tag lang">Register: ${meta.codeSwitch}</span>
+      ${meta.topDocs.map(d => `<span class="tag cite">Doc #${d.id}: ${d.ref} (${d.finalScore.toFixed(2)})</span>`).join('')}
+    `;
+    div.appendChild(metaBar);
+  }
+  const body = document.createElement('div');
+  body.innerHTML = htmlContent;
+  div.appendChild(body);
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function updateInspector(res) {
+  const box = document.getElementById('inspector-content');
+  box.innerHTML = `
+    <div class="trace-step">
+      <h4>Stage 1 • Raw Student Query &amp; Code-Switching Profile</h4>
+      <p><strong>Register:</strong> <code>${res.codeSwitch}</code> | <strong>Predicted Intent:</strong> <code>${res.predictedIntent}</code></p>
+      <p style="margin-top:4px;">"${res.rawQuery}"</p>
+    </div>
+    <div class="trace-step">
+      <h4>Stage 2 • Acronym-Safe Text Cleaning (data_cleaning.py)</h4>
+      <code>${res.cleaned}</code>
+    </div>
+    <div class="trace-step">
+      <h4>Stage 3 • Guarded Bilingual Lemmatization (bilingual_stemmer)</h4>
+      <div class="pill-list">
+        ${res.stems.map(s => `<span class="pill">${s}</span>`).join('')}
+      </div>
+    </div>
+    <div class="trace-step">
+      <h4>Stage 4 • Extracted Bigram Collocations (n=2)</h4>
+      <div class="pill-list">
+        ${res.bigrams.length ? res.bigrams.map(b => `<span class="pill">${b}</span>`).join('') : '<em>No contiguous bigrams</em>'}
+      </div>
+    </div>
+    <div class="trace-step gold">
+      <h4>Stage 5 • Matched SLU &amp; CAR Electronic Lexicon Entries</h4>
+      <div class="pill-list">
+        ${res.matchedLex.length ? res.matchedLex.map(e => `<span class="pill lex">${e.id}: ${e.lemma} (${e.lang}) → ${e.en}</span>`).join('') : '<em>Standard general vocabulary</em>'}
+      </div>
+    </div>
+    <div class="trace-step">
+      <h4>Stage 6 • Top Ranked Policy Documents (TF-IDF Cosine + Lexicon Boost)</h4>
+      ${res.topDocs.map((d, i) => `
+        <p style="margin-top:4px;">
+          <strong>#${i+1} Doc ${d.id} [${d.ref}]</strong> — Score: <code>${d.finalScore.toFixed(4)}</code>
+          (Cosine: <code>${d.cosine.toFixed(4)}</code> + Boost: <code>${d.boost.toFixed(2)}</code>)
+        </p>
+      `).join('')}
+    </div>
+  `;
+}
+
+function sendUserQuery() {
+  const inp = document.getElementById('user-input');
+  const q = inp.value.trim();
+  if (!q) return;
+  inp.value = '';
+  processQuery(q);
+}
+
+function runPreset(idx) {
+  processQuery(PRESET_QUERIES[idx]);
+}
+
+function processQuery(q) {
+  appendChatMessage('user', q);
+  const res = runQueryEngine(q);
+  appendChatMessage('bot', res.replyHtml, res);
+  updateInspector(res);
+}
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+function renderLexiconTable() {
+  const q = document.getElementById('lex-search').value.toLowerCase();
+  const langFilter = document.getElementById('lex-lang').value;
+  const tbody = document.getElementById('lex-tbody');
+  const rows = DOMAIN_LEXICON.filter(e => {
+    const matchLang = langFilter === "ALL" ||
+      (langFilter === "tl-SLU" ? (e.lang === "tl-SLU" || e.lang === "kne-tl") : e.lang === langFilter);
+    const matchText = !q || e.lemma.includes(q) || e.en.toLowerCase().includes(q) || e.fil.toLowerCase().includes(q) || e.id.toLowerCase().includes(q);
+    return matchLang && matchText;
+  });
+  tbody.innerHTML = rows.map(e => `
+    <tr>
+      <td><code>${e.id}</code></td>
+      <td><strong>${e.lemma}</strong></td>
+      <td><span class="tag lang">${e.lang}</span></td>
+      <td><code>${e.pos}</code></td>
+      <td><code>${e.root}</code> (${e.affix})</td>
+      <td>${e.en}</td>
+      <td>${e.fil}</td>
+      <td><span class="tag intent">${e.intent}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderBowAndBigrams() {
+  const bowBody = document.getElementById('bow-tbody');
+  bowBody.innerHTML = BOW_TOP30.map(r => {
+    const pctWidth = Math.round((r.freq / 16) * 100);
+    return `
+      <tr>
+        <td><strong>#${r.rank}</strong></td>
+        <td><code>${r.term}</code></td>
+        <td><strong>${r.freq}</strong></td>
+        <td>
+          <div class="bar-track"><div class="bar-fill" style="width:${pctWidth}%"></div></div>
+          <span>${r.cov}</span>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  const bgBody = document.getElementById('bigram-tbody');
+  bgBody.innerHTML = TOP_BIGRAMS.map(b => `
+    <tr>
+      <td><code>${b.bg}</code></td>
+      <td><strong>${b.freq}</strong></td>
+      <td><span class="tag intent">${b.intent}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderCorpusTable() {
+  const q = document.getElementById('doc-search').value.toLowerCase();
+  const intentFilter = document.getElementById('doc-intent').value;
+  const tbody = document.getElementById('corpus-tbody');
+  const rows = CORPUS_DOCS.filter(d => {
+    const mIntent = intentFilter === "ALL" || d.intent === intentFilter;
+    const mText = !q || d.text.includes(q) || d.ref.toLowerCase().includes(q) || d.file.toLowerCase().includes(q);
+    return mIntent && mText;
+  });
+  tbody.innerHTML = rows.map(d => `
+    <tr>
+      <td><strong>Doc #${d.id}</strong></td>
+      <td><code>${d.file}</code><br><small>${d.ref}</small></td>
+      <td><span class="tag intent">${d.intent}</span></td>
+      <td><code>${d.sent}</code></td>
+      <td><span class="tag lang">${d.lang}</span></td>
+      <td>${d.text}</td>
+    </tr>
+  `).join('');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initCorpusIndex();
+  renderLexiconTable();
+  renderBowAndBigrams();
+  renderCorpusTable();
+  // Run first preset query on load to populate chat & inspector
+  runPreset(1);
+});
+</script>
+</body>
+</html>
