@@ -401,6 +401,340 @@ def draw_ablation_chart(eval_report):
     return out_path
 
 
+# ==============================================================================
+# LARGE-PRINT CLASSROOM TV CHARTS (ZERO HEADER CHROME, 2X GIANT TYPOGRAPHY)
+# Designed specifically for legibility from the back of a large classroom on a
+# standard-sized TV (6-10 meters viewing distance).
+# ==============================================================================
+
+def draw_tv_bow_top10(bow_rows):
+    top10 = bow_rows[:10]
+    W, H = 1600, 740
+    img = Image.new("RGB", (W, H), WHITE)
+    draw = ImageDraw.Draw(img)
+
+    f_lbl = load_font(36, bold=True)
+    f_val = load_font(32, bold=True)
+    f_axis = load_font(26, bold=True)
+
+    left = 320
+    right = 1340
+    top = 24
+    bar_h = 52
+    gap = 14
+    max_freq = max(int(r["Frequency"]) for r in top10)
+
+    for tick in [0, 5, 10, 15, 20]:
+        if tick > max_freq + 2:
+            continue
+        x = left + int((tick / max_freq) * (right - left))
+        draw.line([x, top, x, top + len(top10) * (bar_h + gap)], fill=GRID_LINE, width=3)
+        draw.text((x - 14, top + len(top10) * (bar_h + gap) + 8), str(tick), fill=TEXT_MUTED, font=f_axis)
+
+    for i, r in enumerate(top10):
+        y = top + i * (bar_h + gap)
+        term = r["Stem_Term"]
+        freq = int(r["Frequency"])
+        cov = r["Percentage_Coverage"]
+        bw = int((freq / max_freq) * (right - left))
+        color = GOLD if term == "semester" else (NAVY if i < 3 else (ROYAL if i < 7 else TEAL))
+
+        tb = draw.textbbox((0, 0), term, font=f_lbl)
+        draw.text((left - (tb[2] - tb[0]) - 22, y + 6), term, fill=TEXT_DARK, font=f_lbl)
+        draw.rounded_rectangle([left, y, left + bw, y + bar_h], radius=10, fill=color)
+        draw.text((left + bw + 20, y + 8), f"{freq}  ({cov})", fill=NAVY if term == "semester" else TEXT_DARK, font=f_val)
+
+    out_path = os.path.join(CHARTS_DIR, "tv_01_bow_top10.png")
+    img.save(out_path, dpi=(300, 300))
+    return out_path
+
+
+def draw_tv_corpus_scaling(eval_report):
+    W, H = 1600, 740
+    img = Image.new("RGB", (W, H), WHITE)
+    draw = ImageDraw.Draw(img)
+
+    f_sec = load_font(36, bold=True)
+    f_lbl = load_font(30, bold=True)
+    f_val = load_font(30, bold=True)
+    f_sub = load_font(26, bold=True)
+
+    # Left panel: Midterm vs Finals Growth
+    draw.rounded_rectangle([16, 16, 860, H - 16], radius=18, fill=SLATE_BG, outline=BORDER, width=3)
+    draw.text((48, 36), "Midterm → Finals Growth", fill=NAVY, font=f_sec)
+
+    metrics = [
+        ("Corpus Docs", 24, eval_report["corpus_summary"]["total_documents"], "10.4×"),
+        ("Official Policies", 12, 32, "2.7×"),
+        ("CAR Lexicon", 25, 156, "6.2×"),
+        ("CAR-TL-EN Docs", 2, eval_report["corpus_summary"]["code_switching_counts"].get("CAR-TL-EN", 0), "35×"),
+        ("Unseen Queries", 8, 48, "6.0×"),
+    ]
+    y0 = 104
+    max_bar = 470
+    for idx, (label, mid, fin, mult) in enumerate(metrics):
+        y = y0 + idx * 122
+        draw.text((48, y), f"{label}", fill=TEXT_DARK, font=f_lbl)
+        draw.text((695, y), mult, fill=TEAL, font=f_lbl)
+        w_mid = max(24, int((mid / max(fin, 1)) * max_bar))
+        # Midterm bar
+        draw.rounded_rectangle([48, y + 40, 48 + w_mid, y + 70], radius=6, fill=(148, 163, 184))
+        draw.text((48 + w_mid + 16, y + 38), f"Mid: {mid}", fill=TEXT_MUTED, font=f_sub)
+        # Finals bar
+        draw.rounded_rectangle([48, y + 76, 48 + max_bar, y + 110], radius=8, fill=NAVY)
+        draw.text((48 + max_bar + 16, y + 75), f"Fin: {fin}", fill=NAVY, font=f_val)
+
+    # Right panel: Finals Registers (top) + CAR Lexicon (bottom)
+    draw.rounded_rectangle([888, 16, W - 16, H - 16], radius=18, fill=SLATE_BG, outline=BORDER, width=3)
+    draw.text((920, 36), "250 Docs by Register", fill=NAVY, font=f_sec)
+
+    cs = eval_report["corpus_summary"]["code_switching_counts"]
+    reg_items = [
+        ("English (EN)", cs.get("EN", 0), ROYAL),
+        ("Taglish (TL-EN)", cs.get("TL-EN", 0), TEAL),
+        ("Cordilleran (CAR)", cs.get("CAR-TL-EN", 0), GOLD),
+    ]
+    total_c = sum(v for _, v, _ in reg_items)
+    max_reg = max(v for _, v, _ in reg_items)
+    for i, (lbl, cnt, col) in enumerate(reg_items):
+        y = 100 + i * 86
+        pct = cnt / total_c * 100
+        bw = int((cnt / max_reg) * 580)
+        draw.text((920, y), f"{lbl}: {cnt} ({pct:.0f}%)", fill=TEXT_DARK, font=f_sub)
+        draw.rounded_rectangle([920, y + 36, 920 + bw, y + 68], radius=8, fill=col)
+
+    draw.line([920, 376, W - 48, 376], fill=BORDER, width=3)
+    draw.text((920, 396), "156 Lexicon Entries", fill=NAVY, font=f_sec)
+
+    lex_items = [
+        ("Ilocano (ilo)", 48, ROYAL),
+        ("Kankanaey (kne)", 40, TEAL),
+        ("SLU & Taglish", 36, NAVY),
+        ("Ibaloi (ibl)", 32, GOLD),
+    ]
+    for i, (lbl, cnt, col) in enumerate(lex_items):
+        y = 458 + i * 64
+        bw = int((cnt / 50) * 280)
+        draw.text((920, y + 4), lbl, fill=TEXT_DARK, font=f_sub)
+        draw.rounded_rectangle([1200, y, 1200 + bw, y + 42], radius=8, fill=col)
+        draw.text((1200 + bw + 16, y + 4), str(cnt), fill=NAVY, font=f_val)
+
+    out_path = os.path.join(CHARTS_DIR, "tv_02_corpus_scaling.png")
+    img.save(out_path, dpi=(300, 300))
+    return out_path
+
+
+def draw_tv_cv_comparison(eval_report):
+    W, H = 1600, 620
+    img = Image.new("RGB", (W, H), WHITE)
+    draw = ImageDraw.Draw(img)
+
+    cv = eval_report["stratified_5fold_cv"]
+    models = [
+        ("Multinomial Naive Bayes", "Multinomial NB\n[BEST]"),
+        ("Logistic Regression (L2 Softmax)", "Logistic Regression\n(L2 Softmax)"),
+        ("Linear SVM (One-vs-Rest Hinge)", "Linear SVM\n(OvR Hinge)"),
+    ]
+    metric_defs = [
+        ("accuracy", "Accuracy", NAVY),
+        ("macro_f1", "Macro F1", GOLD),
+    ]
+
+    f_lbl = load_font(34, bold=True)
+    f_val = load_font(34, bold=True)
+    f_axis = load_font(28, bold=True)
+
+    # Legend centered at top
+    lx = 520
+    for _, mlbl, col in metric_defs:
+        draw.rounded_rectangle([lx, 18, lx + 36, 54], radius=6, fill=col)
+        draw.text((lx + 48, 18), mlbl, fill=TEXT_DARK, font=f_lbl)
+        lx += 320
+
+    chart_left = 150
+    chart_right = 1550
+    chart_top = 90
+    chart_bottom = 485
+    chart_h = chart_bottom - chart_top
+
+    y_min, y_max = 0.88, 0.98
+    for tick_pct in [88, 90, 92, 94, 96, 98]:
+        frac = (tick_pct / 100.0 - y_min) / (y_max - y_min)
+        y = chart_bottom - int(frac * chart_h)
+        draw.line([chart_left, y, chart_right, y], fill=GRID_LINE, width=3)
+        draw.text((chart_left - 96, y - 16), f"{tick_pct}%", fill=TEXT_MUTED, font=f_axis)
+
+    draw.line([chart_left, chart_bottom, chart_right, chart_bottom], fill=TEXT_DARK, width=4)
+
+    group_w = (chart_right - chart_left) // len(models)
+    bar_w = 148
+    bar_gap = 28
+
+    for m_idx, (m_key, m_disp) in enumerate(models):
+        gx = chart_left + m_idx * group_w + 74
+        res = cv[m_key]
+        for k_idx, (mk, _, col) in enumerate(metric_defs):
+            val = res[mk]
+            frac = max(0.0, min(1.0, (val - y_min) / (y_max - y_min)))
+            bh = int(frac * chart_h)
+            bx = gx + k_idx * (bar_w + bar_gap)
+            by = chart_bottom - bh
+            draw.rounded_rectangle([bx, by, bx + bar_w, chart_bottom], radius=10, fill=col)
+            txt = f"{val*100:.2f}%"
+            tb = draw.textbbox((0, 0), txt, font=f_val)
+            draw.text((bx + (bar_w - (tb[2] - tb[0])) // 2, by - 44), txt, fill=TEXT_DARK, font=f_val)
+
+        center_x = gx + (2 * bar_w + bar_gap) // 2
+        lines = m_disp.split("\n")
+        for li, ln in enumerate(lines):
+            tb = draw.textbbox((0, 0), ln, font=f_lbl)
+            col_t = NAVY if (m_idx == 0 and li == 1) else TEXT_DARK
+            draw.text((center_x - (tb[2] - tb[0]) // 2, chart_bottom + 18 + li * 42), ln, fill=col_t, font=f_lbl)
+
+    out_path = os.path.join(CHARTS_DIR, "tv_03_cv_comparison.png")
+    img.save(out_path, dpi=(300, 300))
+    return out_path
+
+
+def draw_tv_confusion_matrix(eval_report):
+    best_name = eval_report["best_model"]
+    best = eval_report["stratified_5fold_cv"][best_name]
+    cm = best["confusion_matrix"]
+    classes = best["classes"]
+    short = [
+        c.replace("ACADEMIC_SHIFTING_TRANSFER", "SHIFT")
+        .replace("CAMPUS_DECORUM_DRESSCODE", "DRESS")
+        .replace("CAMPUS_FACILITIES_LAB", "LABS")
+        .replace("CAMPUS_HEALTH_SAFETY", "HEALTH")
+        .replace("EXAM_PERMIT_INTEGRITY", "EXAM")
+        .replace("HANDBOOK_GRADING_FDA", "GRADE")
+        .replace("TUITION_FINANCE", "FINANCE")
+        .replace("URO_ENROLLMENT_PORTAL", "PORTAL")
+        .replace("URO_ENROLLMENT_TOR", "TOR")
+        .replace("URO_SUBJECT_ADJUSTMENT", "ADJUST")
+        for c in classes
+    ]
+
+    W, H = 1600, 740
+    img = Image.new("RGB", (W, H), WHITE)
+    draw = ImageDraw.Draw(img)
+
+    f_hdr = load_font(26, bold=True)
+    f_cell = load_font(34, bold=True)
+    f_zero = load_font(26, bold=False)
+
+    left = 200
+    top = 62
+    cell_w = 136
+    cell_h = 66
+
+    draw.text((16, 16), "True ↓ / Pred →", fill=NAVY, font=load_font(24, bold=True))
+
+    for j, lbl in enumerate(short):
+        x = left + j * cell_w
+        tb = draw.textbbox((0, 0), lbl, font=f_hdr)
+        draw.text((x + (cell_w - (tb[2] - tb[0])) // 2, 16), lbl, fill=NAVY, font=f_hdr)
+
+    for i, row in enumerate(cm):
+        y = top + i * cell_h
+        tb = draw.textbbox((0, 0), short[i], font=f_hdr)
+        draw.text((left - (tb[2] - tb[0]) - 18, y + 18), short[i], fill=NAVY, font=f_hdr)
+        for j, val in enumerate(row):
+            x = left + j * cell_w
+            if i == j:
+                intensity = val / 25.0
+                bg = (int(210 - 190 * intensity), int(248 - 135 * intensity), int(225 - 145 * intensity))
+                fg = WHITE if intensity > 0.65 else TEXT_DARK
+                txt = str(val)
+                font_use = f_cell
+            elif val > 0:
+                bg = (254, 202, 202)
+                fg = RED
+                txt = str(val)
+                font_use = f_cell
+            else:
+                bg = SLATE_BG
+                fg = (180, 192, 208)
+                txt = "·"
+                font_use = f_zero
+            draw.rectangle([x + 3, y + 3, x + cell_w - 3, y + cell_h - 3], fill=bg, outline=WHITE, width=3)
+            tb_v = draw.textbbox((0, 0), txt, font=font_use)
+            draw.text((x + (cell_w - (tb_v[2] - tb_v[0])) // 2, y + (cell_h - (tb_v[3] - tb_v[1])) // 2 - 4), txt, fill=fg, font=font_use)
+
+    out_path = os.path.join(CHARTS_DIR, "tv_04_confusion_matrix.png")
+    img.save(out_path, dpi=(300, 300))
+    return out_path
+
+
+def draw_tv_ablation(eval_report):
+    W, H = 1600, 720
+    img = Image.new("RGB", (W, H), WHITE)
+    draw = ImageDraw.Draw(img)
+
+    ab = eval_report["heldout_ablation"]
+    stages = [
+        ("A_raw_tfidf", "A. Raw\nTF-IDF"),
+        ("B_clean_morph", "B. + Clean &\nCAR Morph"),
+        ("C_lexicon_boost", "C. + Lexicon\n& OOD Gate"),
+        ("D_full_hybrid", "D. Full Hybrid\n(+ NB) [BEST]"),
+    ]
+    metrics = [
+        ("top1_policy_accuracy", "Top-1 Policy Acc", NAVY),
+        ("ood_rejection_rate", "OOD Rejection", GOLD),
+    ]
+
+    f_lbl = load_font(30, bold=True)
+    f_val = load_font(30, bold=True)
+    f_mrr = load_font(24, bold=True)
+    f_axis = load_font(26, bold=True)
+
+    lx = 430
+    for _, mlbl, col in metrics:
+        draw.rounded_rectangle([lx, 18, lx + 34, 52], radius=6, fill=col)
+        draw.text((lx + 46, 18), mlbl, fill=TEXT_DARK, font=f_lbl)
+        lx += 380
+
+    left, right = 135, 1560
+    top, bottom = 100, 565
+    ch = bottom - top
+
+    for pct in [0, 25, 50, 75, 100]:
+        y = bottom - int((pct / 100.0) * ch)
+        draw.line([left, y, right, y], fill=GRID_LINE, width=3)
+        draw.text((left - 92, y - 14), f"{pct}%", fill=TEXT_MUTED, font=f_axis)
+    draw.line([left, bottom, right, bottom], fill=TEXT_DARK, width=4)
+
+    gw = (right - left) // len(stages)
+    bw = 112
+    bgap = 22
+
+    for s_idx, (s_key, s_label) in enumerate(stages):
+        gx = left + s_idx * gw + 54
+        data = ab[s_key]
+        for m_idx, (m_key, _, col) in enumerate(metrics):
+            v = data[m_key]
+            bh = max(8, int(v * ch))
+            bx = gx + m_idx * (bw + bgap)
+            by = bottom - bh
+            draw.rounded_rectangle([bx, by, bx + bw, bottom], radius=8, fill=col)
+            txt = f"{v*100:.1f}%" if v > 0 else "0%"
+            tb = draw.textbbox((0, 0), txt, font=f_val)
+            draw.text((bx + (bw - (tb[2] - tb[0])) // 2, by - 40), txt, fill=TEXT_DARK, font=f_val)
+
+        cx = gx + (2 * bw + bgap) // 2
+        lines = s_label.split("\n")
+        for li, ln in enumerate(lines):
+            tb = draw.textbbox((0, 0), ln, font=f_lbl)
+            draw.text((cx - (tb[2] - tb[0]) // 2, bottom + 14 + li * 38), ln, fill=NAVY if s_key == "D_full_hybrid" else TEXT_DARK, font=f_lbl)
+        mrr_txt = f"MRR {data['mrr']:.3f}"
+        tb_m = draw.textbbox((0, 0), mrr_txt, font=f_mrr)
+        draw.text((cx - (tb_m[2] - tb_m[0]) // 2, bottom + 94), mrr_txt, fill=TEAL, font=f_mrr)
+
+    out_path = os.path.join(CHARTS_DIR, "tv_05_ablation.png")
+    img.save(out_path, dpi=(300, 300))
+    return out_path
+
+
 def main():
     os.makedirs(CHARTS_DIR, exist_ok=True)
     with open(os.path.join(REPO_ROOT, "corpus_bow_summary.csv"), encoding="utf-8") as f:
@@ -414,6 +748,11 @@ def main():
         draw_cv_comparison_chart(eval_report),
         draw_confusion_matrix_chart(eval_report),
         draw_ablation_chart(eval_report),
+        draw_tv_bow_top10(bow_rows),
+        draw_tv_corpus_scaling(eval_report),
+        draw_tv_cv_comparison(eval_report),
+        draw_tv_confusion_matrix(eval_report),
+        draw_tv_ablation(eval_report),
     ]
     for p in paths:
         print(f"[OK] Generated chart: {os.path.relpath(p, REPO_ROOT)}")

@@ -3,8 +3,10 @@
 CSE 30: CS Special Topics (Natural Language Processing)
 Saint Louis University - Department of Computer Science
 Script: scripts/build_presentation.py
-Description: Builds the complete 18-slide (15-20 minute) presentation across:
-             1. Google Slides (SLU Louisian Executive Theme, batch API, embedded charts, speaker notes)
+Description: Builds the Classroom TV Large-Print Edition 22-slide (15-20 minute) presentation:
+             - Optimized for big classrooms with a regular-sized TV (23pt+ titles, 14-17pt body/tables,
+               32-40pt KPI numbers, max 3-4 cols per table, dedicated full-canvas large-print TV charts)
+             1. Google Slides (SLU Louisian Executive Theme, single batch API, embedded TV charts, speaker notes)
              2. Local PowerPoint backup (presentation/Group2_AiNomally_CSE30_Deck.pptx via python-pptx)
              3. Timed 5-Speaker Script (presentation/speaker_script_15_20min.md + Google Drive Doc sync)
 Author: Group 2 - AiNomally (Angcaway, Delin, Hernandez, Rodriguez, Sibayan)
@@ -28,248 +30,249 @@ PRES_DIR = os.path.join(REPO_ROOT, "presentation")
 SCRATCH = "/Users/chazerodriguez/.gemini/antigravity/brain/1cb302af-b0c5-465c-a595-27c16ec8c63f/scratch"
 SCRIPT_DOC_ID = "12mEnNUJsdP4etsm0VRn38-v6Xu2GOXg270IMv2O0V3s"
 
-# SLU Brand Colors
+# High-Contrast SLU Classroom TV Brand Palette
 C_NAVY = "#002855"
 C_ROYAL = "#004B87"
 C_TEAL = "#0E7490"
+C_INDIGO = "#1E3A8A"
 C_GOLD = "#D4AF37"
 C_GOLD_BRIGHT = "#FACC15"
-C_GOLD_LIGHT = "#FEF9C3"
-C_BG_LIGHT = "#F8FAFC"
+C_GOLD_LIGHT = "#FEF3C7"
+C_ICE = "#DBEAFE"
+C_BG_LIGHT = "#F1F5F9"
 C_WHITE = "#FFFFFF"
 C_TEXT = "#0F172A"
 C_MUTED = "#475569"
-C_ICE = "#DBEAFE"
+C_BORDER = "#CBD5E1"
 C_GREEN_BG = "#DCFCE7"
-C_GREEN_FG = "#14532D"
-C_RED_BG = "#FEE2E2"
-C_RED_FG = "#991B1B"
+C_GREEN_FG = "#166534"
+C_RED_FG = "#B91C1C"
+C_AMBER = "#B45309"
+
+TOTAL_SLIDES = 22
 
 # ==============================================================================
-# SLIDE DEFINITIONS + TIMED 5-SPEAKER NOTES (~18.5 MIN TOTAL + Q&A)
+# TIMED SPEAKER NOTES (22 SLIDES, ~18.8 MINUTES TOTAL, EVENLY SPLIT ACROSS 5 MEMBERS)
+#   Chaze Rodriguez      : Slides 1-3, 21-22  (5 slides, ~3:50)
+#   Keith Hernandez      : Slides 4-7         (4 slides, ~3:50)
+#   Earold Delin         : Slides 8-11        (4 slides, ~3:50)
+#   Erick Sibayan        : Slides 12-15       (4 slides, ~3:50)
+#   John Andrew Angcaway : Slides 16-20       (5 slides, ~3:55)
 # ==============================================================================
-
 SPEAKER_NOTES = {
     1: (
-        "[Speaker 1: Chaze Ezkys M. Rodriguez | Target: 0:45]\n"
-        "Good afternoon, Professor Dalos Miguel, and fellow Louisians. We are Group 2, AiNomally—composed of "
-        "John Andrew Angcaway, Earold Jan Delin, Keith Russel Hernandez, Erick James Sibayan, and myself, Chaze Rodriguez. "
-        "Today we present our complete CSE 30 NLP Term Project: a Multilingual Domain-Specific Electronic Lexicon, "
-        "Supervised Intent Classifier, and Hardened eGovernance Student Support Chatbot built specifically for "
-        "Saint Louis University in Baguio City. Over the next 18 minutes, we will walk you through our journey from "
-        "raw data collection and Midterm audit verification all the way to our Finals expansion—scaling to 250 balanced "
-        "documents, 156 SLU and Cordilleran lexicon entries, leak-free 5-fold cross-validated machine learning models, "
-        "and a security-hardened interactive web portal."
+        "[Speaker 1: Chaze Rodriguez | Target: 0:40]\n"
+        "Good afternoon, Professor Dalos Miguel and fellow Louisian computer scientists! "
+        "We are Group 2, AiNomally—John Andrew Angcaway, Earold Jan Delin, Keith Russel Hernandez, "
+        "Erick James Sibayan, and I am Chaze Ezkys Rodriguez. Today we present our CSE 30 NLP Term Project: "
+        "the SLU eGovernance Multilingual Chatbot and Cordillera Administrative Region Electronic Lexicon. "
+        "Over the next eighteen minutes, we will walk you through how we unified verified Saint Louis University policies, "
+        "Cordilleran linguistic preservation, leak-free supervised machine learning, and a hardened browser portal into "
+        "one fully reproducible pipeline."
     ),
     2: (
-        "[Speaker 1: Chaze Ezkys M. Rodriguez | Target: 1:15]\n"
-        "Let us begin with why this project matters here in Baguio City and the Cordillera Administrative Region. "
-        "We are tackling two intersecting challenges simultaneously. On the institutional side, Saint Louis University "
-        "serves tens of thousands of students, yet critical policies—ranging from URO transcript requests and shifting rules "
-        "to 20 percent Failure Due to Absences thresholds, exam permits, clinic clearances, and financial aid—are fragmented "
-        "across static PDF handbooks, separate office webpages, and informal public forums like the SLU Freedom Wall. "
-        "Students routinely rely on unverified peer advice because standard English keyword searches fail when queries mix "
-        "Taglish clitics like 'ngaun' or 'dp' with local expressions. On the linguistic side, regional CAR languages—specifically "
-        "Ilocano, Northern Kankanaey, and Ibaloi—face severe digital resource scarcity. By embedding authentic Cordilleran "
-        "vocabulary directly into an institutional eGovernance chatbot, we make campus services more accessible while preserving "
-        "local languages in active computational infrastructure."
+        "[Speaker 1: Chaze Rodriguez | Target: 1:00]\n"
+        "Slide 2 frames the dual problem motivating our research right here in Baguio City. "
+        "First, institutional guidance at SLU is scattered across the 2015 Student Handbook PDF, the University Registrar's "
+        "website, OSAS circulars, Finance payment channels, and clinic notices. As a result, students turn to #SLUFreedomWall "
+        "using informal Taglish and acronyms like SAMCIS, SEAIT, SONAHBS, dp, QE, and FDA—which standard English keyword search misses. "
+        "Second, SLU serves a vibrant Cordillera Administrative Region student body speaking Ilocano, Northern Kankanaey, and Ibaloi. "
+        "Off-the-shelf English NLP pipelines fail on Austronesian affixation like ag-, panag-, and man-, and ignore cultural governance "
+        "concepts like inayan, dap-ay, and tongtong. Our thesis is simple: unifying verified SLU policies with a structured CAR lexicon "
+        "solves campus support bottlenecks while preserving regional languages."
     ),
     3: (
-        "[Speaker 1: Chaze Ezkys M. Rodriguez | Target: 1:00]\n"
-        "Our design aligns directly with both tracks of the CSE 30 term project requirements. Under Track A, we engineered "
-        "a machine-readable electronic lexicon linking SLU institutional acronyms and campus Taglish with validated Ilocano, "
-        "Northern Kankanaey, and Ibaloi lemmas, complete with ISO 639-3 tags, parts of speech, morphological roots, and "
-        "bilingual glosses. Under Track B, we built an end-to-end eGovernance chatbot application capable of resolving "
-        "multilingual student questions against verified SLU regulations. To accomplish this rigorously, we committed to four "
-        "engineering objectives: first, a single-command reproducible local pipeline; second, test-driven bug and security "
-        "hardening; third, scaling our CAR lexicon and balanced corpus with transparent provenance; and fourth, empirical "
-        "benchmarking via leak-free Stratified 5-Fold Cross-Validation and held-out retrieval ablations. I will now turn the "
-        "floor to Keith to present our system architecture, corpus scaling, and data audit."
+        "[Speaker 1: Chaze Rodriguez | Target: 0:55]\n"
+        "Slide 3 aligns our work directly with both CSE 30 tracks. Under Track A, we built a 156-entry machine-readable "
+        "SLU and CAR Electronic Lexicon tagged with ISO 639-3 codes, morphological roots, affixes, bilingual glosses, and strict "
+        "Native versus Semantic alias separation. Under Track B, we engineered a hybrid eGovernance chatbot covering 32 verified SLU "
+        "policy provisions across 10 domains, deployed in both a Python CLI and an accessible 4-tab web portal. "
+        "Four core objectives guided every commit: single-command reproducibility, test-driven bug and security hardening, "
+        "balanced scaling to 250 annotated documents, and leak-free empirical benchmarking via Stratified 5-Fold CV and 48 unseen test queries. "
+        "I now turn it over to Keith Hernandez to walk through our architecture and data pipeline."
     ),
     4: (
-        "[Speaker 2: Keith Russel Hernandez | Target: 1:15]\n"
-        "Thank you, Chaze. Slide 4 shows our complete five-stage deterministic NLP architecture. Everything starts in Stage 1 "
-        "with multi-source data acquisition: harvesting authentic #SLUFreedomWall posts via slu_web_scraper.py and verifying "
-        "official SLU policy provisions directly from slu.edu.ph, dataprotection.slu.edu.ph, and the 2015 Student Handbook. "
-        "In Stage 2, data_cleaning.py executes acronym-safe normalization without deleting parenthetical acronyms like SAMCIS "
-        "or TOR. Stage 3 runs car_morphology.py and data_preprocessing.py for guarded English, Filipino, and CAR lemmatization "
-        "and bigram extraction. Stage 4 trains our zero-dependency pure-Python supervised classifiers—Multinomial Naive Bayes, "
-        "Logistic Regression, and Linear SVM—and feeds serialized model weights into our hybrid retrieval engine alongside our "
-        "156-entry lexicon. Finally, Stage 5 uses build_portal.py as a single source of truth to inject verified JSON data and "
-        "model weights directly into our 4-tab web portal and Netlify deployment bundle, eliminating manual drift across files."
+        "[Speaker 2: Keith Hernandez | Target: 1:00]\n"
+        "Thank you, Chaze. Slide 4 shows our end-to-end 5-stage NLP pipeline, runnable from a clean checkout using one command: "
+        "python3 scripts/build_all.py. Stage 1 acquires multi-source student discourse from #SLUFreedomWall alongside 32 verified "
+        "SLU institutional policies across URO, the Student Handbook, Finance, Scholarships, Counseling, and Libraries. "
+        "Stage 2 runs deterministic acronym-safe cleaning, protecting SLU acronyms, English contractions, and Cordilleran hyphens. "
+        "Stage 3 applies our guarded bilingual and CAR morphological analyzer with 265 stopwords and bigram extraction. "
+        "Stage 4 trains and benchmarks pure-Python Multinomial Naive Bayes, Logistic Regression, and Linear SVM models combined with "
+        "our 156-entry lexicon and OOD safety gate. Finally, Stage 5 compiles the identical model weights and policies into our zero-XSS "
+        "web portal. Notice we require zero external ML packages—pure Python 3.14 verified by 21 automated tests."
     ),
     5: (
-        "[Speaker 2: Keith Russel Hernandez | Target: 1:15]\n"
-        "Moving to Slide 5, you can see the quantitative leap from our Midterm baseline to our Finals expansion. Our Midterm "
-        "baseline established 24 consolidated documents, 12 authoritative policies, and 25 lexicon entries—which was great for a "
-        "proof of concept, but left zero authoritative policy coverage for Tuition/Finance or Campus Facilities/Labs, and had "
-        "only two CAR-tagged posts. For Finals, we expanded authoritative SLU policies from 12 to 32 verified provisions covering "
-        "all 10 operational intents, including Finance payment channels, SLU Entrance and Academic Scholarships, Center for "
-        "Counseling and Wellness support, and Msgr. Charles Vath University Libraries borrowing rules. We scaled the annotated "
-        "corpus over tenfold to 250 perfectly balanced documents—25 per intent—with 40.4% English, 31.6% Taglish, and 28.0% "
-        "authentic CAR-TL-EN inquiries, all transparently labeled by Source_Type provenance."
+        "[Speaker 2: Keith Hernandez | Target: 1:00]\n"
+        "Slide 5 visualizes our corpus and resource scaling from our Midterm baseline to Finals. "
+        "Our annotated corpus grew 10.4 times from 24 to 250 strictly balanced documents—25 per class across 10 operational intents. "
+        "Verified official SLU policies more than doubled from 12 to 32, filling critical Midterm blind spots like Tuition and Bank "
+        "Payment Channels, Entrance and Academic Scholarships, the Center for Counseling and Wellness, and the UNL Vath Library. "
+        "Our CAR and SLU lexicon grew 6.2 times from 25 to 156 entries, Cordilleran code-switched documents expanded 35 times from 2 "
+        "to 70, and our evaluation expanded from 8 Midterm queries to 48 strictly held-out unseen queries with zero training leakage."
     ),
     6: (
-        "[Speaker 2: Keith Russel Hernandez | Target: 1:00]\n"
-        "One of the most valuable CS engineering practices we applied was an unbiased end-to-end data audit across our local "
-        "files and Google Drive deliverables. Before scaling up, we ran automated reproducibility checks and uncovered six real "
-        "discrepancies that could have compromised our defense. Our earlier paper and script still reported 352 stems and 9 "
-        "occurrences of 'semester' when the verified corpus actually had 426 unique stems and 8 occurrences of 'semester'. Two "
-        "bigrams—'bonifacio campus' and 'minimum grade'—were mistakenly listed with frequency 2 when both occurred once. Doc 6 "
-        "was labeled #25582 instead of its real raw post ID #25604, and the Google Sheet still contained uncleaned Prelim rows. "
-        "We fixed every single mismatch, synced Drive and Sheets, and built build_all.py so one command regenerates and tests "
-        "every artifact with zero discrepancies. Next, Earold will detail our cleaning and morphological engineering."
+        "[Speaker 2: Keith Hernandez | Target: 1:00]\n"
+        "Before scaling anything, we ran an exhaustive forensic audit across every local file and Google Drive deliverable, summarized "
+        "on Slide 6. We caught and resolved six real discrepancies: First, unique Midterm stems were corrected from an outdated 352 "
+        "to the verified 426 stems (TTR 0.6827). Second, 'semester' was corrected from 9 to 8 occurrences (1.28%), restoring 'year' at Rank 19. "
+        "Third, the Drive Google Sheet still held old Prelim counts like 'like=12' and 'campu=4'—we replaced Tab 1 with the verified Top 30 "
+        "and added a new Finals Tab 2. Fourth, we removed two fabricated bigrams from the portal, keeping strictly the 19 verified recurring "
+        "bigrams. Fifth, Doc #6's mismatched Freedom Wall ID #25582 was unified everywhere to the true raw ID #25604. "
+        "Our automated test_pipeline.py now proves 0-diff reproduction on every build."
     ),
     7: (
-        "[Speaker 3: Earold Jan Delin | Target: 1:15]\n"
-        "Thank you, Keith. Slide 7 highlights how we engineered and hardened Stage 2—our deterministic acronym-safe text cleaner "
-        "in data_cleaning.py. Standard regex cleaning pipelines often strip all parenthetical text, which would wipe out vital "
-        "SLU identifiers like SAMCIS, TOR, COG, MLS, QE, FDA, and PATHFIT. Our targeted timestamp filter strips only scrape "
-        "metadata while protecting every acronym. During our Phase 2 hardening audit, we caught and fixed five subtle real-world "
-        "defects shown in this transformation table: replacing naive '\\bill\\b' so 'I am feeling ill' is never corrupted to "
-        "'i am feeling i will' while 'ill still answer' still expands properly; stripping possessive apostrophe-s cleanly so "
-        "'SLU's Registrar's Office' does not turn into 'slu is registrar is office'; preserving question marks when collapsing "
-        "'??'; adding 'niyo' to 'ninyo' and arbitrary laughter collapse; and protecting hyphenated Cordilleran lemmas like "
-        "'dap-ay' and 'man-obla' so they survive tokenization intact."
+        "[Speaker 2: Keith Hernandez | Target: 0:50]\n"
+        "Slide 7 highlights how we hardened Stage 2 text cleaning in scripts/data_cleaning.py. "
+        "Earlier cleaning stripped parenthesized SLU acronyms like (SAMCIS) and (TOR) along with timestamps—our acronym-safe regex "
+        "deletes submission headers while keeping every institutional acronym intact. During our code audit, we also caught two subtle "
+        "real-world bugs: naive expansion turned medical 'feeling ill' into 'feeling i will', and 'SLU's Registrar's Office' into "
+        "'slu is registrar is office'. We replaced those with context-aware regex rules that expand 'ill' only before modal verbs and "
+        "strip possessive 's cleanly. Finally, Taglish clitics like dp and ngaun normalize cleanly while preserving punctuation polarity "
+        "and Cordilleran hyphens like dap-ay and man-obla. Passing it to Earold Delin for morphology and our Track A CAR lexicon."
     ),
     8: (
-        "[Speaker 3: Earold Jan Delin | Target: 1:15]\n"
-        "On Slide 8, we address one of the hardest challenges in Philippine NLP: bilingual and Cordilleran morphological "
-        "analysis. In our early Prelim prototype, unguarded prefix and suffix stripping severely damaged English words—turning "
-        "'campus' into 'campu', 'department' into 'depart', and 'management' into 'nage'. Even with a basic prefix guard, "
-        "unseen words like 'magnify', 'magician', 'magical', and Tagalog 'maganda' still got corrupted because they start with "
-        "'mag-'. In car_morphology.py, we solved this with a three-layer architecture: first, a verified English, Filipino, and "
-        "CAR lemma lookup covering infixed verbs like 'tumataas' to 'taas' and 'sumulat' to 'sulat'; second, explicit English "
-        "root exceptions plus suffix guards blocking Filipino prefix stripping on Latinate words; and third, clean Austronesian "
-        "affix normalization across Tagalog mag-/nag-/pag-, Ilocano ag-/panag-/na-, Kankanaey man-/men-, and Ibaloi ma-/man-."
+        "[Speaker 3: Earold Delin | Target: 1:05]\n"
+        "Thank you, Keith. Slide 8 examines Stage 3: our guarded bilingual and Cordilleran morphological analyzer in scripts/car_morphology.py. "
+        "On the left in red, you see why naive affix stripping fails on bilingual academic text. Early runs corrupted 'management' into 'nage' "
+        "and 'campus' into 'campu', and an unguarded Tagalog 'mag-' prefix rule mangled English words like 'magnify' into 'nify' and 'magician' "
+        "into 'ician'. We fixed this permanently using curated PREFIX_EXCEPTIONS plus English suffix guards such as -tion, -ment, -ify, and -ician. "
+        "On the right in teal, authentic Philippine and Cordilleran affixes normalize reliably: Filipino magtanong and tinanong collapse to tanong, "
+        "Ilocano agadal and panagadal collapse to adal, agpaagas collapses to agas, and Northern Kankanaey man-obla and men-obla normalize to obla."
     ),
     9: (
-        "[Speaker 3: Earold Jan Delin | Target: 1:00]\n"
-        "Slide 9 presents our verified Midterm lexical profiling chart generated directly from corpus_bow_summary.csv and "
-        "preprocessed_tokens.json. Across all 24 consolidated Midterm documents, filtering 265 English and Filipino stopwords "
-        "yields exactly 624 content tokens, 457 unique surface forms, and 426 unique verified stems—a type-token ratio of "
-        "0.6827 with zero corrupted roots. Institutional terms clearly lead the vocabulary: 'student' appears 16 times at 2.56% "
-        "coverage, followed by 'slu' at 10, 'examination' at 9, 'semester' at 8 highlighted in gold, and 'grade', 'requirement', "
-        "and 'subject' at 7 each. On the right, we verified all 19 truly recurring contiguous bigrams such as 'official transcript', "
-        "'qualifying examination', 'student portal', 'failure due', and 'examination permit'—removing stale singleton claims. "
-        "I now hand the presentation to Erick for our expanded CAR lexicon, annotations, and supervised machine learning benchmarks."
+        "[Speaker 3: Earold Delin | Target: 0:55]\n"
+        "Slide 9 presents our verified Midterm Top 10 Bag of Words lexical profile across the 24 consolidated baseline documents. "
+        "After removing stopwords and running our guarded lemmatizer, we obtain 624 filtered tokens, 457 unique surface forms, "
+        "and 426 unique verified stems—with zero corrupted roots. 'student' leads at 16 occurrences (2.56%), followed by 'slu' at 10, "
+        "'examination' at 9, and highlighted in SLU Gold, our audited 'semester' count at exactly 8 (1.28%), followed by 'grade', "
+        "'requirement', and 'subject' at 7 each. Across contiguous bigrams, 19 true institutional phrases recur at frequency 2, including "
+        "'official transcript', 'qualifying examination', and 'failure due'. Every chart, CSV, Google Sheet cell, and portal counter is 100% synced."
     ),
     10: (
-        "[Speaker 4: Erick James Sibayan | Target: 1:30]\n"
-        "Thank you, Earold. Slide 10 showcases our flagship Track A contribution: scaling the SLU and CAR Multilingual Electronic "
-        "Lexicon from 25 baseline items to 156 verified entries—comprising 36 SLU institutional acronyms and Taglish terms, "
-        "48 Ilocano entries, 40 Northern Kankanaey entries, and 32 Ibaloi entries grounded in Constantino, Rubino, Vanoverbergh, "
-        "Ballard, and SIL Philippines dictionaries. Notice the linguistic richness captured here: look at the cognate row for "
-        "'water'—Ilocano 'danum', Kankanaey 'danom', and Ibaloi 'shanom', reflecting Ibaloi's signature postalveolar shift. "
-        "Equally important, we preserve deeply cultural Cordilleran governance concepts: Kankanaey 'inayan' (ethical restraint "
-        "against wrongdoing), 'dap-ay' (communal council), 'ubbo' (mutual cooperative work), and Ibaloi 'tongtong' (customary "
-        "dispute mediation). Crucially, we architected separate Native_Aliases and Semantic_Aliases columns so English synonyms "
-        "assist policy retrieval without ever falsely triggering indigenous language greetings."
+        "[Speaker 3: Earold Delin | Target: 1:00]\n"
+        "Now let's examine Track A on Slide 10: our 156-entry SLU and CAR Electronic Lexicon. "
+        "We scaled from 25 Midterm entries to 156 curated records: 48 Ilocano (ISO 639-3: ilo), 40 Northern Kankanaey (kne), "
+        "36 SLU institutional acronyms and Taglish student slang, and 32 Ibaloi (ibl). "
+        "Every entry is linguistically grounded in standard lexicographic authorities—Constantino and Rubino for Ilocano, Vanoverbergh for "
+        "Kankanaey, Ballard for Ibaloi, and SIL Philippines—capturing cross-language cognates like danum, danom, and shanom for water, "
+        "alongside cultural governance terms like inayan, dap-ay, and tongtong. Crucially, separating Native_Aliases from English Semantic_Aliases "
+        "guarantees 0.0% false-positive regional language detection."
     ),
     11: (
-        "[Speaker 4: Erick James Sibayan | Target: 1:00]\n"
-        "On Slide 11, we detail the multi-layer annotation schema behind our 250-document Finals corpus. Every single document "
-        "is tagged across four transparent dimensions: one of 10 balanced operational intent classes with exactly 25 documents "
-        "each; sentiment and urgency polarity distinguishing authoritative policy from neutral inquiries and urgent student "
-        "grievances; code-switching register across EN, TL-EN, and CAR-TL-EN; and an explicit Source_Type provenance tag "
-        "separating official SLU policies, harvested Freedom Wall threads, and curated multilingual benchmark utterances. "
-        "Ensuring 25 examples per class across all 10 intents is what makes rigorous Stratified 5-Fold Cross-Validation "
-        "mathematically valid—giving every single validation fold exactly 5 unseen samples per intent class."
+        "[Speaker 3: Earold Delin | Target: 0:50]\n"
+        "Slide 11 shows five representative rows from our machine-readable CSV schema in data/expanded/slu_car_domain_lexicon_v2.csv. "
+        "Each record captures its Entry ID, normalized lemma, ISO 639-3 tag, part of speech, root and affix structure, English and Filipino "
+        "glosses, separated native and semantic alias arrays, and mapped SLU intent. For instance, SLU-001 maps samcis to shifting and enrollment; "
+        "ILO-008 records Ilocano agadal with prefix ag- on root adal; KNE-002 preserves Kankanaey inayan mapped to academic integrity; "
+        "IBL-002 maps Ibaloi tongtong to customary mediation and disciplinary councils; and IBL-007 documents the distinctive Ibaloi postalveolar "
+        "sh- reflex in shanom. I will now hand it over to Erick Sibayan for our balanced corpus and supervised machine learning benchmarks."
     ),
     12: (
-        "[Speaker 4: Erick James Sibayan | Target: 1:30]\n"
-        "Slide 12 presents the centerpiece of our supervised NLP experiments. We implemented three classic text classifiers "
-        "completely from scratch in zero-dependency pure Python—Multinomial Naive Bayes with Lidstone smoothing, L2-regularized "
-        "Multinomial Logistic Regression, and One-vs-Rest Linear SVM—and benchmarked them via leak-free Stratified 5-Fold "
-        "Cross-Validation where TF-IDF vocabularies and IDF weights are fitted strictly inside each training fold. As shown on "
-        "the left chart, all three models achieve strong generalization over 10 multilingual classes: Multinomial Naive Bayes "
-        "leads with 95.60% Accuracy and 95.61% Macro F1 plus-or-minus 1.47%; Logistic Regression follows closely at 95.18% "
-        "Macro F1 with the lowest cross-fold variance at 0.90%; and Linear SVM scores 93.97% Macro F1. On the right, the 10-by-10 "
-        "confusion matrix confirms crisp diagonal precision—achieving perfect 25-of-25 recall on Shifting, Facilities/Labs, and "
-        "Tuition/Finance, with only 11 minor misclassifications across all 250 out-of-fold predictions. Next, John Andrew will "
-        "present our hybrid retrieval engine, ablation findings, and security engineering."
+        "[Speaker 4: Erick Sibayan | Target: 0:55]\n"
+        "Thank you, Earold. Slide 12 details our expanded 250-document multi-layer annotated corpus built specifically to make Stratified 5-Fold "
+        "Cross-Validation statistically sound. Every one of our 10 SLU operational intent domains—from TOR and iSLU Enrollment to Shifting, "
+        "Grading/FDA, Exam Integrity, Dress Code, Health & Counseling, Tuition & Scholarships, and Libraries & Labs—contains exactly 25 annotated "
+        "documents and at least 3 verified official SLU policy provisions. Across registers, we maintain rich multilingual balance: 101 English "
+        "(40.4%), 79 Taglish (31.6%), and 70 Cordilleran code-switched documents (28.0%). For full academic transparency, every row carries a "
+        "Source_Type tag distinguishing our 32 official policies, 8 authentic Midterm Freedom Wall/URO queries, and 210 curated multilingual queries."
     ),
     13: (
-        "[Speaker 5: John Andrew Angcaway | Target: 1:15]\n"
-        "Thank you, Erick. Slide 13 explains how we combined our supervised Naive Bayes classifier, 156-entry lexicon, and "
-        "TF-IDF cosine engine into a hardened hybrid retrieval architecture—and the real bugs we eliminated through Test-Driven "
-        "Development. In our earlier prototype, asking plain English 'What is the punishment for plagiarism?' triggered a "
-        "false-positive Kankanaey greeting because 'plagiarism' was mixed into 'inayan's' alias list, and gibberish queries "
-        "silently hallucinated Freedom Wall Doc 1 as an official SLU policy. We wrote 12 failing regression tests first, then "
-        "implemented four core safeguards: native-only CAR greeting triggers; a calibrated out-of-domain confidence gate plus "
-        "conversational greeting handler; numeric policy anchoring so asking 'What happens if I get 74?' retrieves the 75% "
-        "passing grade rule instead of dropping subjects; and moderated lexicon boosting so holistic Naive Bayes intent leads "
-        "whenever a student mentions entities from two different offices in one sentence."
+        "[Speaker 4: Erick Sibayan | Target: 1:00]\n"
+        "Slide 13 presents our supervised intent classification results implemented from scratch in pure Python in scripts/train_and_evaluate.py. "
+        "To prevent data leakage, TF-IDF unigram and bigram vectorizers are refit strictly inside each training fold of Stratified 5-Fold CV. "
+        "We benchmarked three classical linear and probabilistic models: Multinomial Naive Bayes with Laplace smoothing led the field at "
+        "95.60% accuracy and 95.61% Macro F1 (±1.47%). L2-regularized Softmax Logistic Regression placed a remarkably close second at 95.20% "
+        "accuracy and 95.18% Macro F1 with the tightest variance (±0.90%). One-vs-Rest Linear SVM with Hinge Loss achieved 94.00% accuracy and "
+        "93.97% Macro F1. We selected Multinomial Naive Bayes as our deployed production intent classifier for its peak F1 and compact JSON weight footprint."
     ),
     14: (
-        "[Speaker 5: John Andrew Angcaway | Target: 1:15]\n"
-        "Slide 14 shows the empirical payoff in our 4-Stage Held-Out Retrieval Ablation Study across 48 strictly unseen queries "
-        "with zero text overlap against our 250-document training corpus—covering 42 in-domain multilingual queries, 4 OOD traps, "
-        "and 2 greetings. Look at the compelling scientific story in the chart. Stage A, Raw TF-IDF Cosine alone, scores 83.3% "
-        "Top-1 accuracy, 0.893 MRR, and 0% OOD rejection because it hallucinates on gibberish. Stage B adds acronym-safe cleaning "
-        "and CAR morphology, jumping nearly 10 percentage points to 92.9% Top-1 and 0.960 MRR. Stage C adds our 156-entry lexicon "
-        "and OOD gate—pushing OOD rejection from 0% to 100%, but revealing an honest trade-off: greedy single-keyword rules "
-        "slightly dipped Top-1 to 90.5% on multi-entity queries like RFID validation after paying tuition. Stage D, our Full Hybrid "
-        "adding the trained Naive Bayes classifier, resolves those multi-entity collisions to achieve the highest overall result: "
-        "95.2% Top-1 Policy Accuracy, 97.6% Top-3 Recall, 0.9643 MRR, 100% OOD Rejection, and 0.0% False-Positive CAR greetings."
+        "[Speaker 4: Erick Sibayan | Target: 0:55]\n"
+        "Slide 14 shows the aggregated 10-by-10 out-of-fold confusion matrix for our winning Multinomial Naive Bayes classifier across all 250 documents. "
+        "Notice how clean the green main diagonal is: 239 out of 250 documents are classified accurately, with three domains—Shifting, Facilities & Labs, "
+        "and Tuition & Finance—achieving a spotless 25 out of 25! Only 11 errors occur across the entire 250-document corpus, shown in light crimson, "
+        "and every single one reflects genuine administrative boundary overlap—such as RFID lanyard rules sitting between Dress Code and Exam Permit "
+        "Integrity. That error analysis directly confirmed why pairing Naive Bayes with lexical policy scoring produces superior retrieval."
     ),
     15: (
-        "[Speaker 5: John Andrew Angcaway | Target: 1:00]\n"
-        "On Slide 15, we highlight the software engineering and security hardening that transforms this from a classroom script "
-        "into a production-grade eGovernance portal. First, during our security audit we spotted DOM XSS where raw user queries "
-        "were inserted via .innerHTML; we eliminated every single .innerHTML call in favor of safe DOM node construction and "
-        "textContent, added strict Content-Security-Policy headers and dist/netlify.toml security headers, and capped input lengths. "
-        "Second, we eliminated Python-versus-JavaScript drift by compiling verified JSON data and trained Naive Bayes weights "
-        "directly from build_portal.py—and verified 100% identical outputs across all 51 held-out and XSS test queries by running "
-        "the HTML portal's actual JavaScript inside Node.js against Python. Third, the 4-tab portal meets WCAG 2.1 AA standards "
-        "with ARIA tablists, arrow-key navigation, aria-live regions, and mobile-to-desktop responsiveness. I will now turn it "
-        "back to Chaze for our live walkthrough, limitations, and closing."
+        "[Speaker 4: Erick Sibayan | Target: 1:00]\n"
+        "Slide 15 shows how we fuse all NLP components in our hybrid policy ranker and harden every edge case using Test-Driven Development. "
+        "Each candidate official SLU policy is scored by combining expanded TF-IDF cosine similarity, a moderated lexicon intent boost of 0.14, "
+        "our trained Multinomial Naive Bayes posterior weighted at 0.30, and a small policy-authority prior. "
+        "Before touching code, we wrote 12 regression tests—11 initially failed on the Midterm baseline, exposing four critical bugs we fixed cleanly: "
+        "native-only CAR greeting triggers, a calibrated OOD safety gate, numeric grade preservation so '74' hits the 75% rule alongside RA 10173 "
+        "cyberbullying routing, and holistic NB moderation to resolve multi-keyword collisions. Passing to John Andrew Angcaway for our ablation study and portal demo."
     ),
     16: (
-        "[Speaker 1: Chaze Ezkys M. Rodriguez | Target: 1:30]\n"
-        "Thank you, John Andrew. On Slide 16, let us walk through four live multilingual query traces from our 4-tab interactive "
-        "portal—and if time permits during Q&A, we can also open the live portal directly. First, a Taglish shifting query from "
-        "SAMCIS to SEAIT cleanly normalizes acronyms, predicts ACADEMIC_SHIFTING_TRANSFER, and returns both internal shifting "
-        "guidelines and Qualifying Examination rules with direct slu.edu.ph links. Second, an Ilocano-Taglish query—'Naimbag a "
-        "bigat! Agadal ak idiay SAMCIS—mano a porsiento ti absent sakbay ma-FDA?'—recognizes native Ilocano lemmas, replies with "
-        "a genuine Ilocano greeting, and cites Handbook Article I, Section 2's 20% FDA threshold. Third, a Kankanaey query using "
-        "'Gawis ay agsapa! Inayan ti plagiarism' retrieves Handbook Article II, Section 4 on academic dishonesty. Finally, an "
-        "out-of-domain trap asking for a Baguio strawberry sinigang recipe is safely caught by our confidence gate with an honest "
-        "redirect to URO, OSAS, Finance, Clinic, and Security offices—zero hallucination."
+        "[Speaker 5: John Andrew Angcaway | Target: 1:00]\n"
+        "Thank you, Erick. Slide 16 reports our 4-stage ablation study evaluated on 48 strictly held-out unseen queries—42 in-domain queries across "
+        "English, Taglish, and CAR languages, plus 4 out-of-domain traps and 2 greetings, with zero text overlap against training data. "
+        "Look at the progression: Stage A (raw TF-IDF cosine) starts at 83.3% Top-1 accuracy and 0% OOD safety. Stage B adds acronym-safe cleaning "
+        "and CAR morphology, leaping +9.6 points to 92.9% Top-1 and 0.960 MRR. Stage C turns on the 156-entry lexicon and OOD gate—OOD rejection "
+        "jumps immediately from 0% to 100%, while exposing a slight 90.5% dip caused by single-keyword collisions. Finally, Stage D adds our trained "
+        "Naive Bayes classifier, resolving collisions and achieving our best marks: 95.2% Top-1 accuracy, 97.6% Top-3, 0.964 MRR, 100% OOD safety, "
+        "and 0.0% false-positive CAR detections—including 100% accuracy on Taglish and 95% on Cordilleran queries!"
     ),
     17: (
-        "[Speaker 1: Chaze Ezkys M. Rodriguez | Target: 1:00]\n"
-        "In the spirit of rigorous academic honesty, Slide 17 outlines our project's current limitations, data privacy safeguards, "
-        "and next-step roadmap. First, regarding provenance: while our 32 SLU policies and harvested Freedom Wall threads are "
-        "primary institutional and community texts, the 210 expanded multilingual training utterances are transparently flagged "
-        "as curated benchmark examples; a critical next step before campus-wide rollout is formal validation with native Ilocano, "
-        "Northern Kankanaey, and Ibaloi speakers and linguists alongside anonymized real student chat logs. Second, under Republic "
-        "Act 10173, our portal runs 100% client-side in the browser—meaning student questions never leave their device and zero "
-        "personal identifiers are stored. Third, future iterations can extend our zero-dependency linear stack with lightweight "
-        "multilingual dense embeddings and strictly policy-grounded retrieval-augmented generation."
+        "[Speaker 5: John Andrew Angcaway | Target: 1:00]\n"
+        "Slide 17 covers production engineering: security, cross-runtime parity, and accessibility. "
+        "First, on security: our audit flagged DOM XSS vectors in the original HTML portal. We eliminated 100% of .innerHTML assignments, rebuilt "
+        "every chat bubble, trace card, and table using safe textContent DOM nodes, added a strict Content-Security-Policy meta tag plus Netlify "
+        "security headers, and tested live against an <img onerror=alert(1)> payload. Second, on parity: scripts/build_portal.py compiles the exact "
+        "same policies, lexicon, and Naive Bayes weights into the browser UI, and our automated Node.js test confirms 51 out of 51 identical outputs "
+        "between Python and JavaScript. Third, our 4-tab portal meets WCAG 2.1 AA contrast with full keyboard ARIA tablist navigation."
     ),
     18: (
-        "[All Members / Chaze Closing | Target: 0:45]\n"
-        "To conclude on Slide 18: Group 2 AiNomally delivered a fully reproducible, audited, security-hardened multilingual NLP "
-        "ecosystem for Saint Louis University. From 250 balanced multi-layer annotated documents and 156 verified SLU and CAR "
-        "lexicon entries to 95.61% Stratified 5-Fold CV Macro F1, 95.2% unseen Top-1 retrieval accuracy, 100% OOD safety, and "
-        "21 passing automated unit, classifier, parity, and security tests, every claim in our paper, spreadsheet, and web portal "
-        "is backed by runnable code. All repository scripts, data, charts, and synced Google Drive deliverables are ready for "
-        "inspection. Thank you very much, Professor Dalos Miguel and classmates—we are now open for your questions and live demo "
-        "requests!"
+        "[Speaker 5: John Andrew Angcaway | Target: 0:55]\n"
+        "Slides 18 and 19 walk through four live multilingual query traces verified identically in our CLI and browser portal. "
+        "On Slide 18, Case 1 tests a real Taglish shifting question: 'Paano process ng shifting from SAMCIS to SEAIT? May QE ba?' "
+        "Our hybrid engine preserves all three SLU acronyms, classifies ACADEMIC_SHIFTING_TRANSFER, and returns the exact URO internal shifting "
+        "and Qualifying Examination procedure. Case 2 tests an Ilocano code-switched attendance question: 'Naimbag a bigat! Agadal ak idiay SAMCIS—mano "
+        "absent sakbay ma-FDA?' The engine recognizes native Ilocano, responds warmly with 'Naimbag a bigat/aldaw!', normalizes agadal to adal, "
+        "and cites Student Handbook Article I's 20% unexcused absence FDA ceiling."
+    ),
+    19: (
+        "[Speaker 5: John Andrew Angcaway | Target: 0:55]\n"
+        "Continuing our walkthrough on Slide 19: Case 3 tests Northern Kankanaey academic integrity—'Gawis ay agsapa! Inayan ti plagiarism ken cheating, "
+        "ania parusa?' Because 'gawis' and 'inayan' are genuine native Kankanaey entries, the assistant greets the student with 'Gawis ay agew!' and "
+        "retrieves Student Handbook Article II, Section 4 on SLU Disciplinary Board sanctions—whereas a plain English plagiarism query cleanly suppresses "
+        "regional greetings. Case 4 demonstrates our safety gate: asking for a 'Baguio strawberry sinigang' recipe scores below our 0.14 threshold, "
+        "triggering OUT_OF_DOMAIN with zero hallucination and politely directing the user to official SLU offices."
+    ),
+    20: (
+        "[Speaker 5: John Andrew Angcaway | Target: 0:50]\n"
+        "Slide 20 shares our honest engineering limitations and Data Privacy Act (RA 10173) safeguards. "
+        "We openly tag all 210 expanded multilingual training utterances as CURATED_MULTILINGUAL_INQUIRY rather than claiming they were all scraped "
+        "live, and our next linguistic milestone is formal community validation with native Ilocano, Northern Kankanaey, and Ibaloi speakers. "
+        "On privacy, our Freedom Wall scraper stores zero student names, IDs, or private identifiers, and because the web portal executes 100% "
+        "client-side in the browser with static hosting, student questions never leave their own device. "
+        "Back to Chaze for our roadmap and closing!"
+    ),
+    21: (
+        "[Speaker 1: Chaze Rodriguez | Target: 0:45]\n"
+        "Thank you, John Andrew. Slide 21 maps our three-step roadmap beyond CSE 30. "
+        "Step 1 is partnering with native CAR linguists and student organizations at SLU to validate idioms, diacritics, and anonymized real-world "
+        "queries while expanding toward Bontok and Ifugao. Step 2 is benchmarking compact multilingual sentence embeddings like mE5 or LaBSE alongside "
+        "our fast Naive Bayes baseline, paired with strict policy-grounded RAG summarization that never fabricates citations. "
+        "Step 3 is institutional integration with live iSLU academic calendars, OSAS advisories, and official URO ticketing workflows."
+    ),
+    22: (
+        "[Speaker 1: Chaze Rodriguez & All Members | Target: 0:45]\n"
+        "To close on Slide 22: Group 2 AiNomally delivered a fully reproducible, audited, security-hardened multilingual NLP ecosystem for Saint Louis "
+        "University. From 250 balanced corpus documents, 32 official SLU policies, and 156 verified CAR lexicon entries to 95.61% Stratified 5-Fold CV "
+        "Macro F1, 95.2% unseen Top-1 policy accuracy, 100% OOD safety, and 21 passing automated tests, every single metric in our paper, spreadsheet, "
+        "and portal is backed by deterministic code. Agyamanak! Iyaman! Dakel a iyaman! Thank you very much, Professor Dalos Miguel and classmates—"
+        "we are now ready for your questions and live portal demo!"
     ),
 }
 
-# ==============================================================================
-# HELPER FUNCTIONS FOR GOOGLE SLIDES BATCH JSON + PARALLEL PYTHON-PPTX BUILD
-# ==============================================================================
 
 def hex_to_rgb(hex_str):
     h = hex_str.lstrip("#")
     return RGBColor(int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
 
 
-class DualDeckBuilder:
+class ClassroomTVDeckBuilder:
     """Simultaneously emits Google Slides batch JSON operations and builds a matching local .pptx."""
 
     def __init__(self):
@@ -302,7 +305,7 @@ class DualDeckBuilder:
         self.slide_order.append(slide_id)
 
     def rect(self, slide_id, x, y, w, h, bg_hex, outline_hex=None):
-        op = {
+        self.ops.append({
             "op": "add-shape",
             "slide": slide_id,
             "shape_type": "RECTANGLE",
@@ -311,15 +314,14 @@ class DualDeckBuilder:
             "width": w,
             "height": h,
             "background_color": bg_hex,
-        }
-        self.ops.append(op)
+        })
         ps = self.pptx_slides[slide_id]
         shp = ps.shapes.add_shape(MSO_SHAPE.RECTANGLE, Pt(x), Pt(y), Pt(w), Pt(h))
         shp.fill.solid()
         shp.fill.fore_color.rgb = hex_to_rgb(bg_hex)
         if outline_hex:
             shp.line.color.rgb = hex_to_rgb(outline_hex)
-            shp.line.width = Pt(1)
+            shp.line.width = Pt(1.25)
         else:
             shp.line.fill.background()
 
@@ -331,14 +333,14 @@ class DualDeckBuilder:
         y,
         w,
         h,
-        font_size=12,
+        font_size=15,
         bold=False,
         italic=False,
         color=C_TEXT,
         bg_hex=None,
         align="left",
         valign="TOP",
-        line_spacing=125,
+        line_spacing=128,
     ):
         op = {
             "op": "add-textbox",
@@ -368,16 +370,15 @@ class DualDeckBuilder:
             tb.fill.fore_color.rgb = hex_to_rgb(bg_hex)
         tf = tb.text_frame
         tf.word_wrap = True
-        tf.margin_left = Pt(6)
-        tf.margin_right = Pt(6)
+        tf.margin_left = Pt(7)
+        tf.margin_right = Pt(7)
         tf.margin_top = Pt(4)
         tf.margin_bottom = Pt(4)
         tf.vertical_anchor = (
             MSO_ANCHOR.MIDDLE if valign == "MIDDLE" else (MSO_ANCHOR.BOTTOM if valign == "BOTTOM" else MSO_ANCHOR.TOP)
         )
         p_align = PP_ALIGN.CENTER if align == "center" else (PP_ALIGN.RIGHT if align == "right" else PP_ALIGN.LEFT)
-        lines = text.split("\n")
-        for idx, ln in enumerate(lines):
+        for idx, ln in enumerate(text.split("\n")):
             p = tf.paragraphs[0] if idx == 0 else tf.add_paragraph()
             p.alignment = p_align
             p.line_spacing = line_spacing / 100.0
@@ -389,88 +390,78 @@ class DualDeckBuilder:
             run.font.italic = italic
             run.font.color.rgb = hex_to_rgb(color)
 
-    def header_chrome(self, slide_id, slide_num, title, subtitle, speaker_label):
-        self.rect(slide_id, 0, 0, 720, 56, C_NAVY)
-        self.rect(slide_id, 0, 56, 720, 3, C_GOLD)
-        self.textbox(slide_id, title, 22, 6, 600, 26, font_size=18, bold=True, color=C_WHITE)
-        self.textbox(slide_id, subtitle, 22, 31, 610, 20, font_size=10, color=C_ICE)
+    def header_chrome(self, slide_id, slide_num, title, speaker_label):
+        """Big, uncluttered Classroom TV header: 23pt bold white title, no tiny subtitle."""
+        self.rect(slide_id, 0, 0, 720, 58, C_NAVY)
+        self.rect(slide_id, 0, 58, 720, 4, C_GOLD)
+        self.textbox(slide_id, title, 24, 9, 608, 42, font_size=23, bold=True, color=C_WHITE, valign="MIDDLE")
         self.textbox(
             slide_id,
-            f"{slide_num} / 18",
-            640,
-            15,
-            60,
-            24,
-            font_size=11,
-            bold=True,
-            color=C_GOLD_BRIGHT,
-            align="right",
-            valign="MIDDLE",
+            f"{slide_num} / {TOTAL_SLIDES}",
+            632, 11, 68, 38,
+            font_size=15, bold=True, color=C_GOLD_BRIGHT, align="right", valign="MIDDLE",
         )
-        # Footer
-        self.rect(slide_id, 0, 386, 720, 19, C_WHITE)
+        # Clean footer
+        self.rect(slide_id, 0, 382, 720, 23, C_WHITE)
         self.textbox(
             slide_id,
-            "Saint Louis University (SAMCIS) • CSE 30 NLP • Group 2 – AiNomally",
-            22,
-            387,
-            430,
-            16,
-            font_size=8.5,
-            color=C_MUTED,
-            valign="MIDDLE",
+            "SLU SAMCIS • CSE 30 NLP • Group 2 – AiNomally",
+            24, 383, 405, 20, font_size=10.5, color=C_MUTED, valign="MIDDLE",
         )
         self.textbox(
             slide_id,
             speaker_label,
-            460,
-            387,
-            238,
-            16,
-            font_size=8.5,
-            bold=True,
-            color=C_NAVY,
-            align="right",
-            valign="MIDDLE",
+            435, 383, 261, 20, font_size=11, bold=True, color=C_NAVY, align="right", valign="MIDDLE",
         )
 
-    def card(self, slide_id, x, y, w, h, title, body, header_bg=C_NAVY, title_color=C_WHITE, body_size=10.5, line_spacing=130, header_h=26, title_size=11.5):
-        self.rect(slide_id, x, y, w, h, C_WHITE, outline_hex="#CBD5E1")
+    def card(
+        self,
+        slide_id,
+        x, y, w, h,
+        title, body,
+        header_bg=C_NAVY,
+        title_color=C_WHITE,
+        title_size=16,
+        header_h=34,
+        body_size=15,
+        line_spacing=132,
+        body_bold=False,
+    ):
+        self.rect(slide_id, x, y, w, h, C_WHITE, outline_hex=C_BORDER)
         self.textbox(slide_id, title, x, y, w, header_h, font_size=title_size, bold=True, color=title_color, bg_hex=header_bg, valign="MIDDLE")
-        self.textbox(slide_id, body, x + 4, y + header_h + 2, w - 8, h - header_h - 6, font_size=body_size, color=C_TEXT, line_spacing=line_spacing)
+        self.textbox(
+            slide_id, body,
+            x + 6, y + header_h + 6, w - 12, h - header_h - 10,
+            font_size=body_size, bold=body_bold, color=C_TEXT, line_spacing=line_spacing,
+        )
 
     def arrow(self, slide_id, x, y, width, color=C_GOLD):
         self.ops.append({
             "op": "add-line",
             "slide": slide_id,
             "line_category": "STRAIGHT",
-            "x": x,
-            "y": y,
-            "width": width,
-            "height": 0,
-            "color": color,
-            "line_weight": 2.2,
-            "end_arrow": "FILL_ARROW",
+            "x": x, "y": y, "width": width, "height": 0,
+            "color": color, "line_weight": 2.6, "end_arrow": "FILL_ARROW",
         })
         ps = self.pptx_slides[slide_id]
-        shp = ps.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Pt(x), Pt(y - 4), Pt(width), Pt(8))
+        shp = ps.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Pt(x), Pt(y - 5), Pt(width), Pt(10))
         shp.fill.solid()
         shp.fill.fore_color.rgb = hex_to_rgb(color)
         shp.line.fill.background()
 
-    def stat_card(self, slide_id, x, y, w, h, num, label, bg=C_NAVY, num_color=C_GOLD_BRIGHT, lbl_color=C_WHITE):
+    def stat_card(self, slide_id, x, y, w, h, num, label, bg=C_NAVY, num_size=36, lbl_size=13.5):
         self.rect(slide_id, x, y, w, h, bg)
-        self.rect(slide_id, x, y + h - 4, w, 4, C_GOLD)
-        self.textbox(slide_id, num, x + 4, y + 6, w - 8, int(h * 0.52), font_size=24, bold=True, color=num_color, align="center", valign="MIDDLE")
-        self.textbox(slide_id, label, x + 6, y + int(h * 0.54), w - 12, int(h * 0.38), font_size=9.5, bold=True, color=lbl_color, align="center", valign="TOP")
+        self.rect(slide_id, x, y + h - 5, w, 5, C_GOLD)
+        self.textbox(slide_id, num, x + 4, y + 8, w - 8, int(h * 0.54), font_size=num_size, bold=True, color=C_GOLD_BRIGHT, align="center", valign="MIDDLE")
+        self.textbox(slide_id, label, x + 6, y + int(h * 0.54), w - 12, int(h * 0.40), font_size=lbl_size, bold=True, color=C_WHITE, align="center", valign="TOP", line_spacing=118)
 
-    def table(self, slide_id, table_id, x, y, w, h, data, font_size=9.2, header_bg=C_NAVY, col_widths=None):
+    def table(self, slide_id, table_id, x, y, w, h, data, font_size=14, header_bg=C_NAVY, col_widths=None):
         rows, cols = len(data), len(data[0])
         self.ops.append({"op": "add-table", "slide": slide_id, "rows": rows, "cols": cols, "id": table_id, "x": x, "y": y, "width": w, "height": h})
         for r_idx, row in enumerate(data):
             for c_idx, val in enumerate(row):
                 is_hdr = r_idx == 0
-                bg = header_bg if is_hdr else (C_WHITE if r_idx % 2 == 1 else "#F1F5F9")
+                bg = header_bg if is_hdr else (C_WHITE if r_idx % 2 == 1 else "#EBF1F8")
                 fg = C_WHITE if is_hdr else C_TEXT
                 self.ops.append({
                     "op": "set-table-cell",
@@ -507,7 +498,7 @@ class DualDeckBuilder:
                 cell = tbl.cell(r_idx, c_idx)
                 is_hdr = r_idx == 0
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = hex_to_rgb(header_bg if is_hdr else (C_WHITE if r_idx % 2 == 1 else "#F1F5F9"))
+                cell.fill.fore_color.rgb = hex_to_rgb(header_bg if is_hdr else (C_WHITE if r_idx % 2 == 1 else "#EBF1F8"))
                 cell.text = str(val)
                 for p in cell.text_frame.paragraphs:
                     for run in p.runs:
@@ -523,433 +514,446 @@ class DualDeckBuilder:
 
 
 def build_deck_content(b):
-    # ==================== SLIDE 1: TITLE (DARK NAVY) ====================
+    # ==================== SLIDE 1: TITLE (DARK NAVY HERO) ====================
     b.add_slide("p", C_NAVY, SPEAKER_NOTES[1])
     b.rect("p", 0, 0, 720, 8, C_GOLD)
     b.rect("p", 0, 397, 720, 8, C_GOLD)
-    b.textbox("p", "SAINT LOUIS UNIVERSITY • BAGUIO CITY • SAMCIS DEPARTMENT OF COMPUTER SCIENCE", 40, 32, 640, 24, font_size=10.5, bold=True, color=C_GOLD_BRIGHT, align="center")
-    b.textbox("p", "SLU eGovernance Multilingual Chatbot\n& CAR Electronic Lexicon", 40, 74, 640, 96, font_size=32, bold=True, color=C_WHITE, align="center", line_spacing=115)
-    b.textbox("p", "Curated Natural Language Resources, Guarded Cordilleran Morphology,\nLeak-Free Supervised Intent Classification & Hardened Web Deployment", 55, 178, 610, 46, font_size=13.5, color=C_ICE, align="center", line_spacing=125)
-    b.rect("p", 260, 236, 200, 3, C_GOLD)
-    b.textbox("p", "Group 2 – AiNomally", 40, 252, 640, 26, font_size=16, bold=True, color=C_GOLD_BRIGHT, align="center")
-    b.textbox("p", "John Andrew Angcaway  •  Earold Jan Delin  •  Keith Russel Hernandez  •  Chaze Ezkys M. Rodriguez  •  Erick James Sibayan", 35, 282, 650, 26, font_size=10.5, color=C_WHITE, align="center")
-    b.textbox("p", "CSE 30: CS Special Topics (Natural Language Processing)  |  Class Code 9712 (01:30–03:00 MTh)  |  Instructor: Prof. Dalos D. Miguel", 35, 344, 650, 24, font_size=9.5, color=C_ICE, align="center")
+    b.textbox("p", "SAINT LOUIS UNIVERSITY  •  BAGUIO CITY  •  SAMCIS", 30, 26, 660, 28, font_size=14, bold=True, color=C_GOLD_BRIGHT, align="center", valign="MIDDLE")
+    b.textbox("p", "SLU eGovernance Chatbot\n& CAR Electronic Lexicon", 30, 66, 660, 108, font_size=38, bold=True, color=C_WHITE, align="center", valign="MIDDLE", line_spacing=112)
+    b.textbox("p", "Multilingual NLP Resources, Guarded CAR Morphology\n& Supervised Intent Classification", 40, 180, 640, 50, font_size=16, color=C_ICE, align="center", valign="MIDDLE", line_spacing=122)
+    b.rect("p", 250, 240, 220, 4, C_GOLD)
+    b.textbox("p", "Group 2 – AiNomally", 40, 254, 640, 30, font_size=20, bold=True, color=C_GOLD_BRIGHT, align="center", valign="MIDDLE")
+    b.textbox("p", "John Andrew Angcaway  •  Earold Jan Delin  •  Keith Russel Hernandez\nChaze Ezkys M. Rodriguez  •  Erick James Sibayan", 30, 290, 660, 48, font_size=14.5, bold=True, color=C_WHITE, align="center", valign="MIDDLE", line_spacing=130)
+    b.textbox("p", "CSE 30 (Natural Language Processing)   |   Class 9712   |   Prof. Dalos D. Miguel", 30, 348, 660, 28, font_size=13, color=C_ICE, align="center", valign="MIDDLE")
 
-    # ==================== SLIDE 2: PROBLEM & CONTEXT ====================
+    # ==================== SLIDE 2: THE PROBLEM ====================
     b.add_slide("S02", C_BG_LIGHT, SPEAKER_NOTES[2])
-    b.header_chrome("S02", 2, "The Problem: Fragmented Governance & Regional Language Gap", "Why Saint Louis University in Baguio City needs a multilingual CAR-aware NLP assistant", "Speaker 1: Chaze Rodriguez (1:15)")
+    b.header_chrome("S02", 2, "Why SLU Needs a CAR-Aware Chatbot", "Speaker: Chaze Rodriguez")
     b.card(
-        "S02", 24, 72, 326, 232,
-        "1. Institutional Support Bottlenecks at SLU",
-        "• Authoritative rules are scattered across the 2015 Student Handbook PDF, URO pages, OSAS/Finance circulars, and clinic notices.\n\n"
-        "• Students ask urgent questions in informal Taglish on #SLUFreedomWall (shifting, tuition dp, 20% FDA, TOR clearance, lab supplies).\n\n"
-        "• Standard English keyword search fails on clitics (ngaun, di'ba, dp, ambilat) and SLU acronyms (SAMCIS, SEAIT, SONAHBS, QE, PATHFIT).",
-        header_bg=C_NAVY, body_size=10.5
+        "S02", 24, 74, 326, 224,
+        "1. SLU Support Bottlenecks",
+        "• Rules split across Handbook, URO & OSAS\n"
+        "• Urgent Taglish queries on #SLUFreedomWall\n"
+        "• English search fails on SAMCIS, dp, QE & FDA",
+        header_bg=C_NAVY, title_size=16.5, body_size=15, line_spacing=148,
     )
     b.card(
-        "S02", 370, 72, 326, 232,
-        "2. Cordilleran (CAR) Digital Resource Scarcity",
-        "• Baguio City and CAR host thriving Ilocano (ilo), Northern Kankanaey (kne), and Ibaloi (ibl) student populations.\n\n"
-        "• Rich Austronesian affixation (ag-, panag-, man-, men-, -um-, -in-) is unsupported by off-the-shelf English NLP pipelines.\n\n"
-        "• Cultural concepts like inayan, dap-ay, ubbo, and tongtong carry governance meaning that English-only chatbots completely miss.",
-        header_bg=C_ROYAL, body_size=10.5
+        "S02", 370, 74, 326, 224,
+        "2. CAR Language Resource Gap",
+        "• Baguio hosts Ilocano, Kankanaey & Ibaloi\n"
+        "• Affixes (ag-, panag-, man-) break English NLP\n"
+        "• Cultural terms (inayan, dap-ay) ignored",
+        header_bg=C_ROYAL, title_size=16.5, body_size=15, line_spacing=148,
     )
     b.textbox(
         "S02",
-        "Core Thesis: Unifying verified SLU institutional policies with a structured CAR electronic lexicon solves student support bottlenecks while advancing digital preservation of Cordilleran languages.",
-        24, 318, 672, 54, font_size=11, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, valign="MIDDLE", align="center"
+        "Thesis: Unify verified SLU policies with a 156-entry CAR lexicon in one fast multilingual assistant.",
+        24, 310, 672, 58, font_size=15.5, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE",
     )
 
-    # ==================== SLIDE 3: CSE 30 ALIGNMENT & OBJECTIVES ====================
+    # ==================== SLIDE 3: TRACKS & OBJECTIVES ====================
     b.add_slide("S03", C_BG_LIGHT, SPEAKER_NOTES[3])
-    b.header_chrome("S03", 3, "CSE 30 Research Alignment & Four Engineering Objectives", "Bridging Track A (CAR Electronic Lexicons) and Track B (eGovernance NLP Applications)", "Speaker 1: Chaze Rodriguez (1:00)")
+    b.header_chrome("S03", 3, "Dual CSE 30 Tracks & Four Objectives", "Speaker: Chaze Rodriguez")
     b.card(
-        "S03", 24, 72, 326, 118,
+        "S03", 24, 74, 326, 114,
         "Track A • CAR Electronic Lexicon",
-        "• 156 machine-readable lexical entries (SLU + Ilocano + Kankanaey + Ibaloi).\n"
-        "• ISO 639-3 tags, POS, morphological roots, affixes, bilingual EN/FIL glosses, and Native vs. Semantic alias separation.",
-        header_bg=C_ROYAL, body_size=10.2
+        "156 verified SLU, Ilocano, Kankanaey & Ibaloi entries with roots, affixes & glosses.",
+        header_bg=C_ROYAL, title_size=16, header_h=34, body_size=14.5, line_spacing=130,
     )
     b.card(
-        "S03", 370, 72, 326, 118,
+        "S03", 370, 74, 326, 114,
         "Track B • SLU eGovernance Chatbot",
-        "• Hybrid TF-IDF + Lexicon + Supervised Naive Bayes intent assistant covering 10 SLU operational domains & 32 verified policies.\n"
-        "• Zero-dependency CLI engine + accessible 4-tab browser portal with live source citations.",
-        header_bg=C_TEAL, body_size=10.2
+        "32 verified SLU policies across 10 domains via Hybrid TF-IDF + Naive Bayes + Web UI.",
+        header_bg=C_TEAL, title_size=16, header_h=34, body_size=14.5, line_spacing=130,
     )
     objs = [
-        ("Obj. 1: Reproducibility", "Single-command local pipeline (build_all.py) reproducing Midterm & Finals with 0 Drive drift."),
-        ("Obj. 2: TDD Hardening", "Eliminate false CAR greetings, 'ill'/possessive bugs, OOD hallucinations, and DOM XSS."),
-        ("Obj. 3: Scaling & Balance", "Scale to 250 balanced docs (25/intent), 32 official SLU policies, and 156 CAR lexicon entries."),
-        ("Obj. 4: Empirical Rigor", "Leak-free Stratified 5-Fold CV (NB/LR/SVM) + 4-stage ablation on 48 unseen queries."),
+        ("1. Reproducible", "One command\n(build_all.py)\n0 Drive drift", C_NAVY),
+        ("2. Hardened", "TDD fixes for\nCAR, OOD &\nZero XSS", C_ROYAL),
+        ("3. Balanced", "250 docs\n(25 / intent)\n32 SLU rules", C_TEAL),
+        ("4. Rigorous", "5-Fold CV\nNB / LR / SVM\n48 unseen tests", C_NAVY),
     ]
-    for idx, (ot, ob) in enumerate(objs):
+    for idx, (ot, ob, col) in enumerate(objs):
         ox = 24 + idx * 171
-        b.card("S03", ox, 204, 159, 168, ot, ob, header_bg=C_NAVY if idx % 2 == 0 else C_ROYAL, body_size=9.5, line_spacing=125)
+        b.card("S03", ox, 202, 159, 168, ot, ob, header_bg=col, title_size=15, header_h=34, body_size=14.5, line_spacing=135)
 
-    # ==================== SLIDE 4: 5-STAGE NLP ARCHITECTURE ====================
+    # ==================== SLIDE 4: 5-STAGE ARCHITECTURE ====================
     b.add_slide("S04", C_BG_LIGHT, SPEAKER_NOTES[4])
-    b.header_chrome("S04", 4, "End-to-End 5-Stage Reproducible NLP Architecture", "From raw multi-source ingestion to zero-drift browser inference (scripts/build_all.py)", "Speaker 2: Keith Hernandez (1:15)")
+    b.header_chrome("S04", 4, "5-Stage Reproducible NLP Architecture", "Speaker: Keith Hernandez")
     stages = [
-        ("Stage 1\nData Acquisition", "slu_web_scraper.py\n\n• 8 Freedom Wall posts\n• 32 verified SLU policies (URO, Handbook, OSAS, Finance, CCW, UNL)", C_NAVY),
-        ("Stage 2\nText Cleaning", "data_cleaning.py\n\n• Acronym-safe regex\n• Clitic/slang expansion\n• Protects 'ill', 's, & CAR hyphens", C_ROYAL),
-        ("Stage 3\nCAR Morphology", "car_morphology.py\n\n• 265+ stopwords\n• Guarded EN/FIL/CAR lemmatizer\n• Unigrams + Bigrams", C_TEAL),
-        ("Stage 4\nML + Hybrid Core", "train_and_evaluate.py\n\n• 5-Fold CV NB/LR/SVM\n• 156-entry Lexicon\n• OOD Confidence Gate", C_NAVY),
-        ("Stage 5\nHardened Portal", "build_portal.py\n\n• Single-source HTML\n• Zero .innerHTML XSS\n• Python↔Node parity", C_ROYAL),
+        ("Stage 1\nAcquire", "• 8 FW posts\n• 32 SLU rules\n• URO & OSAS\n• Handbook", C_NAVY),
+        ("Stage 2\nClean", "• Keep SAMCIS\n• Fix 'ill' & 's\n• Taglish slang\n• CAR hyphens", C_ROYAL),
+        ("Stage 3\nMorph", "• 265 stopwords\n• Safe English\n• CAR affixes\n• 19 Bigrams", C_TEAL),
+        ("Stage 4\nML Core", "• 5-Fold CV\n• Naive Bayes\n• 156 Lexicon\n• OOD Gate", C_NAVY),
+        ("Stage 5\nPortal", "• 4-Tab Web UI\n• Zero XSS\n• Py↔JS Parity\n• WCAG 2.1 AA", C_ROYAL),
     ]
     for idx, (st_hdr, st_body, col) in enumerate(stages):
         sx = 20 + idx * 138
-        b.rect("S04", sx, 78, 126, 224, C_WHITE, outline_hex="#CBD5E1")
-        b.textbox("S04", st_hdr, sx, 78, 126, 40, font_size=10, bold=True, color=C_WHITE, bg_hex=col, align="center", valign="MIDDLE")
-        b.textbox("S04", st_body, sx + 4, 124, 118, 172, font_size=8.8, color=C_TEXT, line_spacing=125)
+        b.rect("S04", sx, 76, 126, 224, C_WHITE, outline_hex=C_BORDER)
+        b.textbox("S04", st_hdr, sx, 76, 126, 48, font_size=14, bold=True, color=C_WHITE, bg_hex=col, align="center", valign="MIDDLE", line_spacing=112)
+        b.textbox("S04", st_body, sx + 4, 132, 118, 162, font_size=13.5, bold=True, color=C_TEXT, line_spacing=145)
         if idx < 4:
             b.arrow("S04", sx + 127, 186, 8)
     b.textbox(
         "S04",
-        "Zero External ML Dependencies: Pure Python 3.14 stdlib + serialized JSON model weights (models/intent_classifier.json) executed identically in Python CLI and browser JS — verified by 21 automated unit, classifier, parity, and security tests.",
-        20, 316, 680, 56, font_size=10, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE"
+        "Zero External ML Dependencies: Pure Python 3.14 + JSON weights • 21 / 21 automated tests passing.",
+        20, 314, 680, 56, font_size=15, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE",
     )
 
-    # ==================== SLIDE 5: CORPUS SCALING CHART ====================
+    # ==================== SLIDE 5: SCALING CHART ====================
     b.add_slide("S05", C_BG_LIGHT, SPEAKER_NOTES[5])
-    b.header_chrome("S05", 5, "Corpus Construction & Scaling (Midterm → Finals)", "10.4× corpus growth with balanced 10-intent coverage and transparent provenance", "Speaker 2: Keith Hernandez (1:15)")
-    b.image("S05", os.path.join(CHARTS_DIR, "02_corpus_scaling_registers.png"), 20, 70, 498, 280)
-    b.card(
-        "S05", 528, 70, 172, 280,
-        "Verified Coverage Gains",
-        "• Added 20 new SLU policies filling Midterm gaps:\n  - Finance & Payment Channels\n  - Entrance & Academic Scholarships\n  - CCW Counseling & Mental Health\n  - UNL Vath Library & Lab Safety\n\n"
-        "• Provenance Tags:\n  - 32 Official SLU Policies\n  - 8 Authentic Midterm Queries\n  - 210 Curated EN/TL/CAR Queries",
-        header_bg=C_NAVY, body_size=8.8, line_spacing=122
+    b.header_chrome("S05", 5, "Corpus & Lexicon Scaling (Midterm → Finals)", "Speaker: Keith Hernandez")
+    b.image("S05", os.path.join(CHARTS_DIR, "tv_02_corpus_scaling.png"), 73, 68, 574, 265)
+    b.textbox(
+        "S05",
+        "Every operational intent now has 25 balanced docs and ≥ 3 verified SLU policies.",
+        24, 338, 672, 36, font_size=14.5, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE",
     )
-    b.textbox("S05", "Every operational intent now has ≥ 3 authoritative policy documents and exactly 25 annotated documents.", 20, 355, 680, 24, font_size=9.5, bold=True, color=C_ROYAL, align="center", valign="MIDDLE")
 
-    # ==================== SLIDE 6: DATA AUDIT & REPRODUCIBILITY ====================
+    # ==================== SLIDE 6: DATA AUDIT ====================
     b.add_slide("S06", C_BG_LIGHT, SPEAKER_NOTES[6])
-    b.header_chrome("S06", 6, "End-to-End Audit & Single-Source Reproducibility", "Six real discrepancies detected and resolved across local files and Google Drive", "Speaker 2: Keith Hernandez (1:00)")
+    b.header_chrome("S06", 6, "End-to-End Audit: Six Discrepancies Fixed", "Speaker: Keith Hernandez")
     b.table("S06", "TBL_AUDIT", 24, 72, 672, 248, [
-        ["Audit Finding", "Legacy State (Before)", "Verified Fix (After)", "Affected Artifacts"],
-        ["Unique Stems & TTR", "352 stems (TTR 0.5641)", "426 unique stems (TTR 0.6827)", "Paper, Script, HTML"],
-        ["BoW Rank #4 & #19", "semester=9; year missing", "semester=8 (1.28%); year=4 (#19)", "Sheet, Paper, CSV, HTML"],
-        ["Google Sheet Data", "Old Prelim (like=12, campu=4)", "Midterm Top 30 + Finals Tab 2", "Google Sheet (2 Tabs)"],
-        ["Recurring Bigrams", "bonifacio campus=2, min grade=2", "19 true bigrams (freq ≥ 2 only)", "HTML Portal, Paper"],
-        ["Doc #6 Freedom Wall ID", "Mismatched #25582", "Unified to raw #25604 everywhere", "CSV, JSON, Engine, Paper"],
-        ["Stage 2/3 Repro Drift", "niyo/??/haha diffs; no guards", "0-diff repro via scripts/build_all.py", "Drive & Local Scripts"],
-    ], font_size=8.8)
-    b.textbox("S06", "Verification Gate: tests/test_pipeline.py re-runs cleaning & preprocessing from data/raw_midterm/ into a temp folder and asserts 0 diffs.", 24, 332, 672, 40, font_size=10, bold=True, color=C_GREEN_FG, bg_hex=C_GREEN_BG, align="center", valign="MIDDLE")
+        ["Audit Finding", "Legacy Error (Before)", "Verified Fix (After)"],
+        ["Unique Stems", "352 stems (TTR 0.56)", "426 stems (TTR 0.6827)"],
+        ["BoW Counts", "semester = 9; year lost", "semester = 8; year = 4 (#19)"],
+        ["Google Sheet", "Old Prelim (like = 12)", "Synced Top 30 + Finals Tab 2"],
+        ["Bigram List", "2 fabricated bigrams", "19 verified bigrams (freq = 2)"],
+        ["Doc #6 ID", "Mismatched #25582", "Unified #25604 everywhere"],
+    ], font_size=14, col_widths=[172, 232, 268])
+    b.textbox(
+        "S06",
+        "Verification Gate: test_pipeline.py reproduces cleaned_corpus.txt with 0 line diffs.",
+        24, 330, 672, 42, font_size=14.5, bold=True, color=C_GREEN_FG, bg_hex=C_GREEN_BG, align="center", valign="MIDDLE",
+    )
 
     # ==================== SLIDE 7: STAGE 2 TEXT CLEANING ====================
     b.add_slide("S07", C_BG_LIGHT, SPEAKER_NOTES[7])
-    b.header_chrome("S07", 7, "Stage 2: Hardened Acronym-Safe Text Cleaning", "Preserving institutional acronyms while fixing real-world contraction & punctuation bugs", "Speaker 3: Earold Delin (1:15)")
+    b.header_chrome("S07", 7, "Stage 2: Hardened Acronym-Safe Cleaning", "Speaker: Keith Hernandez")
     b.table("S07", "TBL_CLEAN", 24, 72, 672, 246, [
-        ["Normalization Rule", "Raw Student / Policy Input", "Hardened Output (data_cleaning.py)"],
-        ["Acronym-Safe Metadata", "[#SLUFreedomWall25604] (Submitted: ...) (SAMCIS) (TOR)", "samcis tor (timestamps removed; acronyms intact)"],
-        ["Context-Aware 'ill'", "I am feeling ill today / ill still answer", "i am feeling ill today / i will still answer"],
-        ["Possessive 's Strip", "SLU's Registrar's Office (URO)", "slu registrar office uro (no bogus 'is')"],
-        ["Taglish Clitics & Slang", "Gusto niyo ng dp? Ngaun? likeeee hahahahahaahhhahaha", "gusto ninyo ng downpayment? ngayon? like haha"],
-        ["Punctuation Polarity", "reused pipette tips?? have some shame!!", "reused pipette tips? have some shame!"],
-        ["CAR Hyphen Retention", "Kankanaey dap-ay and man-obla rules", "kankanaey dap-ay and man-obla rules"],
-    ], font_size=8.8)
-    b.textbox("S07", "Midterm Reproducibility Preserved: All 24 raw lines in data/raw_midterm/ reproduce outputs/cleaned_corpus.txt with 0 line diffs.", 24, 330, 672, 42, font_size=10, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE")
+        ["Cleaning Rule", "Raw Student / Policy Input", "Hardened Clean Output"],
+        ["Acronyms", "[#SLUFW25604] (SAMCIS) (TOR)", "samcis tor (intact!)"],
+        ["Context 'ill'", "feeling ill  /  ill answer", "feeling ill  /  i will answer"],
+        ["Possessive 's", "SLU's Registrar's Office", "slu registrar office"],
+        ["Taglish & CAR", "dp? ngaun? dap-ay man-obla", "downpayment ngayon dap-ay"],
+    ], font_size=14, col_widths=[152, 266, 254])
+    b.textbox(
+        "S07",
+        "Protects SLU acronyms, punctuation polarity, and Cordilleran hyphens with 0 Midterm drift.",
+        24, 328, 672, 44, font_size=14.5, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE",
+    )
 
     # ==================== SLIDE 8: STAGE 3 CAR MORPHOLOGY ====================
     b.add_slide("S08", C_BG_LIGHT, SPEAKER_NOTES[8])
-    b.header_chrome("S08", 8, "Stage 3: Guarded Bilingual & CAR Morphological Analysis", "Zero English root corruption alongside Austronesian affix normalization (car_morphology.py)", "Speaker 3: Earold Delin (1:15)")
+    b.header_chrome("S08", 8, "Stage 3: Guarded CAR Morphological Analysis", "Speaker: Earold Delin")
     b.card(
-        "S08", 24, 72, 326, 298,
-        "Eliminating Over-Stemming Failures",
-        "Naive Affix Stripping (Prelim Errors):\n"
-        "• management → nage   |   campus → campu\n"
-        "• department → depart  |   during → dur\n\n"
-        "Unguarded 'mag-' Prefix Bug (Midterm Audit):\n"
-        "• magnify → nify       |   magician → ician\n"
-        "• magical → ical       |   maganda → anda\n"
-        "• magnesium → nesium   |   paginated → inated\n\n"
-        "Hardened Protection (car_morphology.py):\n"
-        "• Curated PREFIX_EXCEPTIONS + English suffix hints (-tion, -ment, -ify, -ical, -ician, -ium) block false stripping.\n"
-        "• Standalone 'mag' added to QUERY_STOPWORDS.",
-        header_bg=C_RED_FG, body_size=9.5, line_spacing=122
+        "S08", 24, 74, 326, 296,
+        "Blocked Over-Stemming",
+        "Naive errors eliminated:\n"
+        "• management → NOT nage\n"
+        "• campus → NOT campu\n"
+        "• magnify → NOT nify\n"
+        "• magician → NOT ician\n\n"
+        "Protected by PREFIX_EXCEPTIONS & English suffix rules.",
+        header_bg=C_RED_FG, title_size=16.5, header_h=36, body_size=15, line_spacing=132,
     )
     b.card(
-        "S08", 370, 72, 326, 298,
-        "Productive Philippine & CAR Affix Normalization",
-        "Filipino / Taglish Verbal & Infix Roots:\n"
-        "• magtanong / tinanong → tanong   |   nagbayad → bayad\n"
-        "• tumataas → taas  |  tumawid / tatawid → tawid\n"
-        "• sumulat → sulat  |  bumagsak → bagsak\n\n"
-        "Ilocano (ilo) Prefixes (ag-, panag-, na-, agpa-):\n"
-        "• agadal / panagadal → adal   |   agsurat → surat\n"
-        "• agbayad → bayad  |  agpaagas → agas  |  naimbag → imbag\n\n"
-        "Northern Kankanaey (kne) & Ibaloi (ibl):\n"
-        "• man-obla / men-obla → obla  |  man-adal → adal\n"
-        "• menbayad → bayad  |  mapteng → peteng\n"
-        "• man-obda → obda   |  mankalkali → kali",
-        header_bg=C_TEAL, body_size=9.5, line_spacing=122
+        "S08", 370, 74, 326, 296,
+        "Normalized CAR & Taglish",
+        "Filipino / Taglish:\n"
+        "• magtanong / tinanong → tanong\n"
+        "• tumataas → taas\n\n"
+        "Ilocano / Kankanaey / Ibaloi:\n"
+        "• agadal / panagadal → adal\n"
+        "• man-obla / men-obla → obla\n"
+        "• agpaagas → agas",
+        header_bg=C_TEAL, title_size=16.5, header_h=36, body_size=15, line_spacing=130,
     )
 
-    # ==================== SLIDE 9: BOW & BIGRAMS CHART ====================
+    # ==================== SLIDE 9: MIDTERM BOW TOP 10 CHART ====================
     b.add_slide("S09", C_BG_LIGHT, SPEAKER_NOTES[9])
-    b.header_chrome("S09", 9, "Verified Midterm Lexical Profiling: BoW & Bigrams", "624 filtered tokens • 426 unique stems (TTR = 0.6827) • 19 recurring bigrams (freq = 2)", "Speaker 3: Earold Delin (1:00)")
-    b.image("S09", os.path.join(CHARTS_DIR, "01_midterm_bow_top15.png"), 20, 70, 488, 274)
-    b.card(
-        "S09", 518, 70, 182, 274,
-        "Top Verified Bigrams (n=2)",
-        "All 19 recurring bigrams (freq=2) verified in preprocessed_tokens.json:\n\n"
-        "• official transcript\n"
-        "• transcript records\n"
-        "• records tor\n"
-        "• qualifying examination\n"
-        "• examination permit\n"
-        "• failure due / due absence\n"
-        "• student portal / slu student\n"
-        "• academic department\n"
-        "• degree program\n"
-        "• mid semester / semester taas\n"
-        "• request official",
-        header_bg=C_ROYAL, body_size=8.8, line_spacing=120
+    b.header_chrome("S09", 9, "Verified Midterm Top 10 Bag of Words Stems", "Speaker: Earold Delin")
+    b.image("S09", os.path.join(CHARTS_DIR, "tv_01_bow_top10.png"), 73, 68, 574, 265)
+    b.textbox(
+        "S09",
+        "624 filtered tokens  •  426 unique stems  •  19 verified bigrams (official transcript, failure due)",
+        24, 338, 672, 36, font_size=14.5, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE",
     )
-    b.textbox("S09", "Synced identically across corpus_bow_summary.csv, Google Sheet Tab 1, HTML Portal, and Research Paper.", 20, 352, 680, 24, font_size=9.5, bold=True, color=C_NAVY, align="center", valign="MIDDLE")
 
-    # ==================== SLIDE 10: TRACK A 156-ENTRY CAR LEXICON ====================
+    # ==================== SLIDE 10: TRACK A 156 LEXICON OVERVIEW ====================
     b.add_slide("S10", C_BG_LIGHT, SPEAKER_NOTES[10])
-    b.header_chrome("S10", 10, "Track A: 156-Entry Multilingual SLU & CAR Electronic Lexicon", "36 SLU/Taglish • 48 Ilocano (ilo) • 40 Northern Kankanaey (kne) • 32 Ibaloi (ibl)", "Speaker 4: Erick Sibayan (1:30)")
-    b.table("S10", "TBL_LEX", 24, 68, 672, 236, [
-        ["ID", "Lemma", "ISO", "Root / Affix", "English / Institutional Gloss", "Domain Intent"],
-        ["SLU-001", "samcis", "en-SLU", "samcis (Acronym)", "School of Accountancy, Mgmt., Computing & Info Studies", "SHIFTING_TRANSFER"],
-        ["SLU-011", "ccw", "en-SLU", "ccw (Acronym)", "Center for Counseling & Wellness (Mental Health)", "HEALTH_SAFETY"],
-        ["ILO-008", "agadal", "ilo", "adal (ag-)", "To study; pursue university coursework (Ilocano)", "ENROLLMENT_PORTAL"],
-        ["ILO-037", "danum", "ilo", "danum (Root)", "Water — Ilocano cognate (vs. kne danom / ibl shanom)", "FACILITIES_LAB"],
-        ["KNE-002", "inayan", "kne", "inayan (Root)", "Cordilleran ethical restraint vs. academic dishonesty", "EXAM_INTEGRITY"],
-        ["KNE-022", "danom", "kne", "danom (Root)", "Water — Northern Kankanaey campus utility cognate", "FACILITIES_LAB"],
-        ["IBL-002", "tongtong", "ibl", "tongtong (Root)", "Customary dispute mediation & disciplinary council", "EXAM_INTEGRITY"],
-        ["IBL-007", "shanom", "ibl", "shanom (Root)", "Water — Ibaloi postalveolar sh- reflex cognate", "FACILITIES_LAB"],
-    ], font_size=8.4, col_widths=[56, 62, 46, 98, 286, 124])
-    b.textbox(
-        "S10",
-        "Linguistic Grounding: Constantino (1971), Rubino (2000), Vanoverbergh (1933), Ballard (2011), & SIL Philippines.\n"
-        "Engineering Safeguard: Strict separation of Native_Aliases vs. Semantic_Aliases guarantees 0.0% false-positive CAR language tagging.",
-        24, 326, 672, 48, font_size=9.5, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE"
+    b.header_chrome("S10", 10, "Track A: 156-Entry SLU & CAR Lexicon", "Speaker: Earold Delin")
+    b.stat_card("S10", 24, 76, 159, 142, "48", "Ilocano\n(ISO: ilo)", bg=C_ROYAL, num_size=40, lbl_size=14)
+    b.stat_card("S10", 195, 76, 159, 142, "40", "Kankanaey\n(ISO: kne)", bg=C_TEAL, num_size=40, lbl_size=14)
+    b.stat_card("S10", 366, 76, 159, 142, "36", "SLU & Taglish\n(en / tl-SLU)", bg=C_NAVY, num_size=40, lbl_size=14)
+    b.stat_card("S10", 537, 76, 159, 142, "32", "Ibaloi\n(ISO: ibl)", bg=C_INDIGO, num_size=40, lbl_size=14)
+
+    b.card(
+        "S10", 24, 234, 326, 136,
+        "Cognates & Cultural Roots",
+        "• danum (ilo) • danom (kne) • shanom (ibl)\n"
+        "• Governance: inayan • dap-ay • tongtong",
+        header_bg=C_NAVY, title_size=15.5, header_h=34, body_size=14.5, line_spacing=145,
+    )
+    b.card(
+        "S10", 370, 234, 326, 136,
+        "0.0% False-Positive Safeguard",
+        "• Separates Native_Aliases vs. Semantic_Aliases\n"
+        "• Grounded in Rubino, Vanoverbergh & Ballard",
+        header_bg=C_GREEN_FG, title_size=15.5, header_h=34, body_size=14.5, line_spacing=135,
     )
 
-    # ==================== SLIDE 11: MULTI-LAYER ANNOTATION SCHEMA ====================
+    # ==================== SLIDE 11: LEXICON SAMPLES TABLE ====================
     b.add_slide("S11", C_BG_LIGHT, SPEAKER_NOTES[11])
-    b.header_chrome("S11", 11, "Multi-Layer Corpus Annotation & 10 Balanced Intents", "250 annotated documents (25 per class) enabling statistically valid Stratified 5-Fold CV", "Speaker 4: Erick Sibayan (1:00)")
-    b.card("S11", 24, 66, 212, 106, "Layer 1 • Intent Class", "10 balanced SLU domains\nExactly 25 docs / class\nEvery class has ≥ 3 official verified SLU policies.", header_bg=C_NAVY, body_size=9.2, line_spacing=122, header_h=24, title_size=10.5)
-    b.card("S11", 254, 66, 212, 106, "Layer 2 • Register & Sentiment", "101 EN (40.4%) • 79 TL-EN (31.6%)\n70 CAR-TL-EN (28.0%)\nPolarity: Policy, Inquiry, Urgent", header_bg=C_ROYAL, body_size=9.2, line_spacing=122, header_h=24, title_size=10.5)
-    b.card("S11", 484, 66, 212, 106, "Layer 3 • Provenance", "Explicit Source_Type tag:\n• 32 OFFICIAL_SLU_POLICY\n• 8 HARVESTED / URO_Q\n• 210 CURATED_MULTILINGUAL", header_bg=C_TEAL, body_size=9.2, line_spacing=122, header_h=24, title_size=10.5)
+    b.header_chrome("S11", 11, "Authentic SLU & CAR Lexicon Samples", "Speaker: Earold Delin")
+    b.table("S11", "TBL_LEX", 24, 72, 672, 254, [
+        ["Lemma", "ISO", "Root / Affix", "Institutional / Regional Gloss"],
+        ["samcis", "en-SLU", "Acronym", "School of Accountancy, Mgmt. & Computing"],
+        ["agadal", "ilo", "adal (ag-)", "To study; pursue university coursework"],
+        ["inayan", "kne", "Root", "Ethical restraint vs. academic dishonesty"],
+        ["tongtong", "ibl", "Root", "Customary mediation & disciplinary council"],
+        ["shanom", "ibl", "Root", "Water (Ibaloi sh- cognate of danum/danom)"],
+    ], font_size=14, col_widths=[108, 76, 136, 352])
+    b.textbox(
+        "S11",
+        "CSV Schema: Entry_ID, Lemma, ISO, POS, Root, Affix, EN/FIL Gloss, Native vs. Semantic Aliases.",
+        24, 336, 672, 36, font_size=14, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE",
+    )
 
-    b.table("S11", "TBL_INTENTS", 24, 182, 672, 186, [
-        ["Operational Intent Class", "Docs", "Pol", "Operational Intent Class", "Docs", "Pol"],
-        ["URO_ENROLLMENT_TOR (TOR/COG/CGMC)", "25", "3", "EXAM_PERMIT_INTEGRITY (RFID/Cheating)", "25", "3"],
-        ["URO_ENROLLMENT_PORTAL (iSLU/Advising)", "25", "3", "CAMPUS_DECORUM_DRESSCODE (Uniform/Wash)", "25", "3"],
-        ["URO_SUBJECT_ADJUSTMENT (Add/Drop/WP)", "25", "3", "CAMPUS_HEALTH_SAFETY (Clinic/CCW/DPA)", "25", "4"],
-        ["ACADEMIC_SHIFTING_TRANSFER (Shift/QE)", "25", "4", "TUITION_FINANCE (Banks/Scholarships)", "25", "3"],
-        ["HANDBOOK_GRADING_FDA (75%/FDA/INC)", "25", "3", "CAMPUS_FACILITIES_LAB (UNL/Labs/IT)", "25", "3"],
-    ], font_size=8.3, col_widths=[256, 40, 40, 256, 40, 40])
-
-    # ==================== SLIDE 12: SUPERVISED 5-FOLD CV BENCHMARKS ====================
+    # ==================== SLIDE 12: 250-DOC CORPUS & 10 INTENTS ====================
     b.add_slide("S12", C_BG_LIGHT, SPEAKER_NOTES[12])
-    b.header_chrome("S12", 12, "Supervised Intent Classification (Stratified 5-Fold CV)", "Leak-free fold-local TF-IDF benchmarking of NB, Logistic Regression & Linear SVM", "Speaker 4: Erick Sibayan (1:30)")
-    b.image("S12", os.path.join(CHARTS_DIR, "03_cv_model_comparison.png"), 20, 72, 334, 188)
-    b.image("S12", os.path.join(CHARTS_DIR, "04_confusion_matrix.png"), 366, 72, 334, 188)
-    b.stat_card("S12", 20, 274, 218, 96, "95.61%", "Multinomial NB [BEST]\n95.60% Acc • ±1.47% F1", bg=C_NAVY)
-    b.stat_card("S12", 251, 274, 218, 96, "95.18%", "Logistic Regression (L2)\n95.20% Acc • ±0.90% Std", bg=C_ROYAL)
-    b.stat_card("S12", 482, 274, 218, 96, "93.97%", "Linear SVM (OvR Hinge)\n94.00% Acc • 239/250 NB Hits", bg=C_TEAL)
+    b.header_chrome("S12", 12, "250-Doc Balanced Corpus & 10 Intents", "Speaker: Erick Sibayan")
+    b.textbox("S12", "250 Docs  •  25 / Class", 24, 72, 214, 48, font_size=15.5, bold=True, color=C_WHITE, bg_hex=C_NAVY, align="center", valign="MIDDLE")
+    b.textbox("S12", "101 EN • 79 TL • 70 CAR", 253, 72, 214, 48, font_size=15.5, bold=True, color=C_WHITE, bg_hex=C_ROYAL, align="center", valign="MIDDLE")
+    b.textbox("S12", "32 Official SLU Policies", 482, 72, 214, 48, font_size=15.5, bold=True, color=C_WHITE, bg_hex=C_TEAL, align="center", valign="MIDDLE")
 
-    # ==================== SLIDE 13: HYBRID RETRIEVAL & TDD HARDENING ====================
+    left_intents = [
+        "1. TOR, COG & Credentials (3 pol)",
+        "2. iSLU Portal & Enrollment (3 pol)",
+        "3. Add / Drop & Overload (3 pol)",
+        "4. Shifting & Qualifying Exam (4 pol)",
+        "5. Grading, 75% & 20% FDA (3 pol)",
+    ]
+    right_intents = [
+        "6. Exam Permit & Integrity (3 pol)",
+        "7. Uniform & Campus Decorum (3 pol)",
+        "8. Clinic, CCW, Seismic & DPA (4 pol)",
+        "9. Tuition, Banks & Grants (3 pol)",
+        "10. UNL Library, Labs & IT (3 pol)",
+    ]
+    for i, txt in enumerate(left_intents):
+        py = 134 + i * 39
+        b.rect("S12", 24, py, 7, 33, C_NAVY)
+        b.textbox("S12", txt, 31, py, 321, 33, font_size=14, bold=True, color=C_TEXT, bg_hex=C_WHITE, valign="MIDDLE")
+    for i, txt in enumerate(right_intents):
+        py = 134 + i * 39
+        b.rect("S12", 368, py, 7, 33, C_ROYAL)
+        b.textbox("S12", txt, 375, py, 321, 33, font_size=14, bold=True, color=C_TEXT, bg_hex=C_WHITE, valign="MIDDLE")
+
+    b.textbox(
+        "S12",
+        "Explicit Source_Type provenance:  32 Official  •  8 Harvested  •  210 Curated Multilingual",
+        24, 336, 672, 36, font_size=14.5, bold=True, color=C_NAVY, bg_hex=C_GOLD_LIGHT, align="center", valign="MIDDLE",
+    )
+
+    # ==================== SLIDE 13: 5-FOLD CV BENCHMARK CHART ====================
     b.add_slide("S13", C_BG_LIGHT, SPEAKER_NOTES[13])
-    b.header_chrome("S13", 13, "Hybrid Retrieval Architecture & TDD Bug Hardening", "Turning 11 failing regression tests green with calibrated scoring and OOD safety", "Speaker 5: John Andrew Angcaway (1:15)")
-    b.textbox(
-        "S13",
-        "Hybrid Policy Score(q, d) = Cosine_TFIDF(q_exp, d) + α_eff · I(d.intent ∈ LexIntents) + β · P_NB(d.intent | q) + γ_auth",
-        24, 70, 672, 36, font_size=11.5, bold=True, color=C_WHITE, bg_hex=C_NAVY, align="center", valign="MIDDLE"
-    )
-    b.card(
-        "S13", 24, 118, 326, 120,
-        "1. Native-Only CAR Greeting Separation",
-        "• Bug: English 'plagiarism' / 'disciplinary' falsely triggered Kankanaey & Ibaloi greetings.\n"
-        "• Fix: Separated Native_Aliases from Semantic_Aliases — regional greetings fire strictly on genuine CAR tokens.",
-        header_bg=C_ROYAL, body_size=9.5
-    )
-    b.card(
-        "S13", 370, 118, 326, 120,
-        "2. Calibrated OOD Gate & Greeting Handler",
-        "• Bug: Gibberish & 'hello' silently returned Freedom Wall Doc #1/#8 as 'official SLU regulations'.\n"
-        "• Fix: Dedicated greeting handler + minimum confidence gate redirecting cleanly to URO, OSAS, Finance, & Clinic.",
-        header_bg=C_TEAL, body_size=9.5
-    )
-    b.card(
-        "S13", 24, 248, 326, 124,
-        "3. Numeric Anchors & Synonym Precision",
-        "• Preserves policy numbers (grades 50–99, 20% FDA, RA 10173): 'What if I get 74?' now hits the 75% passing rule.\n"
-        "• Added cyberbullying/libel/privacy mappings → RA 10173.\n"
-        "• Decoupled shifting synonyms from add/drop forms.",
-        header_bg=C_NAVY, body_size=9.5
-    )
-    b.card(
-        "S13", 370, 248, 326, 124,
-        "4. Holistic ML Moderation (α_eff = 0.14)",
-        "• Single-keyword lexicon rules over-boost secondary mentions (e.g., 'tuition' inside an RFID validation question).\n"
-        "• Letting holistic Multinomial NB lead (β = 0.30) resolves multi-entity collisions cleanly across all 10 intents.",
-        header_bg=C_ROYAL, body_size=9.5
-    )
+    b.header_chrome("S13", 13, "Supervised 5-Fold CV Benchmarks (N = 250)", "Speaker: Erick Sibayan")
+    b.image("S13", os.path.join(CHARTS_DIR, "tv_03_cv_comparison.png"), 66, 68, 588, 228)
+    b.stat_card("S13", 24, 302, 214, 72, "95.61%", "Multinomial NB ★ (±1.47%)", bg=C_NAVY, num_size=26, lbl_size=12.5)
+    b.stat_card("S13", 253, 302, 214, 72, "95.18%", "Logistic Reg. (±0.90%)", bg=C_ROYAL, num_size=26, lbl_size=12.5)
+    b.stat_card("S13", 482, 302, 214, 72, "93.97%", "Linear SVM (±2.60%)", bg=C_TEAL, num_size=26, lbl_size=12.5)
 
-    # ==================== SLIDE 14: 4-STAGE ABLATION STUDY ====================
+    # ==================== SLIDE 14: 10x10 CONFUSION MATRIX ====================
     b.add_slide("S14", C_BG_LIGHT, SPEAKER_NOTES[14])
-    b.header_chrome("S14", 14, "4-Stage Held-Out Retrieval Ablation (48 Unseen Queries)", "Zero train/test text overlap • Quantifying each NLP layer's exact empirical contribution", "Speaker 5: John Andrew Angcaway (1:15)")
-    b.image("S14", os.path.join(CHARTS_DIR, "05_retrieval_ablation.png"), 20, 70, 488, 274)
-    b.card(
-        "S14", 518, 70, 182, 274,
-        "Key Empirical Insights",
-        "• Cleaning + CAR Morph (B):\n  +9.6 pts Top-1 (83.3→92.9%)\n  MRR 0.893 → 0.960\n\n"
-        "• Lexicon + OOD Gate (C):\n  OOD Reject jumps 0→100%\n  Exposes keyword collision dip (90.5%)\n\n"
-        "• Full Hybrid + NB (D) [BEST]:\n  95.2% Top-1 (40/42)\n  97.6% Top-3 • 0.9643 MRR\n  100% OOD • 0.0% FP-CAR",
-        header_bg=C_NAVY, body_size=8.9, line_spacing=122
-    )
-    b.textbox("S14", "By Register (Full Hybrid): EN 91.7% Top-1  •  Taglish (TL-EN) 100.0% Top-1  •  Cordilleran (CAR-TL-EN) 95.0% Top-1", 20, 352, 680, 24, font_size=9.5, bold=True, color=C_GREEN_FG, bg_hex=C_GREEN_BG, align="center", valign="MIDDLE")
-
-    # ==================== SLIDE 15: SECURITY, PARITY & WCAG UI ====================
-    b.add_slide("S15", C_BG_LIGHT, SPEAKER_NOTES[15])
-    b.header_chrome("S15", 15, "Security Hardening, Cross-Runtime Parity & Accessible UI", "Engineering production reliability across Python CLI, browser JS, and static hosting", "Speaker 5: John Andrew Angcaway (1:00)")
-    b.card(
-        "S15", 24, 74, 212, 294,
-        "Security & XSS Defense",
-        "• Eliminated 100% of .innerHTML assignments across the entire portal.\n\n"
-        "• All user queries, tokens, & tables built via safe DOM nodes & textContent.\n\n"
-        "• Tested live with <img src=x onerror=alert(1)> payload.\n\n"
-        "• Strict CSP <meta> + dist/netlify.toml headers (X-Frame-Options, nosniff, Referrer-Policy) + 400-char input cap.",
-        header_bg=C_RED_FG, body_size=9.4, line_spacing=124
-    )
-    b.card(
-        "S15", 254, 74, 212, 294,
-        "Zero-Drift Python↔JS Parity",
-        "• Single-source scripts/build_portal.py compiles policies, 156 lexicon entries, Midterm BoW/bigrams, & NB weights into HTML.\n\n"
-        "• Automated Node.js test executes the HTML's exact JS engine against Python.\n\n"
-        "• Verified 100% identical outputs across 51 queries (48 held-out + XSS + CAR hyphens + illness).",
-        header_bg=C_NAVY, body_size=9.4, line_spacing=124
-    )
-    b.card(
-        "S15", 484, 74, 212, 294,
-        "WCAG 2.1 AA 4-Tab Portal",
-        "• Authentic SLU Navy/Gold palette with ≥ 4.5:1 contrast.\n\n"
-        "• Accessible ARIA tablist, ArrowLeft/Right/Home/End keyboard navigation, skip link, & aria-live chat log.\n\n"
-        "• 4 Interactive Tabs:\n  1. Chatbot & 6-Stage Trace\n  2. 156-Entry CAR Lexicon\n  3. Corpus & BoW Analytics\n  4. 5-Fold CV & Ablation",
-        header_bg=C_TEAL, body_size=9.4, line_spacing=124
-    )
-
-    # ==================== SLIDE 16: LIVE MULTILINGUAL WALKTHROUGH ====================
-    b.add_slide("S16", C_BG_LIGHT, SPEAKER_NOTES[16])
-    b.header_chrome("S16", 16, "Live Portal Walkthrough: Four Multilingual Query Traces", "Real end-to-end outputs verified identically in Python CLI and browser portal", "Speaker 1: Chaze Rodriguez (1:30)")
-    b.card(
-        "S16", 24, 72, 326, 142,
-        "Case 1 • Taglish Shifting (TL-EN)",
-        "Query: \"Paano po process ng shifting from SAMCIS to SEAIT? May QE ba?\"\n"
-        "• Intent: ACADEMIC_SHIFTING_TRANSFER (NB + Lexicon)\n"
-        "• Lexicon: SLU-001 (samcis), SLU-002 (seait), SLU-018 (qe)\n"
-        "• Policy: Internal Shifting + URO QE & Dean Approval (slu.edu.ph)",
-        header_bg=C_NAVY, body_size=9.2, line_spacing=122
-    )
-    b.card(
-        "S16", 370, 72, 326, 142,
-        "Case 2 • Ilocano Attendance Query (CAR-TL-EN)",
-        "Query: \"Naimbag a bigat! Agadal ak idiay SAMCIS—mano absent sakbay ma-FDA?\"\n"
-        "• Greeting: Naimbag a bigat/aldaw! (Native Ilocano recognized)\n"
-        "• Intent: HANDBOOK_GRADING_FDA (Score: 0.72)\n"
-        "• Policy: Handbook Art. I, Sec. 2 (>20% unexcused → FDA)",
-        header_bg=C_ROYAL, body_size=9.2, line_spacing=122
-    )
-    b.card(
-        "S16", 24, 226, 326, 146,
-        "Case 3 • Northern Kankanaey Integrity (CAR-TL-EN)",
-        "Query: \"Gawis ay agsapa! Inayan ti plagiarism ken cheating, ania parusa?\"\n"
-        "• Greeting: Gawis ay agew! (Native Kankanaey recognized)\n"
-        "• Intent: EXAM_PERMIT_INTEGRITY • Lexicon: KNE-001, KNE-002\n"
-        "• Policy: Handbook Art. II, Sec. 4 (SLU Disciplinary Board)",
-        header_bg=C_TEAL, body_size=9.2, line_spacing=122
-    )
-    b.card(
-        "S16", 370, 226, 326, 146,
-        "Case 4 • Out-of-Domain Safety Gate (OOD Trap)",
-        "Query: \"What is the best recipe for Baguio strawberry sinigang?\"\n"
-        "• Intent: OUT_OF_DOMAIN  |  Confidence below 0.14 threshold\n"
-        "• Safeguard: Zero hallucination — never returns personal posts.\n"
-        "• Response: Honest fallback guiding student to URO/OSAS/Finance/Clinic",
-        header_bg="#B45309", body_size=9.2, line_spacing=122
-    )
-
-    # ==================== SLIDE 17: LIMITATIONS, PRIVACY & ROADMAP ====================
-    b.add_slide("S17", C_BG_LIGHT, SPEAKER_NOTES[17])
-    b.header_chrome("S17", 17, "Honest Limitations, RA 10173 Privacy & Future Roadmap", "Transparent academic reflection for campus-wide deployment and Cordilleran NLP", "Speaker 1: Chaze Rodriguez (1:00)")
-    b.card(
-        "S17", 24, 74, 212, 294,
-        "Provenance & Linguistic QA",
-        "• 210 expanded multilingual training utterances are transparently tagged as CURATED_MULTILINGUAL_INQUIRY.\n\n"
-        "• Next Step: Formal community validation with native Ilocano, Northern Kankanaey, & Ibaloi linguists and anonymized live campus logs.\n\n"
-        "• Expand to Ibaloi/Kankanaey multi-word idioms & Bontok/Ifugao.",
-        header_bg=C_NAVY, body_size=9.4, line_spacing=125
-    )
-    b.card(
-        "S17", 254, 74, 212, 294,
-        "Data Privacy (RA 10173)",
-        "• Public Freedom Wall harvesting stores zero student names, IDs, or private contact metadata.\n\n"
-        "• 100% client-side browser inference ensures student questions never leave the user's device.\n\n"
-        "• Static hosting (dist/netlify.toml) eliminates server-side credential or database breach surface.",
-        header_bg=C_ROYAL, body_size=9.4, line_spacing=125
-    )
-    b.card(
-        "S17", 484, 74, 212, 294,
-        "Next-Gen NLP Architecture",
-        "• Benchmark compact multilingual sentence embeddings (e.g., mE5 / LaBSE) alongside our fast NB+TF-IDF baseline.\n\n"
-        "• Add strict policy-grounded RAG summarization with verbatim handbook citations.\n\n"
-        "• Integrate live iSLU calendar sync & official URO/OSAS ticketing.",
-        header_bg=C_TEAL, body_size=9.4, line_spacing=125
-    )
-
-    # ==================== SLIDE 18: CONCLUSION & Q&A (DARK NAVY) ====================
-    b.add_slide("S18", C_NAVY, SPEAKER_NOTES[18])
-    b.rect("S18", 0, 0, 720, 8, C_GOLD)
-    b.rect("S18", 0, 397, 720, 8, C_GOLD)
-    b.textbox("S18", "Impact Summary & Open Q&A", 40, 26, 640, 40, font_size=28, bold=True, color=C_WHITE, align="center")
-    b.textbox("S18", "Group 2 – AiNomally • Reproducible, Audited & Hardened Multilingual eGovernance NLP for SLU Baguio", 40, 68, 640, 24, font_size=11.5, color=C_ICE, align="center")
-
-    b.stat_card("S18", 28, 114, 155, 108, "250 / 32", "Balanced Corpus Docs\n& Official SLU Policies", bg=C_ROYAL)
-    b.stat_card("S18", 198, 114, 155, 108, "156", "Verified SLU + CAR\nElectronic Lexicon", bg=C_ROYAL)
-    b.stat_card("S18", 368, 114, 155, 108, "95.61%", "Stratified 5-Fold CV\nMacro F1 (Naive Bayes)", bg=C_ROYAL)
-    b.stat_card("S18", 538, 114, 155, 108, "95.2%", "Unseen Top-1 Policy Acc\n100% OOD • 0% FP-CAR", bg=C_ROYAL)
-
+    b.header_chrome("S14", 14, "10×10 Confusion Matrix (Multinomial NB)", "Speaker: Erick Sibayan")
+    b.image("S14", os.path.join(CHARTS_DIR, "tv_04_confusion_matrix.png"), 73, 68, 574, 265)
     b.textbox(
-        "S18",
-        "All Deliverables Verified & Synced:  One-command build (python3 scripts/build_all.py)  •  21/21 Automated Tests Passing\n"
-        "Google Drive Paper, Scripts & 2-Tab Sheet Synced  •  Hardened 4-Tab Web Portal Ready (dist/index.html)",
-        35, 246, 650, 48, font_size=10.5, color=C_WHITE, align="center", line_spacing=135
+        "S14",
+        "239 / 250 Exact Hits (95.6%)  •  3 Perfect Classes: SHIFT, LABS & FINANCE (25 / 25)",
+        24, 338, 672, 36, font_size=14.5, bold=True, color=C_GREEN_FG, bg_hex=C_GREEN_BG, align="center", valign="MIDDLE",
     )
-    b.rect("S18", 240, 304, 240, 3, C_GOLD)
-    b.textbox("S18", "Agyamanak!  •  Iyaman!  •  Dakel a Iyaman!  •  Thank You!", 40, 318, 640, 28, font_size=16, bold=True, color=C_GOLD_BRIGHT, align="center")
-    b.textbox("S18", "We welcome your questions and live portal demo requests.", 40, 350, 640, 22, font_size=11, color=C_ICE, align="center")
+
+    # ==================== SLIDE 15: HYBRID SCORING & TDD FIXES ====================
+    b.add_slide("S15", C_BG_LIGHT, SPEAKER_NOTES[15])
+    b.header_chrome("S15", 15, "Hybrid Retrieval & TDD Bug Hardening", "Speaker: Erick Sibayan")
+    b.textbox(
+        "S15",
+        "Score  =  TF-IDF Cosine  +  0.14·Lexicon  +  0.30·P_NB(intent)  +  Policy Prior",
+        24, 72, 672, 42, font_size=15, bold=True, color=C_GOLD_BRIGHT, bg_hex=C_NAVY, align="center", valign="MIDDLE",
+    )
+    b.card(
+        "S15", 24, 126, 326, 116,
+        "1. Native-Only CAR Detection",
+        "English 'plagiarism' & 'disciplinary' no longer trigger false CAR greetings.",
+        header_bg=C_ROYAL, title_size=15.5, header_h=34, body_size=14.5, line_spacing=130,
+    )
+    b.card(
+        "S15", 370, 126, 326, 116,
+        "2. Calibrated OOD Safety Gate",
+        "Gibberish & 'hello' never return personal posts (100% OOD rejection).",
+        header_bg=C_TEAL, title_size=15.5, header_h=34, body_size=14.5, line_spacing=130,
+    )
+    b.card(
+        "S15", 24, 254, 326, 116,
+        "3. Numeric & Legal Anchors",
+        "Grade '74' hits 75% passing rule; cyberbullying routes to RA 10173.",
+        header_bg=C_NAVY, title_size=15.5, header_h=34, body_size=14.5, line_spacing=130,
+    )
+    b.card(
+        "S15", 370, 254, 326, 116,
+        "4. Holistic NB Moderation",
+        "Trained Naive Bayes resolves multi-keyword collisions cleanly.",
+        header_bg=C_ROYAL, title_size=15.5, header_h=34, body_size=14.5, line_spacing=130,
+    )
+
+    # ==================== SLIDE 16: 4-STAGE ABLATION STUDY ====================
+    b.add_slide("S16", C_BG_LIGHT, SPEAKER_NOTES[16])
+    b.header_chrome("S16", 16, "4-Stage Retrieval Ablation (48 Unseen)", "Speaker: John Andrew Angcaway")
+    b.image("S16", os.path.join(CHARTS_DIR, "tv_05_ablation.png"), 67, 68, 586, 264)
+    b.textbox(
+        "S16",
+        "Full Hybrid by Register:   EN 91.7%   •   Taglish 100.0%   •   CAR 95.0%   •   0% FP-CAR",
+        24, 338, 672, 36, font_size=14.5, bold=True, color=C_GREEN_FG, bg_hex=C_GREEN_BG, align="center", valign="MIDDLE",
+    )
+
+    # ==================== SLIDE 17: SECURITY, PARITY & WCAG UI ====================
+    b.add_slide("S17", C_BG_LIGHT, SPEAKER_NOTES[17])
+    b.header_chrome("S17", 17, "Security, Py↔JS Parity & Accessible UI", "Speaker: John Andrew Angcaway")
+    b.card(
+        "S17", 24, 74, 214, 296,
+        "Zero XSS Defense",
+        "• Zero .innerHTML calls\n\n• Safe textContent DOM\n\n• Strict CSP + Netlify headers\n\n• Passed <img onerror> test",
+        header_bg=C_RED_FG, title_size=16, header_h=36, body_size=14.5, line_spacing=132,
+    )
+    b.card(
+        "S17", 253, 74, 214, 296,
+        "100% Py↔JS Parity",
+        "• Single build_portal.py\n\n• Same NB JSON weights\n\n• Verified via Node.js\n\n• 51 / 51 identical results",
+        header_bg=C_NAVY, title_size=16, header_h=36, body_size=14.5, line_spacing=132,
+    )
+    b.card(
+        "S17", 482, 74, 214, 296,
+        "WCAG 2.1 AA UI",
+        "• SLU contrast ≥ 4.5:1\n\n• Keyboard ARIA tablist\n\n• Live 6-stage inspector\n\n• 4 interactive data tabs",
+        header_bg=C_TEAL, title_size=16, header_h=36, body_size=14.5, line_spacing=132,
+    )
+
+    # ==================== SLIDE 18: LIVE DEMO 1 (TAGLISH & ILOCANO) ====================
+    b.add_slide("S18", C_BG_LIGHT, SPEAKER_NOTES[18])
+    b.header_chrome("S18", 18, "Live Demo 1: Taglish & Ilocano Traces", "Speaker: John Andrew Angcaway")
+    b.card(
+        "S18", 24, 74, 326, 296,
+        "Case 1 • Taglish Shifting (TL-EN)",
+        "Query:\n\"Paano process ng shifting from SAMCIS to SEAIT? May QE ba?\"\n\n"
+        "Intent:\n• ACADEMIC_SHIFTING_TRANSFER\n\n"
+        "Matched Policy:\n• Internal Shifting & URO QE Rules",
+        header_bg=C_NAVY, title_size=16, header_h=36, body_size=14.5, line_spacing=132,
+    )
+    b.card(
+        "S18", 370, 74, 326, 296,
+        "Case 2 • Ilocano Attendance (CAR)",
+        "Query:\n\"Naimbag a bigat! Agadal ak idiay SAMCIS—mano absent sakbay ma-FDA?\"\n\n"
+        "Greeting:\n• Naimbag a bigat/aldaw! (ilo)\n\n"
+        "Matched Policy:\n• Handbook Art. I (>20% → FDA)",
+        header_bg=C_ROYAL, title_size=16, header_h=36, body_size=14.5, line_spacing=132,
+    )
+
+    # ==================== SLIDE 19: LIVE DEMO 2 (KANKANAEY & OOD) ====================
+    b.add_slide("S19", C_BG_LIGHT, SPEAKER_NOTES[19])
+    b.header_chrome("S19", 19, "Live Demo 2: Kankanaey & OOD Safety", "Speaker: John Andrew Angcaway")
+    b.card(
+        "S19", 24, 74, 326, 296,
+        "Case 3 • Kankanaey Integrity (CAR)",
+        "Query:\n\"Gawis ay agsapa! Inayan ti plagiarism ken cheating, ania parusa?\"\n\n"
+        "Greeting:\n• Gawis ay agew! (kne)\n\n"
+        "Matched Policy:\n• Handbook Art. II (Disciplinary Board)",
+        header_bg=C_TEAL, title_size=16, header_h=36, body_size=14.5, line_spacing=132,
+    )
+    b.card(
+        "S19", 370, 74, 326, 296,
+        "Case 4 • Out-of-Domain Safety Gate",
+        "Query:\n\"What is the best recipe for Baguio strawberry sinigang?\"\n\n"
+        "Status:\n• OUT_OF_DOMAIN (Score < 0.14)\n\n"
+        "Result:\n• Zero hallucination → SLU Office Guide",
+        header_bg=C_AMBER, title_size=16, header_h=36, body_size=14.5, line_spacing=132,
+    )
+
+    # ==================== SLIDE 20: LIMITATIONS & PRIVACY ====================
+    b.add_slide("S20", C_BG_LIGHT, SPEAKER_NOTES[20])
+    b.header_chrome("S20", 20, "Honest Limitations & RA 10173 Privacy", "Speaker: John Andrew Angcaway")
+    b.card(
+        "S20", 24, 74, 326, 296,
+        "Transparent Provenance",
+        "• 210 expanded queries explicitly tagged CURATED_MULTILINGUAL\n\n"
+        "• Next: Formal validation with native ilo, kne & ibl linguists\n\n"
+        "• Expand to Bontok & Ifugao idioms",
+        header_bg=C_NAVY, title_size=16.5, header_h=36, body_size=15.5, line_spacing=134,
+    )
+    b.card(
+        "S20", 370, 74, 326, 296,
+        "RA 10173 Data Privacy",
+        "• Zero student names, IDs, or private metadata stored\n\n"
+        "• 100% client-side browser inference — queries stay on device\n\n"
+        "• Static hosting eliminates DB breach risk",
+        header_bg=C_ROYAL, title_size=16.5, header_h=36, body_size=15.5, line_spacing=134,
+    )
+
+    # ==================== SLIDE 21: FUTURE ROADMAP ====================
+    b.add_slide("S21", C_BG_LIGHT, SPEAKER_NOTES[21])
+    b.header_chrome("S21", 21, "Future Roadmap for SLU & CAR NLP", "Speaker: Chaze Rodriguez")
+    milestones = [
+        ("01", "Native CAR Community Validation", "Audit idioms, diacritics, and anonymized student logs with SLU & CAR speakers.", C_NAVY),
+        ("02", "Compact Multilingual Embeddings + RAG", "Benchmark mE5 / LaBSE semantic retrieval with verbatim Handbook citations.", C_ROYAL),
+        ("03", "Live iSLU & Institutional Integration", "Connect live URO academic calendars, OSAS advisories, and official ticketing.", C_TEAL),
+    ]
+    for idx, (num, title, desc, col) in enumerate(milestones):
+        my = 76 + idx * 102
+        b.rect("S21", 24, my, 672, 88, C_WHITE, outline_hex=C_BORDER)
+        b.textbox("S21", num, 24, my, 84, 88, font_size=30, bold=True, color=C_GOLD_BRIGHT, bg_hex=col, align="center", valign="MIDDLE")
+        b.textbox("S21", title, 120, my + 8, 564, 32, font_size=18, bold=True, color=C_NAVY, valign="MIDDLE")
+        b.textbox("S21", desc, 120, my + 40, 564, 42, font_size=14.5, color=C_TEXT, valign="TOP", line_spacing=124)
+
+    # ==================== SLIDE 22: IMPACT SUMMARY & Q&A (DARK NAVY HERO) ====================
+    b.add_slide("S22", C_NAVY, SPEAKER_NOTES[22])
+    b.rect("S22", 0, 0, 720, 8, C_GOLD)
+    b.rect("S22", 0, 397, 720, 8, C_GOLD)
+    b.textbox("S22", "Impact Summary & Open Q&A", 30, 22, 660, 44, font_size=32, bold=True, color=C_WHITE, align="center", valign="MIDDLE")
+    b.textbox("S22", "Group 2 – AiNomally  •  Reproducible, Audited & Hardened SLU Multilingual NLP", 30, 66, 660, 26, font_size=14.5, color=C_ICE, align="center", valign="MIDDLE")
+
+    b.stat_card("S22", 26, 104, 156, 122, "250 / 32", "Balanced Docs\n& SLU Policies", bg=C_ROYAL, num_size=30, lbl_size=13)
+    b.stat_card("S22", 196, 104, 156, 122, "156", "Verified SLU +\nCAR Lexicon", bg=C_ROYAL, num_size=34, lbl_size=13)
+    b.stat_card("S22", 366, 104, 156, 122, "95.61%", "5-Fold CV\nMacro F1 (NB)", bg=C_ROYAL, num_size=30, lbl_size=13)
+    b.stat_card("S22", 536, 104, 156, 122, "95.2%", "Unseen Top-1\n100% OOD Safe", bg=C_ROYAL, num_size=32, lbl_size=13)
+
+    b.textbox("S22", "python3 scripts/build_all.py   •   21 / 21 Automated Tests Passing   •   All Drive Docs Synced", 24, 240, 672, 34, font_size=14, bold=True, color=C_WHITE, align="center", valign="MIDDLE")
+    b.rect("S22", 230, 284, 260, 4, C_GOLD)
+    b.textbox("S22", "Agyamanak!  •  Iyaman!  •  Dakel a Iyaman!  •  Thank You!", 24, 300, 672, 38, font_size=20.5, bold=True, color=C_GOLD_BRIGHT, align="center", valign="MIDDLE")
+    b.textbox("S22", "Questions & Live Web Portal Demo Ready", 30, 344, 660, 28, font_size=15, color=C_ICE, align="center", valign="MIDDLE")
 
 
 def export_speaker_script_md():
     os.makedirs(PRES_DIR, exist_ok=True)
     lines = [
-        "# Group 2 – AiNomally | CSE 30 Complete Project Presentation Script (15–20 Minutes)",
+        "# Group 2 – AiNomally | CSE 30 Classroom TV Presentation Script (22 Slides, 15–20 Minutes)",
         "",
         "**Course:** CSE 30 – CS Special Topics (Natural Language Processing)  ",
         "**Institution:** Saint Louis University (SAMCIS – Department of Computer Science), Baguio City  ",
         "**Instructor:** Prof. Dalos D. Miguel  ",
-        "**Total Target Delivery Time:** ~18.5 minutes + Q&A (18 slides, evenly balanced across all 5 members ~3.5 min each)",
+        "**Deck Format:** 22-Slide Large-Print Classroom TV Edition (minimum 14–16pt body/table type, full-canvas large-print charts)",
         "",
         "| Speaker | Slides Covered | Target Time |",
         "|---|---|---|",
-        "| **Chaze Ezkys M. Rodriguez** | Slides 1–3, 16–18 | ~6:15 (Intro + Demo/Close) |",
-        "| **Keith Russel Hernandez** | Slides 4–6 | ~3:30 |",
-        "| **Earold Jan Delin** | Slides 7–9 | ~3:30 |",
-        "| **Erick James Sibayan** | Slides 10–12 | ~4:00 |",
-        "| **John Andrew Angcaway** | Slides 13–15 | ~3:30 |",
+        "| **Chaze Ezkys M. Rodriguez** | Slides 1–3, 21–22 (5 slides) | ~3:50 |",
+        "| **Keith Russel Hernandez** | Slides 4–7 (4 slides) | ~3:50 |",
+        "| **Earold Jan Delin** | Slides 8–11 (4 slides) | ~3:50 |",
+        "| **Erick James Sibayan** | Slides 12–15 (4 slides) | ~3:50 |",
+        "| **John Andrew Angcaway** | Slides 16–20 (5 slides) | ~3:55 |",
         "",
         "---",
         "",
     ]
     total_words = 0
-    for s_num in range(1, 19):
+    for s_num in range(1, TOTAL_SLIDES + 1):
         note = SPEAKER_NOTES[s_num]
         total_words += len(note.split())
         lines.append(f"## Slide {s_num}")
@@ -983,17 +987,17 @@ def sync_drive_presentation_script(lines):
     with open(batch_file, "w", encoding="utf-8") as f:
         json.dump(ops, f, ensure_ascii=False, indent=2)
     subprocess.run(["gdocs", "mutate", "batch", SCRIPT_DOC_ID, "--replace-all", "-f", batch_file], check=True)
-    print(f"[OK] Synced 18-slide speaker script to Drive Doc {SCRIPT_DOC_ID}")
+    print(f"[OK] Synced 22-slide speaker script to Drive Doc {SCRIPT_DOC_ID}")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Build Group 2 AiNomally 18-slide CSE 30 deck.")
-    parser.add_argument("--pptx-only", action="store_true", help="Only regenerate local .pptx and speaker_script_15_20min.md without creating a new Google Slides deck.")
+    parser = argparse.ArgumentParser(description="Build Group 2 AiNomally 22-slide Classroom TV CSE 30 deck.")
+    parser.add_argument("--pptx-only", action="store_true", help="Only regenerate local .pptx and speaker script without creating a new Google Slides deck.")
     parser.add_argument("--sync-script-doc", action="store_true", help="Also sync speaker script to Google Drive Doc when using --pptx-only.")
     args = parser.parse_args()
 
     os.makedirs(PRES_DIR, exist_ok=True)
-    builder = DualDeckBuilder()
+    builder = ClassroomTVDeckBuilder()
     build_deck_content(builder)
 
     # 1. Save local PowerPoint backup
@@ -1009,37 +1013,36 @@ def main():
         return
     sync_drive_presentation_script(script_lines)
 
-    # 3. Create live Google Slides presentation via gslides CLI
+    # 3. Create fresh Classroom TV Edition Google Slides presentation
     create_res = subprocess.run(
-        ["gslides", "mutate", "create", "--title", "CSE 30 Final Presentation — SLU eGovernance Multilingual Chatbot & CAR Lexicon (Group 2 AiNomally)"],
-        capture_output=True,
-        text=True,
-        check=True,
+        [
+            "gslides", "mutate", "create", "--title",
+            "CSE 30 Final Presentation (Classroom TV Edition) — SLU eGovernance Chatbot & CAR Lexicon (Group 2 AiNomally)",
+        ],
+        capture_output=True, text=True, check=True,
     )
     print(create_res.stdout.strip())
     m_id = re.search(r"presentation/d/([A-Za-z0-9_-]+)|ID:\s*([A-Za-z0-9_-]+)", create_res.stdout)
     if not m_id:
         raise RuntimeError(f"Could not parse presentation ID from: {create_res.stdout}")
     pres_id = m_id.group(1) or m_id.group(2)
-    print(f"[OK] Created Google Slides Deck ID: {pres_id}")
+    print(f"[OK] Created Classroom TV Google Slides Deck ID: {pres_id}")
 
     # 4. Execute single-batch layout + tables + speaker notes
-    batch_path = os.path.join(SCRATCH, "slides_batch.json")
+    batch_path = os.path.join(SCRATCH, "slides_tv_batch.json")
     with open(batch_path, "w", encoding="utf-8") as f:
         json.dump(builder.ops, f, ensure_ascii=False, indent=2)
 
     batch_res = subprocess.run(
         ["gslides", "mutate", "batch", pres_id, "-f", batch_path, "--json"],
-        capture_output=True,
-        text=True,
-        check=True,
+        capture_output=True, text=True, check=True,
     )
     batch_json = json.loads(batch_res.stdout)
     resolved = batch_json.get("resolved_ids", {})
     resolved["p"] = "p"
-    print(f"[OK] Batch built {len(builder.slide_order)} slides ({batch_json.get('api_requests')} API requests)")
+    print(f"[OK] Batch built {len(builder.slide_order)} TV slides ({batch_json.get('api_requests')} API requests)")
 
-    # 5. Insert high-DPI PNG charts onto their exact target slides
+    # 5. Insert large-print TV charts onto their exact target slides
     for placeholder_id, img_path, x, y, w, h in builder.image_inserts:
         real_slide_id = resolved.get(placeholder_id, placeholder_id)
         subprocess.run(
@@ -1061,10 +1064,10 @@ def main():
         "resolved_ids": resolved,
         "slide_order": builder.slide_order,
     }
-    meta_path = os.path.join(SCRATCH, "slides_meta.json")
+    meta_path = os.path.join(SCRATCH, "slides_tv_meta.json")
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2)
-    print(f"[OK] Saved deck metadata -> {meta_path}")
+    print(f"[OK] Saved Classroom TV deck metadata -> {meta_path}")
     print(f"[URL] {meta['url']}")
 
 
