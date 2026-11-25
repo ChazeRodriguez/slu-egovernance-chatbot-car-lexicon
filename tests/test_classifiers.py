@@ -29,20 +29,20 @@ class TestClassifiersAndExpandedDatasets(unittest.TestCase):
         with open(pol_path, encoding="utf-8") as f:
             pols = json.load(f)
 
-        self.assertEqual(len(corp), 250)
-        self.assertGreaterEqual(len(lex), 150)
-        self.assertGreaterEqual(len(pols), 30)
-        self.assertGreaterEqual(len(bench), 40)
+        self.assertEqual(len(corp), 350)
+        self.assertGreaterEqual(len(lex), 170)
+        self.assertGreaterEqual(len(pols), 50)
+        self.assertGreaterEqual(len(bench), 70)
 
         intent_counts = Counter(r["Intent_Category"] for r in corp)
         self.assertEqual(len(intent_counts), 10)
         for intent, cnt in intent_counts.items():
-            self.assertEqual(cnt, 25, f"Unbalanced intent {intent}: {cnt}")
+            self.assertEqual(cnt, 35, f"Unbalanced intent {intent}: {cnt}")
 
-        # Verify every intent has >= 3 official policies
+        # Verify every intent has >= 5 official policies
         pol_counts = Counter(p["intent_label"] for p in pols)
         for intent in intent_counts:
-            self.assertGreaterEqual(pol_counts[intent], 3, f"Low policy count for {intent}")
+            self.assertGreaterEqual(pol_counts[intent], 5, f"Low policy count for {intent}")
 
         # Verify zero exact-text train/test leakage
         corp_texts = {r["Cleaned_Text"] for r in corp}
@@ -74,22 +74,22 @@ class TestClassifiersAndExpandedDatasets(unittest.TestCase):
         cv = report["stratified_5fold_cv"]
         self.assertEqual(len(cv), 3)
         for name, m in cv.items():
-            self.assertGreater(m["macro_f1"], 0.80, f"{name} Macro F1 unexpectedly low: {m['macro_f1']}")
+            self.assertGreater(m["macro_f1"], 0.85, f"{name} Macro F1 unexpectedly low: {m['macro_f1']}")
             self.assertEqual(len(m["confusion_matrix"]), 10)
 
         ab = report["heldout_ablation"]
         full = ab["D_full_hybrid"]
         raw = ab["A_raw_tfidf"]
         self.assertGreater(full["top1_policy_accuracy"], raw["top1_policy_accuracy"])
-        self.assertGreaterEqual(full["top1_policy_accuracy"], 0.85)
+        self.assertGreaterEqual(full["top1_policy_accuracy"], 0.90)
         self.assertEqual(full["ood_rejection_rate"], 1.0)
         self.assertEqual(full["false_positive_car_rate"], 0.0)
 
     def test_expanded_engine_loads_ml_model_and_answers_new_intents(self):
         bot = eng.SLUChatbotEngine(dataset="expanded")
         self.assertIsNotNone(bot.ml_model)
-        self.assertEqual(len(bot.docs), 32)
-        self.assertEqual(len(bot.lexicon), 156)
+        self.assertEqual(len(bot.docs), 52)
+        self.assertEqual(len(bot.lexicon), 176)
 
         # Test previously uncovered intents (Tuition/Scholarship & Lab/Library)
         r_fin = bot.answer_query("How do I apply for SLU Entrance Scholarship for Valedictorians?")

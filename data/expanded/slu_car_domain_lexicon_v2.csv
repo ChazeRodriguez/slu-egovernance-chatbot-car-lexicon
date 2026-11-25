@@ -35,6 +35,18 @@ SLU-033,midterm,en-SLU,NOUN,midterm,Compound,Midterm Examination grading period,
 SLU-034,washday,en-SLU,NOUN,washday,Compound,Designated Friday and Saturday modest civilian attire days,Araw ng Sibil na Pananamit (Biyernes at Sabado),CAMPUS_DECORUM_DRESSCODE,washday|wash,
 SLU-035,ambilat,kne-tl,ADJ,bigat,Phonetic_Variant,Heavy emotional or academic workload burden (Baguio/Cordilleran variant of ambigat),Mabigat sa pakiramdam dahil sa sabay-sabay na pagsusulit,CAMPUS_HEALTH_SAFETY,ambilat|ambigat,
 SLU-036,louisian,en-SLU,NOUN,louisian,Demonym,Member of the Saint Louis University academic community,Kasapi ng komunidad ng Saint Louis University,CAMPUS_DECORUM_DRESSCODE,louisian|louisians,
+SLU-037,laude,en-SLU,NOUN,laude,Academic_Honor,"Latin graduation honors (Summa 93+, Magna 91-92.99, Cum Laude 88-90.99 GWA)","Parangal pang-akademiko (Summa, Magna, Cum Laude)",HANDBOOK_GRADING_FDA,laude|cum|magna|summa,latin honors|honors
+SLU-038,deanslist,en-SLU,NOUN,deanslist,Academic_Honor,"SLU Dean's List (First Honors 92+, Second Honors 88-91.99, no grade below 80)",Listahan ng Dekano at iskolarship na diskwento,TUITION_FINANCE,deanslist|lister|listers,dean list
+SLU-039,loa,en-SLU,NOUN,loa,Acronym,Official Leave of Absence preserving continuing student status,Opisyal na Pansamantalang Pagliban sa Pag-aaral,URO_ENROLLMENT_PORTAL,loa,leave of absence
+SLU-040,promissory,en-SLU,NOUN,promissory,Administrative,Finance Promissory Note for delayed installment or credential submission,Kasunduang Promissory Note para sa matrikula o dokumento,TUITION_FINANCE,promissory,installment delay
+SLU-041,qpi,en-SLU,NOUN,qpi,Acronym,Quality Point Index and department retention GWA cutoff,Pamantayang QPI para sa retensyon ng kurso,ACADEMIC_SHIFTING_TRANSFER,qpi,probation|delinquency
+SLU-042,shortterm,en-SLU,NOUN,shortterm,Compound,Accelerated 6-week Summer / Short Term semester at SLU,Maikling Semestre (6-Week Summer Term),URO_ENROLLMENT_PORTAL,shortterm|summer,
+SLU-043,petition,en-SLU,NOUN,petition,Administrative,Special / Petition Class requested by irregular or graduating students,Espesyal na Klaseng Petisyon para sa mga subject,URO_SUBJECT_ADJUSTMENT,petition|petitioned,special class
+SLU-044,readmission,en-SLU,NOUN,readmission,Administrative,OSAS Readmission Slip required after 3 consecutive absences or returnee filing,Pahintulot sa Pagbabalik-Klase mula sa OSAS,HANDBOOK_GRADING_FDA,readmission,consecutive absences
+SLU-045,probation,en-SLU,NOUN,probation,Academic_Status,Academic or Disciplinary Probation warning and unit restriction status,Subok na Katayuang Akademiko o Disiplinaryo,ACADEMIC_SHIFTING_TRANSFER,probation,scholastic delinquency
+SLU-046,returnee,en-SLU,NOUN,returnee,Student_Category,Balik-Aral student returning after LOA or skipped semester,Nagbabalik na Estudyante (Balik-Aral),URO_ENROLLMENT_PORTAL,returnee|returnees|balik-aral,
+SLU-047,nc,en-SLU,NOUN,nc,Acronym,No Credit grade resulting from unresolved INC or NFE past deadline,Walang Kredito dahil hindi natapos ang INC o NFE,HANDBOOK_GRADING_FDA,nc,no credit
+SLU-048,crossenroll,en-SLU,VERB,crossenroll,Compound,Authorized cross-enrollment in another CHED-recognized institution,Pinahihintulutang Cross-Enrollment sa ibang unibersidad,URO_SUBJECT_ADJUSTMENT,crossenroll|cross-enroll|cross-enrollment,
 ILO-001,naimbag,ilo,ADJ,imbag,na-,Good; pleasant; courteous greeting in Ilocano student inquiries,Mabuti; maganda,CAR_REGIONAL_LEXICON,naimbag,
 ILO-002,bigat,ilo,NOUN,bigat,Root,Morning (used in 'naimbag a bigat' greeting),Umaga,CAR_REGIONAL_LEXICON,bigat,
 ILO-003,aldaw,ilo,NOUN,aldaw,Root,Day; daytime; noon greeting,Araw,CAR_REGIONAL_LEXICON,aldaw,
@@ -83,6 +95,10 @@ ILO-045,agsubli,ilo,VERB,subli,ag-,To return; to return borrowed library books o
 ILO-046,agbaliw,ilo,VERB,baliw,ag-,To change or shift degree program or schedule,Magpalit; lumipat ng kurso,ACADEMIC_SHIFTING_TRANSFER,agbaliw|agtransfer,
 ILO-047,idiay,ilo,ADV,idiay,Root,"There; at that place (e.g., idiay SAMCIS / idiay URO)",Doon; sa,CAR_REGIONAL_LEXICON,idiay,
 ILO-048,kasano,ilo,ADV,kasano,Root,How (Ilocano procedural interrogative),Paano,CAR_REGIONAL_LEXICON,kasano,
+ILO-049,liway,ilo,NOUN,liway,Root,Absence or negligence in attending scheduled classes,Pagliban o pagpapabaya sa klase,HANDBOOK_GRADING_FDA,liway|nagliway,
+ILO-050,pammadayaw,ilo,NOUN,dayaw,pamma-,"Academic honor, recognition, or Latin honors distinction",Parangal; karangalan sa pagtatapos,HANDBOOK_GRADING_FDA,pammadayaw|dayaw,
+ILO-051,agawid,ilo,VERB,awid,ag-,To return home; leave campus on approved LOA or dormitory curfew,Umuwi sa tahanan o dormitoryo,CAMPUS_FACILITIES_LAB,agawid|nagawid,
+ILO-052,kasera,ilo,NOUN,kasera,Root,Boarding house or student dormitory residence,Dormitoryo o tinutuluyang bahay,CAMPUS_FACILITIES_LAB,kasera|dorm,
 KNE-001,gawis,kne,ADJ,gawis,Root,Good; well; fine (Northern Kankanaey greeting and well-being marker),Mabuti; maayos,CAR_REGIONAL_LEXICON,gawis,
 KNE-002,inayan,kne,INTJ,inayan,Root,"Cordilleran ethical restraint against academic dishonesty, harm, or misconduct",Katutubong konseptong moral laban sa pandaraya o masamang gawa,EXAM_PERMIT_INTEGRITY,inayan,cheating|plagiarism|dishonesty
 KNE-003,dap-ay,kne,NOUN,dap-ay,Root,Indigenous communal council and peer consultation center,Katutubong sentro ng sanggunian at talakayan,EXAM_PERMIT_INTEGRITY,dap-ay|dapay,
@@ -123,6 +139,8 @@ KNE-037,ad-ado,kne,ADJ,ado,CV-,"Many; numerous (e.g., many absences or deadlines
 KNE-038,nasakit,kne,ADJ,sakit,na-,Sick; painful; unwell requiring clinic care,May sakit; masakit,CAMPUS_HEALTH_SAFETY,nasakit,
 KNE-039,men-enroll,kne,VERB,enroll,men-,To enroll in university classes (Kankanaey-English blend),Mag-enroll,URO_ENROLLMENT_PORTAL,men-enroll|man-enroll,
 KNE-040,kaman,kne,ADV,kaman,Root,How; like (used in Kankanaey procedural questions),Paano; tulad ng,CAR_REGIONAL_LEXICON,kaman|kaman-ano,
+KNE-041,liwat,kne,NOUN,liwat,Root,Absence or missed class / examination requirement,Pagliban sa klase o pagsusulit,HANDBOOK_GRADING_FDA,liwat|naliwat,
+KNE-042,dayaw,kne,NOUN,dayaw,Root,Honor; dignity; academic distinction (Cum Laude / Dean's List),Karangalan at pagkilala,TUITION_FINANCE,dayaw|madayaw,
 IBL-001,mapteng,ibl,ADJ,peteng,ma-,Good; pleasant; well (Ibaloi campus greeting and welfare term),Mabuti; maganda; maayos,CAR_REGIONAL_LEXICON,mapteng,
 IBL-002,tongtong,ibl,NOUN,tongtong,Root,Customary dispute resolution and disciplinary council mediation,Katutubong paglilitis at pag-aayos ng sigalot,EXAM_PERMIT_INTEGRITY,tongtong,disciplinary
 IBL-003,shapa,ibl,NOUN,shapa,Root,Morning (used in 'mapteng shapa'),Umaga,CAR_REGIONAL_LEXICON,shapa,
@@ -155,3 +173,5 @@ IBL-029,to-o,ibl,NOUN,to-o,Root,Person; student or community member,Tao,CAR_REGI
 IBL-030,balitok,ibl,NOUN,balitok,Root,Gold; symbol of excellence and academic honors,Ginto; karangalan,TUITION_FINANCE,balitok,
 IBL-031,ngaran,ibl,NOUN,ngaran,Root,Name; official student record identifier,Pangalan,URO_ENROLLMENT_TOR,ngaran,
 IBL-032,sakit,ibl,NOUN,sakit,Root,Illness or pain requiring SLU clinic attention,Sakit,CAMPUS_HEALTH_SAFETY,sakit,
+IBL-033,pateg,ibl,NOUN,pateg,Root,Worth; grade value; academic honor standing,Halaga; mataas na marka,HANDBOOK_GRADING_FDA,pateg|mapateg,
+IBL-034,shalan,ibl,NOUN,shalan,Root,Pathway; procedure; official campus transfer or readmission step,Daan; proseso ng aplikasyon,ACADEMIC_SHIFTING_TRANSFER,shalan,

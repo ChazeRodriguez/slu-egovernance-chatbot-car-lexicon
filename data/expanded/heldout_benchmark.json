@@ -109,7 +109,8 @@
     "query": "Agsaludsod ak no ania ti penalty no saan nga ag-file ti official dropping form iti Dean?",
     "expected_intent": "URO_SUBJECT_ADJUSTMENT",
     "expected_docs": [
-      108
+      108,
+      134
     ],
     "register": "CAR-TL-EN",
     "type": "in_domain"
@@ -193,7 +194,8 @@
     "query": "Naimbag a bigat! Agadal ak idiay SAMCIS—mano a porsiento ti absent sakbay ma-FDA?",
     "expected_intent": "HANDBOOK_GRADING_FDA",
     "expected_docs": [
-      115
+      115,
+      134
     ],
     "register": "CAR-TL-EN",
     "type": "in_domain"
@@ -203,7 +205,8 @@
     "query": "Gawis ay agew! Ad-ado unexcused absences ko, automatic drop kadi no sobra 20 percent?",
     "expected_intent": "HANDBOOK_GRADING_FDA",
     "expected_docs": [
-      115
+      115,
+      134
     ],
     "register": "CAR-TL-EN",
     "type": "in_domain"
@@ -480,5 +483,281 @@
     ],
     "register": "EN",
     "type": "car_trap_en"
+  },
+  {
+    "id": "B41",
+    "query": "What are the specific grades you need for Summa Cum Laude, Magna Cum Laude, and Cum Laude Latin honors at SLU?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      133
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B42",
+    "query": "Kung transferee student po ako na may 93.5 GWA at walang bagsak, eligible ba ako sa Summa Cum Laude or Cum Laude lang?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      133
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B43",
+    "query": "Does having one dropped DRP or INC mark in NSTP or in a major subject disqualify me from graduating with Latin honors?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      133
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B44",
+    "query": "How many absences do I have in a 54-hour MWF or TTh subject before I become permanently dropped (FDA) versus voluntarily dropped?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      134
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B45",
+    "query": "Tatlong sunod-sunod na klase na akong absent, kailangan po ba ng OSAS Readmission Slip at clinic medical certificate bago pumasok?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      134
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B46",
+    "query": "Naimbag a bigat! Mano a liway iti klase MWF wenno TTh sakbay nga agbalin a permanent FDA, ken ania ti pinagkaiba ti voluntary DRP?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      134
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B47",
+    "query": "What GWA is needed for Dean's List First Honors versus Second Honors and can I get a tuition discount if I had a grade of 79?",
+    "expected_intent": "TUITION_FINANCE",
+    "expected_docs": [
+      149,
+      129
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B48",
+    "query": "Gipit po kami ngayong midterm, paano kumuha ng Finance Promissory Note para makakuha ng exam permit?",
+    "expected_intent": "TUITION_FINANCE",
+    "expected_docs": [
+      150
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B49",
+    "query": "Mabalin kadi ti refund no nag-official drop wenno withdraw ako within the first two weeks ti semestre?",
+    "expected_intent": "TUITION_FINANCE",
+    "expected_docs": [
+      150
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B50",
+    "query": "Is requesting Honorable Dismissal reversible if I decide to return later, or should I file an LOA instead?",
+    "expected_intent": "URO_ENROLLMENT_TOR",
+    "expected_docs": [
+      136,
+      137
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B51",
+    "query": "Graduating na ako ngayong term—paano ang Application for Graduation at NSTP serial audit sa URO?",
+    "expected_intent": "URO_ENROLLMENT_TOR",
+    "expected_docs": [
+      135
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B52",
+    "query": "Balik-aral returnee student ako after skipping two semesters without LOA—how do I apply for returnee readmission?",
+    "expected_intent": "URO_ENROLLMENT_PORTAL",
+    "expected_docs": [
+      137
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B53",
+    "query": "During the 6-week Short Term summer semester at SLU, what is the maximum number of units I am allowed to take?",
+    "expected_intent": "URO_ENROLLMENT_PORTAL",
+    "expected_docs": [
+      138
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B54",
+    "query": "Kailangan ko po ng isang subject bago mag-graduate pero walang offered section—paano mag-request ng Petition Class?",
+    "expected_intent": "URO_SUBJECT_ADJUSTMENT",
+    "expected_docs": [
+      139
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B55",
+    "query": "Gawis ay agsapa! Pwede ak kadi ag-crossenroll iti sabali nga CHED university no may written URO ken Dean permit?",
+    "expected_intent": "URO_SUBJECT_ADJUSTMENT",
+    "expected_docs": [
+      140
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B56",
+    "query": "What happens if my QPI drops below the retention threshold in BS Accountancy or BSMLS—do I go on Academic Probation?",
+    "expected_intent": "ACADEMIC_SHIFTING_TRANSFER",
+    "expected_docs": [
+      141,
+      114
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B57",
+    "query": "Kapag nag-shift ako from SAMCIS to STELA, automatic credited na ba yung mga natapos kong GE at NSTP subjects?",
+    "expected_intent": "ACADEMIC_SHIFTING_TRANSFER",
+    "expected_docs": [
+      142,
+      112
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B58",
+    "query": "Nagsakit ak ket na-ospital idiay Baguio bayat ti midterm—mano a lawas ti window para Special Examination?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      143
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B59",
+    "query": "Naiwan ko sa bahay SLU RFID ko pero may exam kami ngayon—pwede ba Temporary Gate Pass vs. Affidavit of Loss kung tuluyang nawala?",
+    "expected_intent": "EXAM_PERMIT_INTEGRITY",
+    "expected_docs": [
+      144,
+      117
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B60",
+    "query": "Are bleached blonde hair colors and nose piercings permitted for SONAHBS nursing or hospital practicum duty?",
+    "expected_intent": "CAMPUS_DECORUM_DRESSCODE",
+    "expected_docs": [
+      145
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B61",
+    "query": "Ano po ang parusa ng OSAS kapag umabot na sa 2nd at 3rd offense ng dress code or missing RFID violation?",
+    "expected_intent": "CAMPUS_DECORUM_DRESSCODE",
+    "expected_docs": [
+      146
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B62",
+    "query": "May severe asthma ako at may specialist doctor note—exempted na ba ako sa PATHFIT o ililipat sa modified PE activity?",
+    "expected_intent": "CAMPUS_HEALTH_SAFETY",
+    "expected_docs": [
+      147,
+      124
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B63",
+    "query": "Naimbag a bigat! No adda bagyo ken Signal No. 2 idiay Baguio, sino mang-announce ti SLU class suspension?",
+    "expected_intent": "CAMPUS_HEALTH_SAFETY",
+    "expected_docs": [
+      148
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B64",
+    "query": "We accidentally broke a glass beaker during chemistry lab—how do I file a Laboratory Breakage Accountability Slip?",
+    "expected_intent": "CAMPUS_FACILITIES_LAB",
+    "expected_docs": [
+      151
+    ],
+    "register": "EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B65",
+    "query": "May curfew at visitor rules po ba sa SLU Ladies' and Men's Residence Halls dormitories inside campus?",
+    "expected_intent": "CAMPUS_FACILITIES_LAB",
+    "expected_docs": [
+      152
+    ],
+    "register": "TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B66",
+    "query": "Naimbag a malem! Kasano pammadayaw dayaw para Summa ken Magna Cum Laude idiay SLU?",
+    "expected_intent": "HANDBOOK_GRADING_FDA",
+    "expected_docs": [
+      133
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
+  },
+  {
+    "id": "B67",
+    "query": "Mapteng shapa! Intoy shalan ti returnee readmission after official Leave of Absence LOA?",
+    "expected_intent": "URO_ENROLLMENT_PORTAL",
+    "expected_docs": [
+      137
+    ],
+    "register": "CAR-TL-EN",
+    "type": "in_domain"
   }
 ]

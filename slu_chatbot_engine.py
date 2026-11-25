@@ -63,9 +63,14 @@ QUERY_SYNONYMS = {
     "kopyahan": ["cheating", "collaboration", "unauthorized", "dishonesty"],
     "earthquake": ["seismic", "calamity", "evacuation", "duck", "cover", "oval"],
     "lindol": ["seismic", "calamity", "evacuation", "duck", "cover", "oval"],
-    "shifting": ["transferee", "qualifying", "examination", "qe", "evaluation", "dean", "interview", "degree", "program"],
-    "shift": ["shifting", "transferee", "qualifying", "examination", "qe", "evaluation", "dean", "interview"],
+    "shifting": ["shifting", "internal", "qualifying", "examination", "qe", "evaluation", "dean", "accepting", "degree", "program"],
+    "shift": ["shifting", "internal", "qualifying", "examination", "qe", "evaluation", "dean", "accepting", "crediting"],
     "transfer": ["transferee", "qualifying", "examination", "qe", "credential", "honorable", "dismissal"],
+    "credit": ["credit", "credited", "crediting", "equivalence", "general", "education", "nstp", "pathfit", "shiftee", "internal"],
+    "credited": ["credit", "credited", "crediting", "equivalence", "general", "education", "nstp", "pathfit", "shiftee", "internal"],
+    "ge": ["general", "education", "nstp", "pathfit", "credit", "crediting", "equivalence", "shiftee"],
+    "refund": ["tuition", "refund", "prorated", "withdrawal", "finance", "schedule"],
+    "validate": ["validate", "validation", "rfid", "library", "posted", "registration", "enrolled"],
     "absent": ["absence", "fda", "unexcused", "dropped", "attendance"],
     "liban": ["absence", "fda", "unexcused", "dropped", "attendance"],
     "enroll": ["enrollment", "advising", "continuing", "portal", "downpayment", "schedule"],
@@ -95,6 +100,30 @@ QUERY_SYNONYMS = {
     "counseling": ["guidance", "wellness", "mental", "health", "center", "support"],
     "pipette": ["laboratory", "lab", "equipment", "safety", "mls", "facility"],
     "library": ["clearance", "book", "borrow", "resource", "learning"],
+    "latin": ["latin", "honor", "laude", "summa", "magna", "cum", "gwa", "93", "91", "88", "residency"],
+    "laude": ["latin", "honor", "laude", "summa", "magna", "cum", "gwa", "93", "91", "88"],
+    "summa": ["latin", "honor", "summa", "cum", "laude", "93", "residency"],
+    "magna": ["latin", "honor", "magna", "cum", "laude", "91", "93", "residency"],
+    "dean": ["dean", "list", "lister", "honor", "92", "88", "scholarship", "approval"],
+    "deanslist": ["dean", "list", "first", "second", "honor", "92", "88", "scholarship"],
+    "permanent": ["permanent", "fda", "20", "percent", "11th", "8th", "54", "hours", "dropped"],
+    "permanently": ["permanent", "fda", "20", "percent", "11th", "8th", "54", "hours", "dropped"],
+    "consecutive": ["consecutive", "3", "osas", "readmission", "slip", "excuse", "clinic"],
+    "readmission": ["readmission", "slip", "osas", "consecutive", "returnee", "balik"],
+    "promissory": ["promissory", "note", "installment", "finance", "guardian", "permit"],
+    "petition": ["petition", "special", "class", "irregular", "graduating", "chair", "dean"],
+    "shortterm": ["short", "term", "summer", "6", "9", "units", "advising"],
+    "summer": ["short", "term", "summer", "6", "9", "units", "advising"],
+    "loa": ["leave", "absence", "loa", "returnee", "balik", "aral", "dean", "readmission"],
+    "returnee": ["returnee", "balik", "aral", "loa", "readmission", "dean"],
+    "crossenroll": ["cross", "enrollment", "permit", "ched", "external", "dean", "registrar"],
+    "probation": ["probation", "qpi", "delinquency", "retention", "bsa", "mls", "bsn"],
+    "qpi": ["qpi", "probation", "delinquency", "retention", "weighted", "average"],
+    "typhoon": ["typhoon", "monsoon", "suspension", "baguio", "mayor", "pagasa", "ched"],
+    "hair": ["hair", "color", "grooming", "piercing", "clinical", "practicum", "sonahbs"],
+    "dorm": ["residence", "hall", "dormitory", "curfew", "visitor", "ladies", "men"],
+    "dormitory": ["residence", "hall", "dormitory", "curfew", "visitor", "ladies", "men"],
+    "breakage": ["laboratory", "breakage", "accountability", "slip", "custodian", "clearance"],
 }
 
 GREETING_WORDS = {
@@ -103,7 +132,16 @@ GREETING_WORDS = {
     "gawis", "agew", "mapteng", "agsapa", "thanks", "thank", "salamat", "agyamanak",
 }
 
-POLICY_NUMERIC_TOKENS = {"75", "99", "20", "10173", "2012", "6900", "11200"}
+POLICY_NUMERIC_TOKENS = {
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+    "20", "36", "54", "75", "80", "82", "84", "88", "90", "91", "92", "93", "99",
+    "120", "126", "2012", "6900", "10173", "11200",
+}
+
+COMPARATIVE_MARKERS = {
+    "vs", "versus", "difference", "differences", "compare",
+    "pinagkaiba", "kaibahan", "distinction",
+}
 
 FILIPINO_MARKERS = {
     "po", "ba", "pa", "lang", "naman", "kasi", "mga", "sa", "ng", "na",
@@ -346,7 +384,8 @@ class SLUChatbotEngine:
             norm_sq = 0.0
             for feat, tf in tf_counts.items():
                 idf = math.log((1.0 + self.N) / (1.0 + self.df[feat])) + 1.0
-                w = tf * idf
+                tf_w = (1.0 + math.log(tf)) if self.dataset_mode != "midterm" else float(tf)
+                w = tf_w * idf
                 vec[feat] = w
                 norm_sq += w * w
             self.doc_vectors.append(vec)
@@ -394,26 +433,26 @@ class SLUChatbotEngine:
         return "EN"
 
     def predict_ml_intent(self, stems, bigrams):
-        """Runs serialized linear/NB supervised model weights when available."""
+        """Runs serialized linear/NB supervised model weights and returns full class probabilities."""
         if not self.ml_model:
-            return None, 0.0
+            return None, 0.0, {}
         model_type = self.ml_model.get("model_type")
         classes = self.ml_model["classes"]
         vocab = self.ml_model["vocab"]
         idf = self.ml_model["idf"]
         features = Counter(stems + bigrams)
 
-        # Build L2-normalized TF-IDF sparse dict
+        # Build L2-normalized sublinear TF-IDF sparse dict (matches SparseTfidfVectorizer)
         vec = {}
         norm_sq = 0.0
         for feat, tf in features.items():
             idx = vocab.get(feat)
             if idx is not None:
-                w = tf * idf[idx]
+                w = (1.0 + math.log(tf)) * idf[idx]
                 vec[idx] = w
                 norm_sq += w * w
         if norm_sq <= 0.0:
-            return None, 0.0
+            return None, 0.0, {}
         inv_norm = 1.0 / math.sqrt(norm_sq)
         for idx in vec:
             vec[idx] *= inv_norm
@@ -433,7 +472,8 @@ class SLUChatbotEngine:
             denom = sum(exps)
             probs = [e / denom for e in exps]
             best_i = max(range(len(classes)), key=lambda i: probs[i])
-            return classes[best_i], probs[best_i]
+            probs_map = {c: probs[i] for i, c in enumerate(classes)}
+            return classes[best_i], probs[best_i], probs_map
 
         if model_type == "multinomial_nb":
             log_priors = self.ml_model["log_priors"]
@@ -450,9 +490,10 @@ class SLUChatbotEngine:
             denom = sum(exps)
             probs = [e / denom for e in exps]
             best_i = max(range(len(classes)), key=lambda i: probs[i])
-            return classes[best_i], probs[best_i]
+            probs_map = {c: probs[i] for i, c in enumerate(classes)}
+            return classes[best_i], probs[best_i], probs_map
 
-        return None, 0.0
+        return None, 0.0, {}
 
     def _is_pure_greeting(self, raw_tokens, filtered_tokens, matched_lex):
         if not raw_tokens:
@@ -518,8 +559,11 @@ class SLUChatbotEngine:
         # 1. Expand query features using CAR/SLU lexicon and domain synonyms
         expanded_stems = list(stems)
         lex_intents = set()
+        raw_tok_set = set(raw_tokens)
+        stem_only_set = set(stems)
+        is_comparative = bool(raw_tok_set & COMPARATIVE_MARKERS)
 
-        # Numeric grade detection (e.g., "What happens if I get 74 in a subject?")
+        # Numeric grade detection & policy anchors
         for tok in filtered_tokens:
             if tok.isdigit():
                 val = int(tok)
@@ -529,19 +573,46 @@ class SLUChatbotEngine:
                 elif val == 75:
                     expanded_stems.extend(["grade", "75", "minimum", "passing", "retention"])
                     lex_intents.add("HANDBOOK_GRADING_FDA")
-                elif val == 20 and (set(stems) & {"absence", "absent", "fda", "percent", "class"}):
+                elif val in (88, 91, 93) and (stem_only_set & {"honor", "latin", "laude", "summa", "magna", "cum", "gwa", "graduate", "graduation", "grade"}):
+                    expanded_stems.extend(["latin", "honor", "summa", "magna", "cum", "laude", "93", "91", "88", "residency"])
+                    lex_intents.add("HANDBOOK_GRADING_FDA")
+                elif val == 20 and (stem_only_set & {"absence", "absent", "fda", "percent", "class"}):
                     expanded_stems.extend(["absence", "fda", "20", "percent", "dropped"])
                     lex_intents.add("HANDBOOK_GRADING_FDA")
                 elif val == 10173:
                     expanded_stems.extend(["republic", "act", "data", "privacy", "digital", "platform"])
                     lex_intents.add("CAMPUS_HEALTH_SAFETY")
 
+        # Targeted SLU sub-policy anchors for Latin Honors, Dean's List, and Absence Limits
+        if self.use_cleaning_morph:
+            q_all = raw_tok_set | stem_only_set
+            if (q_all & {"latin", "laude", "summa", "magna"}) or (("cum" in q_all) and ("laude" in q_all or "honor" in q_all)) or ("pammadayaw" in q_all):
+                expanded_stems.extend(["latin", "honor", "summa", "magna", "cum", "laude", "93", "91", "88", "residency", "120"])
+                lex_intents.add("HANDBOOK_GRADING_FDA")
+            if ("dean" in q_all and (q_all & {"list", "lister", "honor", "honors", "gwa", "discount", "scholar", "scholarship"})) or ("deanslist" in q_all):
+                expanded_stems.extend(["dean", "list", "first", "second", "honor", "92", "88", "scholarship"])
+                lex_intents.add("TUITION_FINANCE")
+            has_abs_word = bool(q_all & {"absent", "absence", "absences", "drop", "dropped", "fda", "liway", "liwat"})
+            has_spec_abs = bool(q_all & {"permanent", "permanently", "mwf", "tth", "mth", "54", "consecutive", "readmission", "hour", "hours", "11th", "8th"})
+            has_cnt_abs = bool(q_all & {"absent", "absence", "absences", "liway", "liwat"}) and bool(q_all & {"many", "ilan", "mano", "hour", "hours", "oras", "day", "days", "araw", "limit", "before", "sakbay", "bago"})
+            if (has_abs_word and has_spec_abs) or has_cnt_abs:
+                expanded_stems.extend(["54", "11th", "8th", "mwf", "tth", "consecutive", "readmission", "slip", "permanent", "fda", "20"])
+                lex_intents.add("HANDBOOK_GRADING_FDA")
+                if is_comparative or ("voluntary" in q_all) or ("official" in q_all):
+                    lex_intents.add("URO_SUBJECT_ADJUSTMENT")
+
         if self.use_lexicon_boost:
             for entry in matched_lex:
                 if entry["intent"] != "CAR_REGIONAL_LEXICON":
-                    # Avoid letting MLS force shifting intent when query is clearly about lab facilities
-                    if entry["lemma"] == "mls" and (set(stems) & {"laboratory", "pipette", "material", "budget", "equipment", "litmus"}):
+                    # Context-aware disambiguation for multi-domain terms (MLS lab vs. shifting; Gate 1 RFID vs. exam permit)
+                    if entry["lemma"] == "mls" and (stem_only_set & {"laboratory", "pipette", "material", "budget", "equipment", "litmus", "breakage"}):
                         lex_intents.add("CAMPUS_FACILITIES_LAB")
+                    elif entry["lemma"] == "rfid" and (raw_tok_set & {"gate", "gates", "enter", "entering", "borrow", "lending", "lent", "agipabulod"}):
+                        lex_intents.add("CAMPUS_DECORUM_DRESSCODE")
+                    elif entry["lemma"] == "rfid" and (raw_tok_set & {"validate", "validation", "deposit", "posted"}):
+                        lex_intents.add("URO_ENROLLMENT_PORTAL")
+                    elif entry["lemma"] in ("laude", "liway", "liwat", "pammadayaw"):
+                        lex_intents.add("HANDBOOK_GRADING_FDA")
                     else:
                         lex_intents.add(entry["intent"])
                 if entry["lemma"] == "agadal":
@@ -560,46 +631,67 @@ class SLUChatbotEngine:
                     expanded_stems.extend(["payment", "downpayment", "tuition", "cashier"])
                 elif entry["lemma"] == "agpaagas":
                     expanded_stems.extend(["clinic", "medical", "health", "consultation"])
+                elif entry["lemma"] in ("liway", "liwat"):
+                    expanded_stems.extend(["absence", "fda", "20", "percent", "dropped", "readmission"])
+                elif entry["lemma"] in ("pammadayaw", "laude"):
+                    expanded_stems.extend(["latin", "honor", "summa", "magna", "cum", "laude", "93", "91", "88"])
+                elif entry["lemma"] in ("kasera", "agawid"):
+                    expanded_stems.extend(["residence", "hall", "dormitory", "curfew"])
 
         if self.use_cleaning_morph:
-            for tok in set(raw_tokens) | set(stems):
+            for tok in sorted(raw_tok_set | stem_only_set):
                 if tok in QUERY_SYNONYMS:
                     expanded_stems.extend(QUERY_SYNONYMS[tok])
 
         # 2. Domain intent detection (only activates on concrete operational signals)
         stem_set = set(expanded_stems)
         if self.use_lexicon_boost:
-            if stem_set & {"shifting", "shift", "transferee", "qe", "qualifying", "seait", "sonahbs"}:
+            if stem_set & {"shifting", "shift", "transferee", "qe", "qualifying", "seait", "sonahbs", "probation", "qpi"}:
                 lex_intents.add("ACADEMIC_SHIFTING_TRANSFER")
-                # Only also boost adjustment if user explicitly asked about URO window/direct submission/add/drop
                 if stem_set & {"submission", "window", "adding", "dropping", "adjustment"}:
                     lex_intents.add("URO_SUBJECT_ADJUSTMENT")
-            if stem_set & {"adding", "dropping", "drop", "add", "adjustment"}:
+            if stem_set & {"adding", "dropping", "drop", "add", "adjustment", "petition", "crossenroll"}:
                 lex_intents.add("URO_SUBJECT_ADJUSTMENT")
-            if stem_set & {"tor", "cog", "transcript", "clearance", "graduation"}:
+            if stem_set & {"tor", "cog", "transcript", "clearance", "graduation", "honorable", "dismissal", "cgmc", "cav"}:
                 lex_intents.add("URO_ENROLLMENT_TOR")
-            if stem_set & {"portal", "advising", "continuing", "enrollment", "enroll"}:
+            if stem_set & {"portal", "advising", "continuing", "enrollment", "enroll", "loa", "returnee", "shortterm", "summer", "validate", "validation"}:
                 lex_intents.add("URO_ENROLLMENT_PORTAL")
-            if stem_set & {"grade", "passing", "retention", "fda", "absence", "bagsak"}:
+            if stem_set & {"grade", "passing", "retention", "fda", "absence", "bagsak", "laude", "latin", "readmission", "inc", "nfe"}:
                 lex_intents.add("HANDBOOK_GRADING_FDA")
-            if stem_set & {"permit", "rfid", "proctor", "plagiarism", "cheating", "dishonesty", "mobile", "phone", "device", "disciplinary"}:
+            if (stem_set & {"permit", "proctor", "plagiarism", "cheating", "dishonesty", "mobile", "phone", "device", "disciplinary"}) or (
+                "rfid" in stem_set and not (stem_set & {"gate", "gates", "borrow", "lending", "validate", "validation"})
+            ):
                 lex_intents.add("EXAM_PERMIT_INTEGRITY")
-            if stem_set & {"clinic", "medical", "pathfit", "evacuation", "seismic", "calamity", "oval", "privacy", "10173", "libelous", "harassment", "ill", "sick", "dental", "security"}:
+            if stem_set & {"clinic", "medical", "pathfit", "evacuation", "seismic", "calamity", "oval", "privacy", "10173", "libelous", "harassment", "ill", "sick", "dental", "security", "typhoon", "monsoon", "suspension"}:
                 lex_intents.add("CAMPUS_HEALTH_SAFETY")
-            if stem_set & {"uniform", "dress", "wash", "slipper", "sando", "attire", "shorts"}:
+            if stem_set & {"uniform", "dress", "wash", "slipper", "sando", "attire", "shorts", "hair", "grooming", "piercing"} or (
+                "rfid" in stem_set and bool(stem_set & {"gate", "gates", "borrow", "lending"})
+            ):
                 lex_intents.add("CAMPUS_DECORUM_DRESSCODE")
-            if stem_set & {"tuition", "downpayment", "fee", "installment", "accounting", "cashier"}:
+            if stem_set & {"tuition", "downpayment", "fee", "installment", "accounting", "cashier", "promissory", "deanslist", "refund"}:
                 lex_intents.add("TUITION_FINANCE")
-            if stem_set & {"laboratory", "pipette", "litmus", "facility", "equipment", "library"}:
+                if "validate" in stem_set and "rfid" in stem_set:
+                    lex_intents.discard("TUITION_FINANCE")
+                    lex_intents.add("URO_ENROLLMENT_PORTAL")
+                if "refund" in stem_set:
+                    lex_intents.discard("URO_SUBJECT_ADJUSTMENT")
+            if stem_set & {"laboratory", "pipette", "litmus", "facility", "equipment", "library", "breakage", "dormitory", "residence", "curfew"}:
                 lex_intents.add("CAMPUS_FACILITIES_LAB")
-            if stem_set & {"scholarship", "scholar", "honor", "counseling", "guidance", "mental", "wellness", "ambigat"}:
-                if any(d["intent_label"] == "STUDENT_WELFARE_SCHOLARSHIP" for d in self.docs):
+            if stem_set & {"scholarship", "scholar", "counseling", "guidance", "mental", "wellness", "ambigat"}:
+                if stem_set & {"scholarship", "scholar", "deanslist"}:
+                    lex_intents.add("TUITION_FINANCE")
+                elif any(d["intent_label"] == "STUDENT_WELFARE_SCHOLARSHIP" for d in self.docs):
                     lex_intents.add("STUDENT_WELFARE_SCHOLARSHIP")
                 else:
                     lex_intents.add("CAMPUS_HEALTH_SAFETY")
 
-        # 3. Optional Supervised ML Intent Prediction (uses clean query features matching training distribution)
-        ml_intent, ml_conf = self.predict_ml_intent(stems, bigrams)
+        # 3. Optional Supervised ML Intent Prediction (full probability distribution over classes)
+        ml_intent, ml_conf, ml_probs = self.predict_ml_intent(stems, bigrams)
+        ml_top_intents = [
+            {"intent": c, "confidence": round(p, 4)}
+            for c, p in sorted(ml_probs.items(), key=lambda kv: kv[1], reverse=True)[:2]
+            if p >= 0.10
+        ]
 
         # 4. Build query TF-IDF vector
         expanded_bigrams = generate_ngrams(expanded_stems, n=2)
@@ -609,13 +701,14 @@ class SLUChatbotEngine:
         q_norm_sq = 0.0
         for feat, tf in q_tf.items():
             idf = math.log((1.0 + self.N) / (1.0 + self.df.get(feat, 0))) + 1.0
-            w = tf * idf
+            tf_w = (1.0 + math.log(tf)) if self.dataset_mode != "midterm" else float(tf)
+            w = tf_w * idf
             q_vec[feat] = w
             q_norm_sq += w * w
         q_norm = math.sqrt(q_norm_sq) if q_norm_sq > 0 else 1.0
 
-        # When trained ML intent classifier is active, moderate greedy single-keyword boost so holistic ML leads
-        eff_alpha = 0.14 if (self.ml_model and ml_intent and ml_conf >= 0.30) else self.alpha
+        # Probabilistic ML moderation lets trained classifier collaborate with lexical rules across multi-intent queries
+        eff_alpha = 0.14 if (self.ml_model and ml_intent and ml_conf >= 0.25) else self.alpha
 
         scored_docs = []
         for idx, doc in enumerate(self.docs):
@@ -625,12 +718,13 @@ class SLUChatbotEngine:
             cosine = dot / (q_norm * d_norm)
 
             intent_match = 1.0 if (self.use_lexicon_boost and doc["intent_label"] in lex_intents) else 0.0
-            ml_match = 1.0 if (ml_intent and ml_conf >= 0.30 and doc["intent_label"] == ml_intent) else 0.0
+            ml_prob = ml_probs.get(doc["intent_label"], 0.0) if (self.use_ml_intent and ml_probs) else 0.0
+            ml_term = (self.beta * ml_prob) if ml_prob >= 0.16 else 0.0
             is_policy = doc["sentiment_polarity"] == "AUTHORITATIVE_POLICY"
 
             # Only award authority bonus when there is real lexical or intent evidence
-            auth_bonus = 0.15 if (is_policy and (cosine > 0.02 or intent_match > 0 or ml_match > 0)) else 0.0
-            boost = (eff_alpha * intent_match) + (self.beta * ml_match * ml_conf) + auth_bonus
+            auth_bonus = 0.15 if (is_policy and (cosine > 0.02 or intent_match > 0 or ml_term > 0)) else 0.0
+            boost = (eff_alpha * intent_match) + ml_term + auth_bonus
             final_score = cosine + boost
 
             scored_docs.append({
@@ -650,8 +744,8 @@ class SLUChatbotEngine:
             d for d in scored_docs
             if d["sentiment_polarity"] == "AUTHORITATIVE_POLICY" and d["final_score"] > 0
         ]
-        policy_candidates.sort(key=lambda x: (x["final_score"], x["cosine_similarity"]), reverse=True)
-        scored_docs.sort(key=lambda x: (x["final_score"], x["cosine_similarity"]), reverse=True)
+        policy_candidates.sort(key=lambda x: (x["final_score"], x["cosine_similarity"], -x["doc_id"]), reverse=True)
+        scored_docs.sort(key=lambda x: (x["final_score"], x["cosine_similarity"], -x["doc_id"]), reverse=True)
 
         # Calibrated OOD / low-confidence gate (prevents hallucinating irrelevant Freedom Wall docs)
         best_policy = policy_candidates[0] if policy_candidates else None
@@ -659,11 +753,15 @@ class SLUChatbotEngine:
             top_matches = policy_candidates[:top_k] if policy_candidates else scored_docs[:top_k]
             has_evidence = True
         else:
+            # Require genuine domain evidence: if neither lexicon nor ML intent activated (boost <= 0.16),
+            # demand stronger direct lexical cosine (>= 0.08) so generic words like "study" trigger OOD fallback.
+            strong_boost = bool(best_policy and best_policy["intent_boost"] > 0.16)
             has_evidence = bool(
                 best_policy
+                and best_policy["final_score"] >= self.min_confidence
                 and (
-                    best_policy["final_score"] >= self.min_confidence
-                    and (best_policy["cosine_similarity"] >= 0.025 or best_policy["intent_boost"] >= 0.35)
+                    (strong_boost and (best_policy["cosine_similarity"] >= 0.025 or best_policy["intent_boost"] >= 0.35))
+                    or (best_policy["cosine_similarity"] >= 0.08)
                 )
             )
 
@@ -698,9 +796,10 @@ class SLUChatbotEngine:
 
         top_matches = policy_candidates[:top_k] if policy_candidates else scored_docs[:top_k]
         primary_intent = top_matches[0]["intent_label"]
-        # Include second doc only if reasonably close in score to avoid noisy second citations
+        # Comparative queries or close runner-up scores include second contrasted policy
         chosen_docs = [top_matches[0]]
-        if len(top_matches) > 1 and top_matches[1]["final_score"] >= max(0.35, top_matches[0]["final_score"] * 0.72):
+        runner_up_min = max(0.30, top_matches[0]["final_score"] * 0.58) if is_comparative else max(0.35, top_matches[0]["final_score"] * 0.72)
+        if len(top_matches) > 1 and top_matches[1]["final_score"] >= runner_up_min:
             chosen_docs.append(top_matches[1])
 
         citations = [f"{d['source_file']} ({d['section_ref']})" for d in chosen_docs]
@@ -726,6 +825,8 @@ class SLUChatbotEngine:
             "predicted_intent": primary_intent,
             "ml_intent": ml_intent,
             "ml_confidence": round(ml_conf, 4),
+            "ml_top_intents": ml_top_intents,
+            "is_comparative": is_comparative,
             "matched_lexicon": matched_lex,
             "top_documents": top_matches,
             "is_greeting": False,

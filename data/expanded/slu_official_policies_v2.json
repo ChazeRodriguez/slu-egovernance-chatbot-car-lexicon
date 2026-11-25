@@ -254,5 +254,165 @@
     "section_ref": "Campus IT & Support: iSLU Portal, Institutional Email & Wi-Fi Access",
     "intent_label": "CAMPUS_FACILITIES_LAB",
     "raw_text": "Enrolled Louisian students receive official SLU institutional email accounts and iSLU Student Portal credentials for academic advising, grade viewing, online learning platforms, and campus Wi-Fi access. Account lockouts, password resets, or laboratory workstation issues should be logged with SLU Information Technology support."
+  },
+  {
+    "doc_id": 133,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Academic Regulations: Undergraduate Latin Honors (Summa 93+, Magna 91-92.99, Cum Laude 88-90.99)",
+    "intent_label": "HANDBOOK_GRADING_FDA",
+    "raw_text": "For undergraduate graduation with Latin honors at Saint Louis University, candidates must attain a General Weighted Average (GWA) of 93.00 percent and above for Summa Cum Laude, 91.00 to 92.99 percent (below 93) for Magna Cum Laude, and 88.00 to 90.99 percent (below 91) for Cum Laude. Candidates must have zero failing grades below 75 and no Dropped (D/DRP), FDA, Incomplete (INC), No Final Exam (NFE), or No Credit (NC) marks in any academic subject except NSTP. Summa and Magna Cum Laude require full 4-year or 5-year academic residence at SLU (transferees are disqualified from Summa and Magna), while transferees may qualify for Cum Laude after completing at least 3 years (6 semesters) and 120 academic units inside SLU."
+  },
+  {
+    "doc_id": 134,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Attendance: Contact-Hour Limits (11th MWF / 8th TTh = Permanent FDA), 3-Consecutive OSAS Slip vs. Voluntary Dropping",
+    "intent_label": "HANDBOOK_GRADING_FDA",
+    "raw_text": "Voluntary Official Dropping (WP/DRP) filed before the URO withdrawal deadline with Instructor, Adviser, and Dean approval records a clean Dropped status instead of a failing grade, though it still disqualifies Latin honors. By contrast, exceeding 20 percent of prescribed semester contact hours triggers automatic, permanent Dropped (D) / Failure Due to Absences (FDA) requiring subject re-enrollment: for a 3-unit 54-hour course (20 percent = 10.8 hours), the 11th hour of absence—meaning the 11th absence in 1-hour MWF classes or the 8th absence in 1.5-hour TTh/MTh classes—permanently drops the student; 36-hour PATHFIT drops on the 8th hour (4th-5th absence), and 3-hour labs drop on the 4th lab absence. Furthermore, missing 3 consecutive class meetings bars re-entry until securing an OSAS Readmission Slip supported by an excuse letter or SLU Clinic-verified medical certificate."
+  },
+  {
+    "doc_id": 135,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Graduation Services: Application for Graduation, Curriculum Audit & NSTP Serial",
+    "intent_label": "URO_ENROLLMENT_TOR",
+    "raw_text": "Graduating students must file their Application for Graduation at the University Registrar's Office during the scheduled filing window in their final semester, undergo curriculum evaluation auditing all required general education, major, PATHFIT, and NSTP courses (including NSTP serial number verification), and settle diploma, yearbook, and university clearance fees prior to Commencement Exercises."
+  },
+  {
+    "doc_id": 136,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Transfer Credentials: Honorable Dismissal (Permanent Exit vs. LOA)",
+    "intent_label": "URO_ENROLLMENT_TOR",
+    "raw_text": "Requesting an Honorable Dismissal / Transfer Credentials from URO permanently terminates a student's official academic enrollment at Saint Louis University so records can be transferred to another institution; unlike a Leave of Absence (LOA), once Honorable Dismissal is issued, the student cannot simply return as a continuing student without formal re-admission review."
+  },
+  {
+    "doc_id": 137,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO & Dean Policy: Leave of Absence (LOA) & Returning Student (Balik-Aral) Readmission",
+    "intent_label": "URO_ENROLLMENT_PORTAL",
+    "raw_text": "Continuing students pausing studies temporarily must file an official Leave of Absence (LOA) endorsed by their School Dean and recorded with the University Registrar's Office before leaving to preserve returning rights. Returning students (Balik-Aral / returnees) who skipped one or more regular terms must apply for Returnee Readmission evaluation through their Dean's Office and URO prior to iSLU portal advising."
+  },
+  {
+    "doc_id": 138,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Calendar: Six-Week Short Term (Summer Term) Advising & Maximum Unit Load",
+    "intent_label": "URO_ENROLLMENT_PORTAL",
+    "raw_text": "Saint Louis University conducts an accelerated 6-week Short Term (Summer Term) between regular semesters for clearing deficiencies, taking minor subjects, or advancing curriculum loads. Undergraduate students are generally limited to a maximum of 6 to 9 academic units during the Short Term via iSLU portal advising unless a Dean-approved graduating unit petition is granted."
+  },
+  {
+    "doc_id": 139,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO & Department Chair Policy: Petition / Special Classes for Irregular & Graduating Students",
+    "intent_label": "URO_SUBJECT_ADJUSTMENT",
+    "raw_text": "Irregular or graduating students needing a curriculum subject not regularly offered or blocked by schedule conflicts may organize a Petition Class (Special Class) endorsed by the Department Chair and School Dean. Minimum headcount and pro-rated tutorial or petition tuition rules apply once approved by the Finance Office and encoded by URO."
+  },
+  {
+    "doc_id": 140,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO Policy: Cross-Enrollment Permit to External CHED-Recognized Universities",
+    "intent_label": "URO_SUBJECT_ADJUSTMENT",
+    "raw_text": "Bonafide SLU students may apply for a Cross-Enrollment Permit to take a non-offered subject at another CHED-recognized university only with prior written endorsement from their School Dean and formal authorization from the University Registrar's Office before enrolling externally; unauthorized cross-enrolled subjects will not be credited."
+  },
+  {
+    "doc_id": 141,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/general-admission-requirements-and-enrollment/",
+    "section_ref": "Handbook Retention Policy: Scholastic Delinquency, Academic Probation & Board Program Cut-Offs",
+    "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+    "raw_text": "Students failing to maintain the minimum Quality Point Index (QPI) or weighted average retention thresholds—such as board-regulated screening requirements in BS Accountancy (BSA), BS Medical Laboratory Science (MLS), BS Nursing (BSN), and SEAIT Engineering/Architecture—are placed on Academic Probation with reduced unit loads or advised to shift to a non-board degree program under School Dean evaluation."
+  },
+  {
+    "doc_id": 142,
+    "source_file": "slu_uro_enrollment_faqs.txt",
+    "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+    "section_ref": "URO & Dean Evaluation: Internal Shiftee Course Crediting & Equivalence",
+    "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+    "raw_text": "When an SLU student shifts internally between schools (e.g., SAMCIS to SEAIT or STELA), completed General Education, NSTP, and PATHFIT courses with passing marks of 75 percent or higher automatically carry credit toward the new degree, whereas specialized core and major courses require syllabus equivalence evaluation and approval from the accepting Department Chair and Dean."
+  },
+  {
+    "doc_id": 143,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Exam Rules: Special Prelim/Midterm Examinations & Strict 1-Week Window",
+    "intent_label": "EXAM_PERMIT_INTEGRITY",
+    "raw_text": "Missing a Prelim or Midterm examination due to documented hospitalization, serious illness verified by the SLU Clinic, or official university representation requires OSAS investigation and School Dean approval for a Special Examination. Approved special midterm or prelim quizzes and exams must be taken strictly within one (1) week upon returning to class or risk a zero mark."
+  },
+  {
+    "doc_id": 144,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/student-affairs/",
+    "section_ref": "OSAS ID Protocol: Forgotten RFID Temporary Gate Pass vs. Lost Card Replacement",
+    "intent_label": "EXAM_PERMIT_INTEGRITY",
+    "raw_text": "Students who leave their validated SLU RFID card at home must secure a single-day Temporary Gate and Examination Pass from Gate Security or OSAS by presenting a valid government ID or enrollment assessment. For permanently lost RFID cards, students must submit a notarized Affidavit of Loss to OSAS, pay the replacement ID fee at Finance, and obtain a replacement card to enter exam rooms."
+  },
+  {
+    "doc_id": 145,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+    "section_ref": "Handbook Grooming & Practicum Code: Natural Hair Color, Piercings & Clinical/OJT Attire",
+    "intent_label": "CAMPUS_DECORUM_DRESSCODE",
+    "raw_text": "Under SLU Student Handbook grooming standards, students—especially in Allied Health (SONAHBS), Teacher Education (STELA), Hospitality/Tourism, and Practicum/OJT tracks—must maintain neat haircuts and natural hair color without distracting flamboyant dyes or excessive facial piercings during laboratory, clinical duty, and regular class hours."
+  },
+  {
+    "doc_id": 146,
+    "source_file": "slu_student_handbook_regulations.txt",
+    "source_url": "https://www.slu.edu.ph/student-affairs/",
+    "section_ref": "OSAS Decorum Enforcement: Graduated Dress Code & RFID Violation Tiers",
+    "intent_label": "CAMPUS_DECORUM_DRESSCODE",
+    "raw_text": "Dress code, Wash Day attire, and visible RFID infractions logged by SLU Gate Security or OSAS follow graduated disciplinary steps: 1st offense issues an electronic warning slip, 2nd offense mandates a formal OSAS guidance conference, and 3rd or repeated non-compliance triggers parent/guardian notification and Strict Disciplinary Probation."
+  },
+  {
+    "doc_id": 147,
+    "source_file": "slu_safety_and_support_guide.txt",
+    "source_url": "https://www.slu.edu.ph/health-services/",
+    "section_ref": "Clinic & PATHFIT Policy: Medical Accommodation & Modified PE Activities",
+    "intent_label": "CAMPUS_HEALTH_SAFETY",
+    "raw_text": "Students with chronic medical conditions, injuries, or physical limitations preventing strenuous PATHFIT workouts are not exempted from earning required PE units; instead, they must submit specialist medical documentation to the SLU Health Services Clinic physician for evaluation so the PATHFIT department can prescribe safe, modified, or adaptive activities."
+  },
+  {
+    "doc_id": 148,
+    "source_file": "slu_safety_and_support_guide.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "SLU Emergency Advisory: Baguio Typhoon, Monsoon & Class Suspension Protocol",
+    "intent_label": "CAMPUS_HEALTH_SAFETY",
+    "raw_text": "During severe Cordillera typhoons or Baguio City monsoon weather, automatic and localized class suspensions follow Baguio City Mayor Executive Orders, PAGASA tropical cyclone wind signals, and CHED advisories, confirmed through official Saint Louis University channels (slu.edu.ph, iSLU announcements, and official SLU social media pages)."
+  },
+  {
+    "doc_id": 149,
+    "source_file": "slu_finance_guidelines.txt",
+    "source_url": "https://www.slu.edu.ph/scholarships/",
+    "section_ref": "Academic Honors & Tuition Discounts: SLU Dean's List (First Honors 92+, Second Honors 88-91.99)",
+    "intent_label": "TUITION_FINANCE",
+    "raw_text": "Full-time undergraduate students carrying regular curriculum loads with zero grades below 80 percent and no INC, NFE, D/DRP, FDA, or NC marks qualify for the SLU Dean's List: First Honors (92.00 percent GWA and above, eligible for full/top academic tuition discounts) and Second Honors (88.00 to 91.99 percent GWA, eligible for partial academic scholarship tuition grants) subject to ranked slot quotas per school."
+  },
+  {
+    "doc_id": 150,
+    "source_file": "slu_finance_guidelines.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "Finance Office: Installment Promissory Notes & Official Withdrawal Tuition Refund Scale",
+    "intent_label": "TUITION_FINANCE",
+    "raw_text": "Students facing temporary financial hardship prior to Prelim, Midterm, or Final examinations may apply for a Finance Promissory Note with guardian co-signature and specified payment schedule at the SLU Accounting/Finance Office to secure exam permits. Separately, students who file official subject dropping or full semester withdrawal within the first two weeks follow SLU and CHED's prorated tuition refund/assessment schedule."
+  },
+  {
+    "doc_id": 151,
+    "source_file": "slu_facilities_library_guide.txt",
+    "source_url": "https://www.slu.edu.ph/",
+    "section_ref": "Laboratory Custodian Policy: Breakage Accountability Slips & Clearance Holds",
+    "intent_label": "CAMPUS_FACILITIES_LAB",
+    "raw_text": "Accidental damage or breakage of glassware, pipettes, microscopes, or engineering apparatuses during laboratory sessions requires filing an official Laboratory Breakage Accountability Slip with the Laboratory Custodian. Outstanding breakage charges must be replaced or settled at the Finance Office to lift end-of-semester URO clearance holds."
+  },
+  {
+    "doc_id": 152,
+    "source_file": "slu_facilities_library_guide.txt",
+    "source_url": "https://www.slu.edu.ph/student-affairs/",
+    "section_ref": "Student Housing Policy: SLU Ladies' & Men's Residence Halls, Curfew & Visitor Rules",
+    "intent_label": "CAMPUS_FACILITIES_LAB",
+    "raw_text": "SLU-managed Residence Halls (Ladies' and Men's Dormitories on campus) require formal semesterly housing application, guardian consent, adherence to nightly Baguio campus curfews and overnight pass permits, visitor log-in restrictions, and quiet study hours supervised by Dormitory Prefects."
   }
 ]

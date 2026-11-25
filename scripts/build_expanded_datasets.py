@@ -4,10 +4,10 @@ CSE 30: CS Special Topics (Natural Language Processing)
 Saint Louis University - Department of Computer Science
 Script: scripts/build_expanded_datasets.py
 Description: Deterministically constructs and validates the Phase 3 Finals expanded datasets:
-             1. data/expanded/slu_official_policies_v2.json (32 verified SLU policies across 10 intents)
-             2. data/expanded/slu_car_domain_lexicon_v2.csv (156 validated SLU + Ilocano + Kankanaey + Ibaloi entries)
-             3. data/expanded/annotated_corpus_expanded.csv (250 balanced docs: 25/intent across EN, TL-EN, CAR-TL-EN)
-             4. data/expanded/heldout_benchmark.json (48 unseen multilingual, adversarial & OOD queries)
+             1. data/expanded/slu_official_policies_v2.json (52 verified SLU policies across 10 intents)
+             2. data/expanded/slu_car_domain_lexicon_v2.csv (176 validated SLU + Ilocano + Kankanaey + Ibaloi entries)
+             3. data/expanded/annotated_corpus_expanded.csv (350 balanced docs: 35/intent across EN, TL-EN, CAR-TL-EN)
+             4. data/expanded/heldout_benchmark.json (75 unseen multilingual, comparative, niche, adversarial & OOD queries)
              Maintains transparent provenance tagging (Source_Type) and zero train/test text leakage.
 Author: Group 2 - AiNomally (Angcaway, Delin, Hernandez, Rodriguez, Sibayan)
 """
@@ -297,6 +297,167 @@ OFFICIAL_POLICIES_V2 = [
         "intent_label": "CAMPUS_FACILITIES_LAB",
         "raw_text": "Enrolled Louisian students receive official SLU institutional email accounts and iSLU Student Portal credentials for academic advising, grade viewing, online learning platforms, and campus Wi-Fi access. Account lockouts, password resets, or laboratory workstation issues should be logged with SLU Information Technology support.",
     },
+    # --- NICHE & HIGH-FREQUENCY SLU POLICY EXPANSION (doc_id 133..152, +2 per intent = 52 total) ---
+    {
+        "doc_id": 133,
+        "source_file": "slu_student_handbook_regulations.txt",
+        "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+        "section_ref": "Handbook Academic Regulations: Undergraduate Latin Honors (Summa 93+, Magna 91-92.99, Cum Laude 88-90.99)",
+        "intent_label": "HANDBOOK_GRADING_FDA",
+        "raw_text": "For undergraduate graduation with Latin honors at Saint Louis University, candidates must attain a General Weighted Average (GWA) of 93.00 percent and above for Summa Cum Laude, 91.00 to 92.99 percent (below 93) for Magna Cum Laude, and 88.00 to 90.99 percent (below 91) for Cum Laude. Candidates must have zero failing grades below 75 and no Dropped (D/DRP), FDA, Incomplete (INC), No Final Exam (NFE), or No Credit (NC) marks in any academic subject except NSTP. Summa and Magna Cum Laude require full 4-year or 5-year academic residence at SLU (transferees are disqualified from Summa and Magna), while transferees may qualify for Cum Laude after completing at least 3 years (6 semesters) and 120 academic units inside SLU.",
+    },
+    {
+        "doc_id": 134,
+        "source_file": "slu_student_handbook_regulations.txt",
+        "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+        "section_ref": "Handbook Attendance: Contact-Hour Limits (11th MWF / 8th TTh = Permanent FDA), 3-Consecutive OSAS Slip vs. Voluntary Dropping",
+        "intent_label": "HANDBOOK_GRADING_FDA",
+        "raw_text": "Voluntary Official Dropping (WP/DRP) filed before the URO withdrawal deadline with Instructor, Adviser, and Dean approval records a clean Dropped status instead of a failing grade, though it still disqualifies Latin honors. By contrast, exceeding 20 percent of prescribed semester contact hours triggers automatic, permanent Dropped (D) / Failure Due to Absences (FDA) requiring subject re-enrollment: for a 3-unit 54-hour course (20 percent = 10.8 hours), the 11th hour of absence—meaning the 11th absence in 1-hour MWF classes or the 8th absence in 1.5-hour TTh/MTh classes—permanently drops the student; 36-hour PATHFIT drops on the 8th hour (4th-5th absence), and 3-hour labs drop on the 4th lab absence. Furthermore, missing 3 consecutive class meetings bars re-entry until securing an OSAS Readmission Slip supported by an excuse letter or SLU Clinic-verified medical certificate.",
+    },
+    {
+        "doc_id": 135,
+        "source_file": "slu_uro_enrollment_faqs.txt",
+        "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+        "section_ref": "URO Graduation Services: Application for Graduation, Curriculum Audit & NSTP Serial",
+        "intent_label": "URO_ENROLLMENT_TOR",
+        "raw_text": "Graduating students must file their Application for Graduation at the University Registrar's Office during the scheduled filing window in their final semester, undergo curriculum evaluation auditing all required general education, major, PATHFIT, and NSTP courses (including NSTP serial number verification), and settle diploma, yearbook, and university clearance fees prior to Commencement Exercises.",
+    },
+    {
+        "doc_id": 136,
+        "source_file": "slu_uro_enrollment_faqs.txt",
+        "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+        "section_ref": "URO Transfer Credentials: Honorable Dismissal (Permanent Exit vs. LOA)",
+        "intent_label": "URO_ENROLLMENT_TOR",
+        "raw_text": "Requesting an Honorable Dismissal / Transfer Credentials from URO permanently terminates a student's official academic enrollment at Saint Louis University so records can be transferred to another institution; unlike a Leave of Absence (LOA), once Honorable Dismissal is issued, the student cannot simply return as a continuing student without formal re-admission review.",
+    },
+    {
+        "doc_id": 137,
+        "source_file": "slu_uro_enrollment_faqs.txt",
+        "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+        "section_ref": "URO & Dean Policy: Leave of Absence (LOA) & Returning Student (Balik-Aral) Readmission",
+        "intent_label": "URO_ENROLLMENT_PORTAL",
+        "raw_text": "Continuing students pausing studies temporarily must file an official Leave of Absence (LOA) endorsed by their School Dean and recorded with the University Registrar's Office before leaving to preserve returning rights. Returning students (Balik-Aral / returnees) who skipped one or more regular terms must apply for Returnee Readmission evaluation through their Dean's Office and URO prior to iSLU portal advising.",
+    },
+    {
+        "doc_id": 138,
+        "source_file": "slu_uro_enrollment_faqs.txt",
+        "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+        "section_ref": "URO Calendar: Six-Week Short Term (Summer Term) Advising & Maximum Unit Load",
+        "intent_label": "URO_ENROLLMENT_PORTAL",
+        "raw_text": "Saint Louis University conducts an accelerated 6-week Short Term (Summer Term) between regular semesters for clearing deficiencies, taking minor subjects, or advancing curriculum loads. Undergraduate students are generally limited to a maximum of 6 to 9 academic units during the Short Term via iSLU portal advising unless a Dean-approved graduating unit petition is granted.",
+    },
+    {
+        "doc_id": 139,
+        "source_file": "slu_uro_enrollment_faqs.txt",
+        "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+        "section_ref": "URO & Department Chair Policy: Petition / Special Classes for Irregular & Graduating Students",
+        "intent_label": "URO_SUBJECT_ADJUSTMENT",
+        "raw_text": "Irregular or graduating students needing a curriculum subject not regularly offered or blocked by schedule conflicts may organize a Petition Class (Special Class) endorsed by the Department Chair and School Dean. Minimum headcount and pro-rated tutorial or petition tuition rules apply once approved by the Finance Office and encoded by URO.",
+    },
+    {
+        "doc_id": 140,
+        "source_file": "slu_uro_enrollment_faqs.txt",
+        "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+        "section_ref": "URO Policy: Cross-Enrollment Permit to External CHED-Recognized Universities",
+        "intent_label": "URO_SUBJECT_ADJUSTMENT",
+        "raw_text": "Bonafide SLU students may apply for a Cross-Enrollment Permit to take a non-offered subject at another CHED-recognized university only with prior written endorsement from their School Dean and formal authorization from the University Registrar's Office before enrolling externally; unauthorized cross-enrolled subjects will not be credited.",
+    },
+    {
+        "doc_id": 141,
+        "source_file": "slu_student_handbook_regulations.txt",
+        "source_url": "https://www.slu.edu.ph/general-admission-requirements-and-enrollment/",
+        "section_ref": "Handbook Retention Policy: Scholastic Delinquency, Academic Probation & Board Program Cut-Offs",
+        "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+        "raw_text": "Students failing to maintain the minimum Quality Point Index (QPI) or weighted average retention thresholds—such as board-regulated screening requirements in BS Accountancy (BSA), BS Medical Laboratory Science (MLS), BS Nursing (BSN), and SEAIT Engineering/Architecture—are placed on Academic Probation with reduced unit loads or advised to shift to a non-board degree program under School Dean evaluation.",
+    },
+    {
+        "doc_id": 142,
+        "source_file": "slu_uro_enrollment_faqs.txt",
+        "source_url": "https://www.slu.edu.ph/registrars-office-services/",
+        "section_ref": "URO & Dean Evaluation: Internal Shiftee Course Crediting & Equivalence",
+        "intent_label": "ACADEMIC_SHIFTING_TRANSFER",
+        "raw_text": "When an SLU student shifts internally between schools (e.g., SAMCIS to SEAIT or STELA), completed General Education, NSTP, and PATHFIT courses with passing marks of 75 percent or higher automatically carry credit toward the new degree, whereas specialized core and major courses require syllabus equivalence evaluation and approval from the accepting Department Chair and Dean.",
+    },
+    {
+        "doc_id": 143,
+        "source_file": "slu_student_handbook_regulations.txt",
+        "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+        "section_ref": "Handbook Exam Rules: Special Prelim/Midterm Examinations & Strict 1-Week Window",
+        "intent_label": "EXAM_PERMIT_INTEGRITY",
+        "raw_text": "Missing a Prelim or Midterm examination due to documented hospitalization, serious illness verified by the SLU Clinic, or official university representation requires OSAS investigation and School Dean approval for a Special Examination. Approved special midterm or prelim quizzes and exams must be taken strictly within one (1) week upon returning to class or risk a zero mark.",
+    },
+    {
+        "doc_id": 144,
+        "source_file": "slu_student_handbook_regulations.txt",
+        "source_url": "https://www.slu.edu.ph/student-affairs/",
+        "section_ref": "OSAS ID Protocol: Forgotten RFID Temporary Gate Pass vs. Lost Card Replacement",
+        "intent_label": "EXAM_PERMIT_INTEGRITY",
+        "raw_text": "Students who leave their validated SLU RFID card at home must secure a single-day Temporary Gate and Examination Pass from Gate Security or OSAS by presenting a valid government ID or enrollment assessment. For permanently lost RFID cards, students must submit a notarized Affidavit of Loss to OSAS, pay the replacement ID fee at Finance, and obtain a replacement card to enter exam rooms.",
+    },
+    {
+        "doc_id": 145,
+        "source_file": "slu_student_handbook_regulations.txt",
+        "source_url": "https://www.slu.edu.ph/wp-content/uploads/2022/11/SLU-Student-Handbook-2015-Ed.pdf",
+        "section_ref": "Handbook Grooming & Practicum Code: Natural Hair Color, Piercings & Clinical/OJT Attire",
+        "intent_label": "CAMPUS_DECORUM_DRESSCODE",
+        "raw_text": "Under SLU Student Handbook grooming standards, students—especially in Allied Health (SONAHBS), Teacher Education (STELA), Hospitality/Tourism, and Practicum/OJT tracks—must maintain neat haircuts and natural hair color without distracting flamboyant dyes or excessive facial piercings during laboratory, clinical duty, and regular class hours.",
+    },
+    {
+        "doc_id": 146,
+        "source_file": "slu_student_handbook_regulations.txt",
+        "source_url": "https://www.slu.edu.ph/student-affairs/",
+        "section_ref": "OSAS Decorum Enforcement: Graduated Dress Code & RFID Violation Tiers",
+        "intent_label": "CAMPUS_DECORUM_DRESSCODE",
+        "raw_text": "Dress code, Wash Day attire, and visible RFID infractions logged by SLU Gate Security or OSAS follow graduated disciplinary steps: 1st offense issues an electronic warning slip, 2nd offense mandates a formal OSAS guidance conference, and 3rd or repeated non-compliance triggers parent/guardian notification and Strict Disciplinary Probation.",
+    },
+    {
+        "doc_id": 147,
+        "source_file": "slu_safety_and_support_guide.txt",
+        "source_url": "https://www.slu.edu.ph/health-services/",
+        "section_ref": "Clinic & PATHFIT Policy: Medical Accommodation & Modified PE Activities",
+        "intent_label": "CAMPUS_HEALTH_SAFETY",
+        "raw_text": "Students with chronic medical conditions, injuries, or physical limitations preventing strenuous PATHFIT workouts are not exempted from earning required PE units; instead, they must submit specialist medical documentation to the SLU Health Services Clinic physician for evaluation so the PATHFIT department can prescribe safe, modified, or adaptive activities.",
+    },
+    {
+        "doc_id": 148,
+        "source_file": "slu_safety_and_support_guide.txt",
+        "source_url": "https://www.slu.edu.ph/",
+        "section_ref": "SLU Emergency Advisory: Baguio Typhoon, Monsoon & Class Suspension Protocol",
+        "intent_label": "CAMPUS_HEALTH_SAFETY",
+        "raw_text": "During severe Cordillera typhoons or Baguio City monsoon weather, automatic and localized class suspensions follow Baguio City Mayor Executive Orders, PAGASA tropical cyclone wind signals, and CHED advisories, confirmed through official Saint Louis University channels (slu.edu.ph, iSLU announcements, and official SLU social media pages).",
+    },
+    {
+        "doc_id": 149,
+        "source_file": "slu_finance_guidelines.txt",
+        "source_url": "https://www.slu.edu.ph/scholarships/",
+        "section_ref": "Academic Honors & Tuition Discounts: SLU Dean's List (First Honors 92+, Second Honors 88-91.99)",
+        "intent_label": "TUITION_FINANCE",
+        "raw_text": "Full-time undergraduate students carrying regular curriculum loads with zero grades below 80 percent and no INC, NFE, D/DRP, FDA, or NC marks qualify for the SLU Dean's List: First Honors (92.00 percent GWA and above, eligible for full/top academic tuition discounts) and Second Honors (88.00 to 91.99 percent GWA, eligible for partial academic scholarship tuition grants) subject to ranked slot quotas per school.",
+    },
+    {
+        "doc_id": 150,
+        "source_file": "slu_finance_guidelines.txt",
+        "source_url": "https://www.slu.edu.ph/",
+        "section_ref": "Finance Office: Installment Promissory Notes & Official Withdrawal Tuition Refund Scale",
+        "intent_label": "TUITION_FINANCE",
+        "raw_text": "Students facing temporary financial hardship prior to Prelim, Midterm, or Final examinations may apply for a Finance Promissory Note with guardian co-signature and specified payment schedule at the SLU Accounting/Finance Office to secure exam permits. Separately, students who file official subject dropping or full semester withdrawal within the first two weeks follow SLU and CHED's prorated tuition refund/assessment schedule.",
+    },
+    {
+        "doc_id": 151,
+        "source_file": "slu_facilities_library_guide.txt",
+        "source_url": "https://www.slu.edu.ph/",
+        "section_ref": "Laboratory Custodian Policy: Breakage Accountability Slips & Clearance Holds",
+        "intent_label": "CAMPUS_FACILITIES_LAB",
+        "raw_text": "Accidental damage or breakage of glassware, pipettes, microscopes, or engineering apparatuses during laboratory sessions requires filing an official Laboratory Breakage Accountability Slip with the Laboratory Custodian. Outstanding breakage charges must be replaced or settled at the Finance Office to lift end-of-semester URO clearance holds.",
+    },
+    {
+        "doc_id": 152,
+        "source_file": "slu_facilities_library_guide.txt",
+        "source_url": "https://www.slu.edu.ph/student-affairs/",
+        "section_ref": "Student Housing Policy: SLU Ladies' & Men's Residence Halls, Curfew & Visitor Rules",
+        "intent_label": "CAMPUS_FACILITIES_LAB",
+        "raw_text": "SLU-managed Residence Halls (Ladies' and Men's Dormitories on campus) require formal semesterly housing application, guardian consent, adherence to nightly Baguio campus curfews and overnight pass permits, visitor log-in restrictions, and quiet study hours supervised by Dormitory Prefects.",
+    },
 ]
 
 # ==============================================================================
@@ -342,6 +503,18 @@ EXPANDED_LEXICON_ROWS = [
     ("SLU-034", "washday", "en-SLU", "NOUN", "washday", "Compound", "Designated Friday and Saturday modest civilian attire days", "Araw ng Sibil na Pananamit (Biyernes at Sabado)", "CAMPUS_DECORUM_DRESSCODE", "washday|wash", ""),
     ("SLU-035", "ambilat", "kne-tl", "ADJ", "bigat", "Phonetic_Variant", "Heavy emotional or academic workload burden (Baguio/Cordilleran variant of ambigat)", "Mabigat sa pakiramdam dahil sa sabay-sabay na pagsusulit", "CAMPUS_HEALTH_SAFETY", "ambilat|ambigat", ""),
     ("SLU-036", "louisian", "en-SLU", "NOUN", "louisian", "Demonym", "Member of the Saint Louis University academic community", "Kasapi ng komunidad ng Saint Louis University", "CAMPUS_DECORUM_DRESSCODE", "louisian|louisians", ""),
+    ("SLU-037", "laude", "en-SLU", "NOUN", "laude", "Academic_Honor", "Latin graduation honors (Summa 93+, Magna 91-92.99, Cum Laude 88-90.99 GWA)", "Parangal pang-akademiko (Summa, Magna, Cum Laude)", "HANDBOOK_GRADING_FDA", "laude|cum|magna|summa", "latin honors|honors"),
+    ("SLU-038", "deanslist", "en-SLU", "NOUN", "deanslist", "Academic_Honor", "SLU Dean's List (First Honors 92+, Second Honors 88-91.99, no grade below 80)", "Listahan ng Dekano at iskolarship na diskwento", "TUITION_FINANCE", "deanslist|lister|listers", "dean list"),
+    ("SLU-039", "loa", "en-SLU", "NOUN", "loa", "Acronym", "Official Leave of Absence preserving continuing student status", "Opisyal na Pansamantalang Pagliban sa Pag-aaral", "URO_ENROLLMENT_PORTAL", "loa", "leave of absence"),
+    ("SLU-040", "promissory", "en-SLU", "NOUN", "promissory", "Administrative", "Finance Promissory Note for delayed installment or credential submission", "Kasunduang Promissory Note para sa matrikula o dokumento", "TUITION_FINANCE", "promissory", "installment delay"),
+    ("SLU-041", "qpi", "en-SLU", "NOUN", "qpi", "Acronym", "Quality Point Index and department retention GWA cutoff", "Pamantayang QPI para sa retensyon ng kurso", "ACADEMIC_SHIFTING_TRANSFER", "qpi", "probation|delinquency"),
+    ("SLU-042", "shortterm", "en-SLU", "NOUN", "shortterm", "Compound", "Accelerated 6-week Summer / Short Term semester at SLU", "Maikling Semestre (6-Week Summer Term)", "URO_ENROLLMENT_PORTAL", "shortterm|summer", ""),
+    ("SLU-043", "petition", "en-SLU", "NOUN", "petition", "Administrative", "Special / Petition Class requested by irregular or graduating students", "Espesyal na Klaseng Petisyon para sa mga subject", "URO_SUBJECT_ADJUSTMENT", "petition|petitioned", "special class"),
+    ("SLU-044", "readmission", "en-SLU", "NOUN", "readmission", "Administrative", "OSAS Readmission Slip required after 3 consecutive absences or returnee filing", "Pahintulot sa Pagbabalik-Klase mula sa OSAS", "HANDBOOK_GRADING_FDA", "readmission", "consecutive absences"),
+    ("SLU-045", "probation", "en-SLU", "NOUN", "probation", "Academic_Status", "Academic or Disciplinary Probation warning and unit restriction status", "Subok na Katayuang Akademiko o Disiplinaryo", "ACADEMIC_SHIFTING_TRANSFER", "probation", "scholastic delinquency"),
+    ("SLU-046", "returnee", "en-SLU", "NOUN", "returnee", "Student_Category", "Balik-Aral student returning after LOA or skipped semester", "Nagbabalik na Estudyante (Balik-Aral)", "URO_ENROLLMENT_PORTAL", "returnee|returnees|balik-aral", ""),
+    ("SLU-047", "nc", "en-SLU", "NOUN", "nc", "Acronym", "No Credit grade resulting from unresolved INC or NFE past deadline", "Walang Kredito dahil hindi natapos ang INC o NFE", "HANDBOOK_GRADING_FDA", "nc", "no credit"),
+    ("SLU-048", "crossenroll", "en-SLU", "VERB", "crossenroll", "Compound", "Authorized cross-enrollment in another CHED-recognized institution", "Pinahihintulutang Cross-Enrollment sa ibang unibersidad", "URO_SUBJECT_ADJUSTMENT", "crossenroll|cross-enroll|cross-enrollment", ""),
 
     # --- ILOCANO (ilo) — 48 verified entries (Constantino 1971; Rubino 2000) ---
     ("ILO-001", "naimbag", "ilo", "ADJ", "imbag", "na-", "Good; pleasant; courteous greeting in Ilocano student inquiries", "Mabuti; maganda", "CAR_REGIONAL_LEXICON", "naimbag", ""),
@@ -392,6 +565,10 @@ EXPANDED_LEXICON_ROWS = [
     ("ILO-046", "agbaliw", "ilo", "VERB", "baliw", "ag-", "To change or shift degree program or schedule", "Magpalit; lumipat ng kurso", "ACADEMIC_SHIFTING_TRANSFER", "agbaliw|agtransfer", ""),
     ("ILO-047", "idiay", "ilo", "ADV", "idiay", "Root", "There; at that place (e.g., idiay SAMCIS / idiay URO)", "Doon; sa", "CAR_REGIONAL_LEXICON", "idiay", ""),
     ("ILO-048", "kasano", "ilo", "ADV", "kasano", "Root", "How (Ilocano procedural interrogative)", "Paano", "CAR_REGIONAL_LEXICON", "kasano", ""),
+    ("ILO-049", "liway", "ilo", "NOUN", "liway", "Root", "Absence or negligence in attending scheduled classes", "Pagliban o pagpapabaya sa klase", "HANDBOOK_GRADING_FDA", "liway|nagliway", ""),
+    ("ILO-050", "pammadayaw", "ilo", "NOUN", "dayaw", "pamma-", "Academic honor, recognition, or Latin honors distinction", "Parangal; karangalan sa pagtatapos", "HANDBOOK_GRADING_FDA", "pammadayaw|dayaw", ""),
+    ("ILO-051", "agawid", "ilo", "VERB", "awid", "ag-", "To return home; leave campus on approved LOA or dormitory curfew", "Umuwi sa tahanan o dormitoryo", "CAMPUS_FACILITIES_LAB", "agawid|nagawid", ""),
+    ("ILO-052", "kasera", "ilo", "NOUN", "kasera", "Root", "Boarding house or student dormitory residence", "Dormitoryo o tinutuluyang bahay", "CAMPUS_FACILITIES_LAB", "kasera|dorm", ""),
 
     # --- NORTHERN KANKANAEY (kne) — 40 verified entries (SIL / Webonary / Cordilleran Studies) ---
     ("KNE-001", "gawis", "kne", "ADJ", "gawis", "Root", "Good; well; fine (Northern Kankanaey greeting and well-being marker)", "Mabuti; maayos", "CAR_REGIONAL_LEXICON", "gawis", ""),
@@ -434,6 +611,8 @@ EXPANDED_LEXICON_ROWS = [
     ("KNE-038", "nasakit", "kne", "ADJ", "sakit", "na-", "Sick; painful; unwell requiring clinic care", "May sakit; masakit", "CAMPUS_HEALTH_SAFETY", "nasakit", ""),
     ("KNE-039", "men-enroll", "kne", "VERB", "enroll", "men-", "To enroll in university classes (Kankanaey-English blend)", "Mag-enroll", "URO_ENROLLMENT_PORTAL", "men-enroll|man-enroll", ""),
     ("KNE-040", "kaman", "kne", "ADV", "kaman", "Root", "How; like (used in Kankanaey procedural questions)", "Paano; tulad ng", "CAR_REGIONAL_LEXICON", "kaman|kaman-ano", ""),
+    ("KNE-041", "liwat", "kne", "NOUN", "liwat", "Root", "Absence or missed class / examination requirement", "Pagliban sa klase o pagsusulit", "HANDBOOK_GRADING_FDA", "liwat|naliwat", ""),
+    ("KNE-042", "dayaw", "kne", "NOUN", "dayaw", "Root", "Honor; dignity; academic distinction (Cum Laude / Dean's List)", "Karangalan at pagkilala", "TUITION_FINANCE", "dayaw|madayaw", ""),
 
     # --- IBALOI (ibl) — 32 verified entries (SIL / Ballard / Ibaloi Dictionary) ---
     ("IBL-001", "mapteng", "ibl", "ADJ", "peteng", "ma-", "Good; pleasant; well (Ibaloi campus greeting and welfare term)", "Mabuti; maganda; maayos", "CAR_REGIONAL_LEXICON", "mapteng", ""),
@@ -468,6 +647,8 @@ EXPANDED_LEXICON_ROWS = [
     ("IBL-030", "balitok", "ibl", "NOUN", "balitok", "Root", "Gold; symbol of excellence and academic honors", "Ginto; karangalan", "TUITION_FINANCE", "balitok", ""),
     ("IBL-031", "ngaran", "ibl", "NOUN", "ngaran", "Root", "Name; official student record identifier", "Pangalan", "URO_ENROLLMENT_TOR", "ngaran", ""),
     ("IBL-032", "sakit", "ibl", "NOUN", "sakit", "Root", "Illness or pain requiring SLU clinic attention", "Sakit", "CAMPUS_HEALTH_SAFETY", "sakit", ""),
+    ("IBL-033", "pateg", "ibl", "NOUN", "pateg", "Root", "Worth; grade value; academic honor standing", "Halaga; mataas na marka", "HANDBOOK_GRADING_FDA", "pateg|mapateg", ""),
+    ("IBL-034", "shalan", "ibl", "NOUN", "shalan", "Root", "Pathway; procedure; official campus transfer or readmission step", "Daan; proseso ng aplikasyon", "ACADEMIC_SHIFTING_TRANSFER", "shalan", ""),
 ]
 
 # ==============================================================================
@@ -503,6 +684,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-19", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mensulat ak ti request para CAV ken certified true copy ti diploma idiay URO."),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Pagsurat ko koma ni request para TOR tan COG idiyay URO registrar."),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng maabii, intoy tulek para honorable dismissal tan good moral certificate CGMC?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-22", "NEUTRAL_INQUIRY", "EN", "When do graduating students file their Application for Graduation and NSTP serial audit at URO?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-23", "NEUTRAL_INQUIRY", "EN", "Is requesting an Honorable Dismissal permanent compared to filing a temporary Leave of Absence LOA?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-24", "NEUTRAL_INQUIRY", "EN", "What clearance and diploma fees are settled after the graduation curriculum evaluation?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-25", "NEUTRAL_INQUIRY", "TL-EN", "Kailan po ang filing ng Application for Graduation at curriculum audit ng NSTP serial sa URO?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-26", "NEUTRAL_INQUIRY", "TL-EN", "Permanent exit na po ba sa SLU kapag nag-request ng Honorable Dismissal at hindi na pwede bumalik basta-basta?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-27", "NEUTRAL_INQUIRY", "TL-EN", "Kasama po ba ang yearbook at diploma fee sa clearance ng mga kandidato sa Commencement Exercises?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-28", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Kaano ag-file ti Application for Graduation ken NSTP serial verification idiay URO?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #TOR-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Permanenteng termination kadi ti enrollment no agkiddaw ti Honorable Dismissal?"),
     ],
     "URO_ENROLLMENT_PORTAL": [
         ("OFFICIAL_URO_FAQ_Q", "URO FAQ Q3: Continuing Enrollment Query", "NEUTRAL_INQUIRY", "EN", "What is the enrollment procedure for continuing undergraduate students?"),
@@ -527,6 +716,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-19", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Kasapulan kadi ti Form 138 ken ngadan registration para freshmen isnan iskuela?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Pan-adal ko idiyay SLU, paano online advising tan ID validation?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Isarong ko koma idiyay iskuela, kailangan ba confirmation sa year-level window?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-22", "NEUTRAL_INQUIRY", "EN", "How does a returning Balik-Aral student apply for Readmission after an official Leave of Absence LOA?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-23", "NEUTRAL_INQUIRY", "EN", "How long is the SLU Short Term Summer Term and how many academic units can undergraduates enroll?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-24", "NEUTRAL_INQUIRY", "EN", "Must an LOA be endorsed by the School Dean before pausing regular semester enrollment?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-25", "NEUTRAL_INQUIRY", "TL-EN", "Paano po mag-file ng Leave of Absence LOA at mag-apply bilang Balik-Aral returnee sa SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-26", "NEUTRAL_INQUIRY", "TL-EN", "Ilang units po ang maximum allowed sa 6-week Short Term o summer term enrollment?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-27", "NEUTRAL_INQUIRY", "TL-EN", "Pwede pa po bang mag-enroll ulit ang returnee sa iSLU portal pagkatapos ng isang semester na LOA?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-28", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Kasano ag-apply ti Leave of Absence LOA ken returnee readmission idiay Dean?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ENR-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Mano nga units ti limit iti 6-week Short Term summer advising?"),
     ],
     "URO_SUBJECT_ADJUSTMENT": [
         ("OFFICIAL_URO_FAQ_Q", "URO FAQ Q4: Adding/Dropping Subjects Query", "NEUTRAL_INQUIRY", "EN", "What is the procedure for dropping or adding subjects during the adjustment period?"),
@@ -551,6 +748,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-19", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mensaludsod ak no mabalin mag-petition ti unit overload ken schedule adjustment isnan URO."),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Paano mag-drop tan mag-add ni subject using adjustment form sa Dean?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Dakel a iyaman, kailangan kadi ni endorsement ng chair para subject change?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-22", "NEUTRAL_INQUIRY", "EN", "How do irregular or graduating students open a Petition Class or Special Class for an unscheduled subject?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-23", "NEUTRAL_INQUIRY", "EN", "Can an SLU student get a Cross-Enrollment Permit to take a required subject at another CHED-recognized university?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-24", "NEUTRAL_INQUIRY", "EN", "Does a Petition Class require minimum headcount approval from the Department Chair, Dean, and Finance Office?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-25", "NEUTRAL_INQUIRY", "TL-EN", "Paano po mag-request ng Petition Class o special class kung kulang sa regular schedule ang subject?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-26", "NEUTRAL_INQUIRY", "TL-EN", "Pwede po ba mag-cross-enroll sa ibang CHED-recognized school kung may prior endorsement ng Dean at URO?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-27", "NEUTRAL_INQUIRY", "TL-EN", "Macre-credit ba ang subject kung nag-cross-enrollment ako nang walang written URO permit?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-28", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Kasano ag-request ti Petition Special Class no graduating ken conflict iti schedule?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #ADJ-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Mabalin kadi ti Cross-Enrollment Permit iti sabali nga CHED unibersidad?"),
     ],
     "ACADEMIC_SHIFTING_TRANSFER": [
         ("HARVESTED_FREEDOM_WALL", "Freedom Wall #25605", "NEUTRAL_INQUIRY", "TL-EN", "pwede mag tanong? paano po ba process ng shifting from samcis to seait or sonahbs? may qualifying exams po ba ulit or direct submission lang sa uro window?"),
@@ -574,6 +779,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-17", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Kaman-ano mag-shift ti kurso manipud SAMCIS papuntang STELA?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-18", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Kasapulan kadi ti dean interview ken qualifying exam QE para transferee students?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-19", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Pwede kadi mag-transfer idiyay SLU kung lagpas 84 units?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-20", "NEUTRAL_INQUIRY", "EN", "What triggers Academic Probation or scholastic delinquency in board programs like BS Accountancy, MLS, Nursing, or Engineering?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-21", "NEUTRAL_INQUIRY", "EN", "Which courses automatically receive credit when an SLU student shifts internally between schools?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-22", "NEUTRAL_INQUIRY", "EN", "Does shifting internally require syllabus equivalence evaluation by the accepting Department Chair for major subjects?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-23", "NEUTRAL_INQUIRY", "TL-EN", "Ano po ang QPI retention at Academic Probation rules sa BS Accountancy, BSMLS, at Engineering?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-24", "NEUTRAL_INQUIRY", "TL-EN", "Automatic credited na po ba ang General Education, NSTP, at PATHFIT kapag nag-shift internally sa SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-25", "NEUTRAL_INQUIRY", "TL-EN", "Pwede bang ma-restrict ang unit load kapag na-place sa Academic Probation dahil sa mababang QPI?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-26", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Ania ti QPI retention ken Academic Probation policy para BSA ken SEAIT?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #SHF-27", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Ma-credit kadi ti GE, NSTP, tan PATHFIT shalan iti internal shifting?"),
     ],
     "HANDBOOK_GRADING_FDA": [
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-01", "NEUTRAL_INQUIRY", "EN", "What is the minimum passing grade under the Saint Louis University numerical grading system?"),
@@ -598,6 +811,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Kaman-ano ti grading system ken turo retention grade isnan SLU?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Nu ad-ado absent tan ag-kala sa class, automatic FDA kadi?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-22", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng maabii, ania ti rule para INC ken NFE grade removal period?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-23", "NEUTRAL_INQUIRY", "EN", "What GWA grades are required for Summa Cum Laude (93+), Magna Cum Laude (91-92.99), and Cum Laude (88-90.99) Latin honors at SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-24", "NEUTRAL_INQUIRY", "EN", "How many absences in a 54-hour MWF or TTh class before permanent FDA vs. 3 consecutive absences OSAS Readmission Slip?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-25", "NEUTRAL_INQUIRY", "EN", "Does a mark of INC, NFE, DRP, or NC disqualify a transferee or regular student from Latin honors?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-26", "NEUTRAL_INQUIRY", "TL-EN", "Ano po ang exact GWA grade requirements para sa Summa, Magna, at Cum Laude Latin honors sa SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-27", "NEUTRAL_INQUIRY", "TL-EN", "Ilang absences sa MWF o TTh subject bago maging permanently dropped FDA kumpara sa voluntary WP/DRP?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-28", "NEUTRAL_INQUIRY", "TL-EN", "Kailangan po ba ng OSAS Readmission Slip at clinic-verified medical certificate pagkatapos ng 3 consecutive absences?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Ania ti grado kasapulan para Latin honors Summa, Magna, ken Cum Laude pammadayaw?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #GRD-30", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Mano a liwat wenno liway sakbay permanent FDA ken OSAS Readmission Slip?"),
     ],
     "EXAM_PERMIT_INTEGRITY": [
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-01", "NEUTRAL_INQUIRY", "EN", "What credentials must students present before entering Prelim, Midterm, and Final examination rooms?"),
@@ -622,6 +843,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Kaman-ano ti disciplinary process kasla dap-ay sanggunian idiay SLU OSAS?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Ania ti proseso ti tongtong ken SLU Disciplinary Board para academic dishonesty?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-22", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Bain ti cheating tan plagiarism, kailangan ag-agto ni validated RFID tan exam permit?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-23", "NEUTRAL_INQUIRY", "EN", "How soon must a student take an approved Special Prelim or Midterm Examination after returning to class?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-24", "NEUTRAL_INQUIRY", "EN", "What is the procedure for a forgotten SLU RFID Temporary Gate Pass versus a permanently lost RFID card replacement?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-25", "NEUTRAL_INQUIRY", "EN", "Do hospitalized students need both OSAS investigation and Dean approval for a Special Midterm Examination?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-26", "NEUTRAL_INQUIRY", "TL-EN", "Naka-miss ako ng midterm exam dahil na-ospital, totoo bang within 1 week lang dapat ang Special Examination?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-27", "NEUTRAL_INQUIRY", "TL-EN", "Naiwan ko sa bahay yung SLU RFID ko, saan kukuha ng Temporary Gate and Exam Pass?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-28", "NEUTRAL_INQUIRY", "TL-EN", "Kailangan po ba ng notarized Affidavit of Loss sa OSAS kapag tuluyang nawala ang RFID ID card?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Kasapulan kadi ti OSAS Temporary Pass no nalipatan ti RFID card para eksamen?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #EXM-30", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Intoy linteg para Special Midterm Exam one-week window no naliwat ti eksamen?"),
     ],
     "CAMPUS_DECORUM_DRESSCODE": [
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-01", "NEUTRAL_INQUIRY", "EN", "On which days of the week is the official Saint Louis University student uniform strictly required?"),
@@ -646,6 +875,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Bawal kadi ti vape, sigarilyo, ken slippers isnan SLU campus locations?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Friday tan Saturday kadi ti washday modest civilian attire sa SLU?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-22", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng maabii, ania ti Louisian campus decorum tan smoke-free rules?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-23", "NEUTRAL_INQUIRY", "EN", "Does the SLU Student Handbook prohibit non-natural flamboyant hair color and excessive facial piercings in allied health or OJT courses?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-24", "NEUTRAL_INQUIRY", "EN", "What are the escalating sanctions for 1st, 2nd, and 3rd dress code or RFID gate infractions logged by OSAS?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-25", "NEUTRAL_INQUIRY", "EN", "What clinical duty uniform and grooming rules apply to SONAHBS and STELA practicum students?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-26", "NEUTRAL_INQUIRY", "TL-EN", "Bawal po ba ang dyed non-natural hair color at facial piercings sa nursing, MLS, at OJT courses sa SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-27", "NEUTRAL_INQUIRY", "TL-EN", "Ano po ang parusa ng OSAS sa 1st, 2nd, at 3rd offense sa dress code o nakalimutan mag-suot ng RFID?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-28", "NEUTRAL_INQUIRY", "TL-EN", "Kailangan ba ng parent conference at Strict Probation kapag naka-tatlong violation sa uniform dress code?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Maiparit kadi ti flashy hair color ken piercings iti klinikal bado idiay SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #DRS-30", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Ania ti warning slip ken 3rd offense sanction no malabsing ti dress code?"),
     ],
     "CAMPUS_HEALTH_SAFETY": [
         ("HARVESTED_FREEDOM_WALL", "Freedom Wall #25604", "NEGATIVE_URGENT", "CAR-TL-EN", "ambigat sa pakiramdam kapag sabay sabay ang deadlines ng prelim activities at long exams sa engineering at computing. may mental health break po ba tayo this term?"),
@@ -669,6 +906,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-18", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Kaman-ano mag-book ti counseling session para kapia ken kinakamo mental wellness idiay CCW?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-19", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Sadino ti clinic para salun-at tan PATHFIT medical exam nu adda sakit?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng maabii, ania ti kalinan evacuation protocol nu adda yegyeg wenno afoy emergency idiyay SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-21", "NEUTRAL_INQUIRY", "EN", "Can a student with asthma or chronic injury be exempted from PATHFIT or given modified adaptive activities by the SLU Clinic?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-22", "NEUTRAL_INQUIRY", "EN", "Which official channels announce SLU class suspensions during Baguio typhoons, heavy monsoon rain, or PAGASA storm signals?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-23", "NEUTRAL_INQUIRY", "EN", "Must specialist medical records be evaluated by the SLU Clinic physician before modified PE placement?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-24", "NEUTRAL_INQUIRY", "TL-EN", "Pwede po ba ma-exempt sa PATHFIT kung may asthma o chronic injury, o modified activities lang after Clinic evaluation?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-25", "NEUTRAL_INQUIRY", "TL-EN", "Saan po tinitingnan ang official SLU class suspension kapag may Baguio City typhoon o monsoon executive order?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-26", "NEUTRAL_INQUIRY", "TL-EN", "Sino po ang mag-aapprove ng adaptive PE accommodation para sa may medical condition sa PATHFIT?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-27", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Mabalin kadi modified PATHFIT salun-at accommodation no adda sakit nga aprobaran ti Clinic?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #HLT-28", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Kaman-ano ti class suspension no adda bagyo ken udan PAGASA advisory idiay Baguio?"),
     ],
     "TUITION_FINANCE": [
         ("HARVESTED_FREEDOM_WALL", "Freedom Wall #25628", "NEGATIVE_URGENT", "TL-EN", "why is slu lowkey increasing the total tuition fee recently mid sem? akala ata nila walang nakakahalata? last sem it was about 60 pesos ngayon naman 105 pesos it may be a small amount per person but multiply it to thousands of students. ano yun inflation mid sem? gusto ninyo rin atang ma arteks of lakandula. yes sis every sem tumataas sinasabi ko pa dati ang mura ng downpayment kasi 6900 first year first sem tapos noong nag second sem 1st year 11200 na haha same until now na pa grad na nasanay na lang na every sem ang pag taas tuition."),
@@ -693,6 +938,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-19", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Adda kadi CHED TES wenno SLU Academic Scholarship discount para scholars?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Paano manbayad ni tuition fee tan downpayment using online banking?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng maabii, ania ti SLU Entrance Scholarship tan academic honors balitok discount?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-22", "NEUTRAL_INQUIRY", "EN", "What GWA cutoffs and minimum subject grade qualify for SLU Dean's List First Honors (92+) and Second Honors (88-91.99) tuition discounts?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-23", "NEUTRAL_INQUIRY", "EN", "How do I apply for a Finance Promissory Note if my tuition installment is delayed before exams, and how do withdrawal refunds work?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-24", "NEUTRAL_INQUIRY", "EN", "Can a student with a grade below 80 or an INC still qualify for the SLU Dean's List academic scholarship?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-25", "NEUTRAL_INQUIRY", "TL-EN", "Ano po ang maintaining GWA para sa Dean's List First at Second Honors scholarship tuition discount sa SLU?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-26", "NEUTRAL_INQUIRY", "TL-EN", "Pwede po ba mag-file ng Finance Promissory Note na may co-signature ng guardian kapag delayed ang exam installment?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-27", "NEUTRAL_INQUIRY", "TL-EN", "May tuition refund ba kapag nag-official withdrawal ako sa loob ng first two weeks ng semester?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-28", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Ania ti GWA para Dean's List First Honors 92 percent ken academic discount?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FIN-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Gawis ay agsapa! Mabalin kadi ag-file ti Promissory Note idiay Finance Office no delayed ti pilak tuition?"),
     ],
     "CAMPUS_FACILITIES_LAB": [
         ("HARVESTED_FREEDOM_WALL", "Freedom Wall #25599", "NEGATIVE_URGENT", "TL-EN", "had to agree with like be for real slu? for years the department of mls gave you the greatest pride always bringing home the top performing school title pero what the hell kailangan namin magtiis sa mga tinipid na materials for lab? kapiranggot na litmus paper? reused pipette tips and pasteur pipettes? like what the hell! have some shame! beautification projects gusto? dadag ng budget for labs ayaw?"),
@@ -717,6 +970,14 @@ CURATED_INQUIRIES_BY_INTENT = {
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-19", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Ubbo kami nga agbasa ti liblo isnan library baey, ilang araw pwede hiramin ang books?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-20", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng shapa! Mankimey tan man-obda kami sa lab, where to report defective pipette equipment?"),
         ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-21", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng maabii, paano IT support reset para iSLU email, campus Wi-Fi, tan library baley?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-22", "NEUTRAL_INQUIRY", "EN", "What is the procedure for filing a Laboratory Breakage Accountability Slip when glassware or pipettes break?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-23", "NEUTRAL_INQUIRY", "EN", "How do students apply for SLU Residence Halls dormitories and what curfew and visitor rules apply?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-24", "NEUTRAL_INQUIRY", "EN", "Will unpaid laboratory breakage fees block my end-of-semester URO academic clearance?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-25", "NEUTRAL_INQUIRY", "TL-EN", "Ano po ang proseso ng Laboratory Breakage Slip kapag aksidenteng nabasag ang glassware o lab equipment?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-26", "NEUTRAL_INQUIRY", "TL-EN", "Paano mag-apply sa SLU Ladies' o Men's Residence Hall dormitory at ano ang curfew rules?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-27", "NEUTRAL_INQUIRY", "TL-EN", "Mahohold ba ang clearance sa URO kapag hindi nabayaran o napalitan ang lab breakage accountability?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-28", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Naimbag a bigat! Kasano ti Laboratory Breakage Accountability Slip ken pagbayad idiay custodian?"),
+        ("CURATED_MULTILINGUAL_INQUIRY", "Curated Inquiry #FAC-29", "NEUTRAL_INQUIRY", "CAR-TL-EN", "Mapteng maabii, agawid kami idiyay SLU kasera dormitory baley, ania curfew tan visitor permit?"),
     ],
 }
 
@@ -741,7 +1002,7 @@ HELDOUT_BENCHMARK = [
     # --- URO_SUBJECT_ADJUSTMENT (4) ---
     {"id": "B09", "query": "Can I withdraw from a difficult math class during week 2 and who signs my adjustment paperwork?", "expected_intent": "URO_SUBJECT_ADJUSTMENT", "expected_docs": [107, 108], "register": "EN", "type": "in_domain"},
     {"id": "B10", "query": "Graduating student po ako, pwede bang mag-apply ng unit overload o magpalit ng closed section?", "expected_intent": "URO_SUBJECT_ADJUSTMENT", "expected_docs": [109], "register": "TL-EN", "type": "in_domain"},
-    {"id": "B11", "query": "Agsaludsod ak no ania ti penalty no saan nga ag-file ti official dropping form iti Dean?", "expected_intent": "URO_SUBJECT_ADJUSTMENT", "expected_docs": [108], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B11", "query": "Agsaludsod ak no ania ti penalty no saan nga ag-file ti official dropping form iti Dean?", "expected_intent": "URO_SUBJECT_ADJUSTMENT", "expected_docs": [108, 134], "register": "CAR-TL-EN", "type": "in_domain"},
     {"id": "B12", "query": "Gawis ay masdem! Pwede kadi mag-add ken mag-drop ti subjects using adjustment form?", "expected_intent": "URO_SUBJECT_ADJUSTMENT", "expected_docs": [107], "register": "CAR-TL-EN", "type": "in_domain"},
 
     # --- ACADEMIC_SHIFTING_TRANSFER (4) ---
@@ -753,8 +1014,8 @@ HELDOUT_BENCHMARK = [
     # --- HANDBOOK_GRADING_FDA (4) ---
     {"id": "B17", "query": "If my final score is 74 in a core computing course, did I fail and does SAMCIS require a higher retention mark?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [114], "register": "EN", "type": "in_domain"},
     {"id": "B18", "query": "Naka-INC po ako dahil na-ospital ako noong finals, gaano katagal bago ito maging No Credit?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [116], "register": "TL-EN", "type": "in_domain"},
-    {"id": "B19", "query": "Naimbag a bigat! Agadal ak idiay SAMCIS—mano a porsiento ti absent sakbay ma-FDA?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [115], "register": "CAR-TL-EN", "type": "in_domain"},
-    {"id": "B20", "query": "Gawis ay agew! Ad-ado unexcused absences ko, automatic drop kadi no sobra 20 percent?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [115], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B19", "query": "Naimbag a bigat! Agadal ak idiay SAMCIS—mano a porsiento ti absent sakbay ma-FDA?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [115, 134], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B20", "query": "Gawis ay agew! Ad-ado unexcused absences ko, automatic drop kadi no sobra 20 percent?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [115, 134], "register": "CAR-TL-EN", "type": "in_domain"},
 
     # --- EXAM_PERMIT_INTEGRITY (4) ---
     {"id": "B21", "query": "What happens if a proctor catches someone checking notes on a smartphone during finals?", "expected_intent": "EXAM_PERMIT_INTEGRITY", "expected_docs": [118, 117], "register": "EN", "type": "in_domain"},
@@ -795,6 +1056,35 @@ HELDOUT_BENCHMARK = [
     {"id": "O06", "query": "Naimbag a bigat!", "expected_intent": "GREETING", "expected_docs": [], "register": "CAR-TL-EN", "type": "greeting"},
     {"id": "O07", "query": "What is the punishment for plagiarism?", "expected_intent": "EXAM_PERMIT_INTEGRITY", "expected_docs": [118], "register": "EN", "type": "car_trap_en"},
     {"id": "O08", "query": "Who sits on the disciplinary board?", "expected_intent": "EXAM_PERMIT_INTEGRITY", "expected_docs": [119, 118], "register": "EN", "type": "car_trap_en"},
+
+    # --- NICHE & COMPARATIVE HELD-OUT QUERIES (B41..B67, +27 = 75 total) ---
+    {"id": "B41", "query": "What are the specific grades you need for Summa Cum Laude, Magna Cum Laude, and Cum Laude Latin honors at SLU?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [133], "register": "EN", "type": "in_domain"},
+    {"id": "B42", "query": "Kung transferee student po ako na may 93.5 GWA at walang bagsak, eligible ba ako sa Summa Cum Laude or Cum Laude lang?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [133], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B43", "query": "Does having one dropped DRP or INC mark in NSTP or in a major subject disqualify me from graduating with Latin honors?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [133], "register": "EN", "type": "in_domain"},
+    {"id": "B44", "query": "How many absences do I have in a 54-hour MWF or TTh subject before I become permanently dropped (FDA) versus voluntarily dropped?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [134], "register": "EN", "type": "in_domain"},
+    {"id": "B45", "query": "Tatlong sunod-sunod na klase na akong absent, kailangan po ba ng OSAS Readmission Slip at clinic medical certificate bago pumasok?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [134], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B46", "query": "Naimbag a bigat! Mano a liway iti klase MWF wenno TTh sakbay nga agbalin a permanent FDA, ken ania ti pinagkaiba ti voluntary DRP?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [134], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B47", "query": "What GWA is needed for Dean's List First Honors versus Second Honors and can I get a tuition discount if I had a grade of 79?", "expected_intent": "TUITION_FINANCE", "expected_docs": [149, 129], "register": "EN", "type": "in_domain"},
+    {"id": "B48", "query": "Gipit po kami ngayong midterm, paano kumuha ng Finance Promissory Note para makakuha ng exam permit?", "expected_intent": "TUITION_FINANCE", "expected_docs": [150], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B49", "query": "Mabalin kadi ti refund no nag-official drop wenno withdraw ako within the first two weeks ti semestre?", "expected_intent": "TUITION_FINANCE", "expected_docs": [150], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B50", "query": "Is requesting Honorable Dismissal reversible if I decide to return later, or should I file an LOA instead?", "expected_intent": "URO_ENROLLMENT_TOR", "expected_docs": [136, 137], "register": "EN", "type": "in_domain"},
+    {"id": "B51", "query": "Graduating na ako ngayong term—paano ang Application for Graduation at NSTP serial audit sa URO?", "expected_intent": "URO_ENROLLMENT_TOR", "expected_docs": [135], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B52", "query": "Balik-aral returnee student ako after skipping two semesters without LOA—how do I apply for returnee readmission?", "expected_intent": "URO_ENROLLMENT_PORTAL", "expected_docs": [137], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B53", "query": "During the 6-week Short Term summer semester at SLU, what is the maximum number of units I am allowed to take?", "expected_intent": "URO_ENROLLMENT_PORTAL", "expected_docs": [138], "register": "EN", "type": "in_domain"},
+    {"id": "B54", "query": "Kailangan ko po ng isang subject bago mag-graduate pero walang offered section—paano mag-request ng Petition Class?", "expected_intent": "URO_SUBJECT_ADJUSTMENT", "expected_docs": [139], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B55", "query": "Gawis ay agsapa! Pwede ak kadi ag-crossenroll iti sabali nga CHED university no may written URO ken Dean permit?", "expected_intent": "URO_SUBJECT_ADJUSTMENT", "expected_docs": [140], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B56", "query": "What happens if my QPI drops below the retention threshold in BS Accountancy or BSMLS—do I go on Academic Probation?", "expected_intent": "ACADEMIC_SHIFTING_TRANSFER", "expected_docs": [141, 114], "register": "EN", "type": "in_domain"},
+    {"id": "B57", "query": "Kapag nag-shift ako from SAMCIS to STELA, automatic credited na ba yung mga natapos kong GE at NSTP subjects?", "expected_intent": "ACADEMIC_SHIFTING_TRANSFER", "expected_docs": [142, 112], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B58", "query": "Nagsakit ak ket na-ospital idiay Baguio bayat ti midterm—mano a lawas ti window para Special Examination?", "expected_intent": "EXAM_PERMIT_INTEGRITY", "expected_docs": [143], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B59", "query": "Naiwan ko sa bahay SLU RFID ko pero may exam kami ngayon—pwede ba Temporary Gate Pass vs. Affidavit of Loss kung tuluyang nawala?", "expected_intent": "EXAM_PERMIT_INTEGRITY", "expected_docs": [144, 117], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B60", "query": "Are bleached blonde hair colors and nose piercings permitted for SONAHBS nursing or hospital practicum duty?", "expected_intent": "CAMPUS_DECORUM_DRESSCODE", "expected_docs": [145], "register": "EN", "type": "in_domain"},
+    {"id": "B61", "query": "Ano po ang parusa ng OSAS kapag umabot na sa 2nd at 3rd offense ng dress code or missing RFID violation?", "expected_intent": "CAMPUS_DECORUM_DRESSCODE", "expected_docs": [146], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B62", "query": "May severe asthma ako at may specialist doctor note—exempted na ba ako sa PATHFIT o ililipat sa modified PE activity?", "expected_intent": "CAMPUS_HEALTH_SAFETY", "expected_docs": [147, 124], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B63", "query": "Naimbag a bigat! No adda bagyo ken Signal No. 2 idiay Baguio, sino mang-announce ti SLU class suspension?", "expected_intent": "CAMPUS_HEALTH_SAFETY", "expected_docs": [148], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B64", "query": "We accidentally broke a glass beaker during chemistry lab—how do I file a Laboratory Breakage Accountability Slip?", "expected_intent": "CAMPUS_FACILITIES_LAB", "expected_docs": [151], "register": "EN", "type": "in_domain"},
+    {"id": "B65", "query": "May curfew at visitor rules po ba sa SLU Ladies' and Men's Residence Halls dormitories inside campus?", "expected_intent": "CAMPUS_FACILITIES_LAB", "expected_docs": [152], "register": "TL-EN", "type": "in_domain"},
+    {"id": "B66", "query": "Naimbag a malem! Kasano pammadayaw dayaw para Summa ken Magna Cum Laude idiay SLU?", "expected_intent": "HANDBOOK_GRADING_FDA", "expected_docs": [133], "register": "CAR-TL-EN", "type": "in_domain"},
+    {"id": "B67", "query": "Mapteng shapa! Intoy shalan ti returnee readmission after official Leave of Absence LOA?", "expected_intent": "URO_ENROLLMENT_PORTAL", "expected_docs": [137], "register": "CAR-TL-EN", "type": "in_domain"},
 ]
 
 
@@ -829,12 +1119,12 @@ def build_all():
             seen_ids.add(row[0])
             writer.writerow(row)
 
-    # 3. Build 250-doc balanced expanded corpus (25 per intent across 10 intents)
+    # 3. Build 350-doc balanced expanded corpus (35 per intent across 10 intents)
     corpus_rows = []
     doc_counter = 1
     intent_order = list(CURATED_INQUIRIES_BY_INTENT.keys())
 
-    # First insert the 32 official policies
+    # First insert the 52 official policies
     policies_by_intent = {intent: [] for intent in intent_order}
     for p in OFFICIAL_POLICIES_V2:
         policies_by_intent[p["intent_label"]].append(p)
@@ -867,7 +1157,7 @@ def build_all():
             })
             doc_counter += 1
 
-        assert len(intent_docs) == 25, f"Intent {intent} has {len(intent_docs)} docs, expected 25"
+        assert len(intent_docs) == 35, f"Intent {intent} has {len(intent_docs)} docs, expected 35"
         corpus_rows.extend(intent_docs)
 
     corp_path = os.path.join(EXPANDED_DIR, "annotated_corpus_expanded.csv")
@@ -904,7 +1194,7 @@ def build_all():
     src_counts = Counter(r["Source_Type"] for r in corpus_rows)
     print(f"[OK] Policies: {len(OFFICIAL_POLICIES_V2)} across {len(policies_by_intent)} intents")
     print(f"[OK] Lexicon:  {len(EXPANDED_LEXICON_ROWS)} entries | langs={dict(lang_counts)}")
-    print(f"[OK] Corpus:   {len(corpus_rows)} docs (25/intent) | cs={dict(cs_counts)} | src={dict(src_counts)}")
+    print(f"[OK] Corpus:   {len(corpus_rows)} docs (35/intent) | cs={dict(cs_counts)} | src={dict(src_counts)}")
     print(f"[OK] Held-out: {len(HELDOUT_BENCHMARK)} unseen queries (0 leakage)")
 
 

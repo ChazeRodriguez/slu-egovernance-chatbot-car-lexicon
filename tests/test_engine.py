@@ -101,6 +101,34 @@ class TestChatbotEngineHardening(unittest.TestCase):
         doc6 = next(d for d in self.bot.docs if d["doc_id"] == 6)
         self.assertEqual(doc6["section_ref"], "Freedom Wall #25604")
 
+    def test_niche_latin_honors_absences_and_special_policies_expanded(self):
+        exp_bot = eng.SLUChatbotEngine(dataset="expanded")
+
+        r_latin = exp_bot.answer_query("What are the specific grades you need for Latin honors?")
+        self.assertEqual(r_latin["top_documents"][0]["doc_id"], 133)
+        self.assertIn("93", r_latin["synthesized_response"])
+        self.assertIn("91", r_latin["synthesized_response"])
+        self.assertIn("88", r_latin["synthesized_response"])
+
+        r_abs = exp_bot.answer_query("How many absences do I have before I become dropped vs. permanently dropped?")
+        self.assertEqual(r_abs["top_documents"][0]["doc_id"], 134)
+        self.assertTrue(r_abs.get("is_comparative"))
+        self.assertIn("11th", r_abs["synthesized_response"])
+
+        r_consec = exp_bot.answer_query("What happens if I am absent for 3 consecutive meetings in my class?")
+        self.assertEqual(r_consec["top_documents"][0]["doc_id"], 134)
+        self.assertIn("OSAS Readmission Slip", r_consec["synthesized_response"])
+
+        r_prom = exp_bot.answer_query("Paano kumuha ng Finance Promissory Note para makapag-exam?")
+        self.assertEqual(r_prom["top_documents"][0]["doc_id"], 150)
+
+        r_pet = exp_bot.answer_query("How do irregular graduating students open a Petition Class?")
+        self.assertEqual(r_pet["top_documents"][0]["doc_id"], 139)
+
+        r_hd = exp_bot.answer_query("Is Honorable Dismissal permanent compared to an LOA?")
+        self.assertEqual(r_hd["top_documents"][0]["doc_id"], 136)
+        self.assertIn("Leave of Absence", r_hd["synthesized_response"])
+
 
 if __name__ == "__main__":
     unittest.main()

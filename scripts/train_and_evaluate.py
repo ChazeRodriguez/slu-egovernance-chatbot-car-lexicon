@@ -70,7 +70,7 @@ class SparseTfidfVectorizer:
         for f, count in tf.items():
             idx = self.vocab.get(f)
             if idx is not None:
-                w = count * self.idf[idx]
+                w = (1.0 + math.log(count)) * self.idf[idx]
                 vec[idx] = w
                 norm_sq += w * w
         if norm_sq > 0.0:
@@ -405,7 +405,7 @@ def run_ablation_study(benchmark):
     variants = [
         ("A_raw_tfidf", "Raw TF-IDF Cosine Only", dict(use_cleaning_morph=False, use_lexicon_boost=False, use_ml_intent=False, enable_ood_gate=False)),
         ("B_clean_morph", "+ Acronym-Safe Cleaning & CAR Morphology", dict(use_cleaning_morph=True, use_lexicon_boost=False, use_ml_intent=False, enable_ood_gate=False)),
-        ("C_lexicon_boost", "+ 156-Entry CAR/SLU Lexicon Intent Boost", dict(use_cleaning_morph=True, use_lexicon_boost=True, use_ml_intent=False, enable_ood_gate=True, min_confidence=0.14)),
+        ("C_lexicon_boost", "+ 176-Entry CAR/SLU Lexicon Intent Boost", dict(use_cleaning_morph=True, use_lexicon_boost=True, use_ml_intent=False, enable_ood_gate=True, min_confidence=0.14)),
         ("D_full_hybrid", "Full Hybrid (+ Trained ML Intent + OOD Gate)", dict(use_cleaning_morph=True, use_lexicon_boost=True, use_ml_intent=True, enable_ood_gate=True, min_confidence=0.14)),
     ]
 
@@ -538,12 +538,13 @@ def main():
     all_expanded_feats = [t for r in rows for t in eng.tokenize(r["Cleaned_Text"]) if t not in QUERY_STOPWORDS and len(t) > 1 and not t.isdigit()]
     expanded_stems = [bilingual_stemmer(t) for t in all_expanded_feats]
     expanded_bow = Counter(expanded_stems)
+    n_intents = len(set(labels))
 
     report = {
         "corpus_summary": {
             "total_documents": len(rows),
-            "intent_classes": len(set(labels)),
-            "docs_per_intent": 25,
+            "intent_classes": n_intents,
+            "docs_per_intent": len(rows) // n_intents if n_intents else 0,
             "total_filtered_tokens": len(all_expanded_feats),
             "unique_stems": len(expanded_bow),
             "code_switching_counts": dict(Counter(r["Code_Switching"] for r in rows)),
